@@ -52,7 +52,7 @@ function LPappbar() {
               backgroundColor: theme.palette.primary.contrastText,
               color: theme.palette.primary.main,
               transform: "scale(1.1)",
-              transition: "transform 0.35s", // Change background colour on hover
+              transition: "transform 0.35s",
             },
           }}
           color="inherit"
@@ -79,7 +79,7 @@ function LPappbar() {
               backgroundColor: theme.palette.primary.contrastText,
               color: theme.palette.primary.main,
               transform: "scale(1.1)",
-              transition: "transform 0.35s", // Change background colour on hover
+              transition: "transform 0.35s",
             },
           }}
           color="inherit"

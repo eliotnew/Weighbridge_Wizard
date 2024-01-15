@@ -6,18 +6,12 @@ import LandingPage from "./components/landing-page/LandingPage";
 import "./App.css";
 
 function App() {
-  const { currentTheme, toggleTheme } = useContext(ThemeContext);
-
   return (
-    <div>
-      <button onClick={toggleTheme} style={{ backgroundColor: "grey" }}>
-        Toggle Theme
-      </button>
-
+    <>
       <Routes>
         <Route path="/" element={<LandingPage />} />
       </Routes>
-    </div>
+    </>
   );
 }
 
