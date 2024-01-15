@@ -5,9 +5,19 @@ import ToggleThemeButton from "../settings/ToggleThemeButton";
 function LandingPage() {
   return (
     <>
-      <LPappbar />
-      <div>Hello from landing page!</div>
-      <ToggleThemeButton />
+      <div
+        style={{
+          backgroundColor: "beige",
+          height: "100vh",
+          width: "100vw",
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
+        <LPappbar />
+        <div>Hello from landing page!</div>
+        <ToggleThemeButton />
+      </div>
     </>
   );
 }
