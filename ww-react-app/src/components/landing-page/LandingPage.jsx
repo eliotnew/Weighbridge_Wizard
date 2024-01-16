@@ -1,6 +1,7 @@
 import React from "react";
 import LPappbar from "./LPappbar";
 import ToggleThemeButton from "../settings/ToggleThemeButton";
+import ParallaxComponent from "./ParallaxComponent";
 
 function LandingPage() {
   return (
@@ -15,8 +16,7 @@ function LandingPage() {
         }}
       >
         <LPappbar />
-        <div>Hello from landing page!</div>
-        <ToggleThemeButton />
+        <ParallaxComponent />
       </div>
     </>
   );
