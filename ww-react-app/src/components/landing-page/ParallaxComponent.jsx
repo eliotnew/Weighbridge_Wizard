@@ -14,6 +14,7 @@ import learning from "../img_Assets/learningBlue.png";
 import ai from "../img_Assets/Artificial intelligence-bro.png";
 import cloud from "../img_Assets/cloudGreen.png";
 import loading from "../img_Assets/loadingGreen.png";
+import wizard from "../img_Assets/littleWizard.png";
 
 function ParallaxComponent() {
   const [thisPage, setThisPage] = useState(0); //Starting state on page zero
@@ -65,6 +66,18 @@ function ParallaxComponent() {
           }}
           onClick={() => ref.current?.scrollTo(0)}
         ></ParallaxLayer>
+        <ParallaxLayer
+          offset={0}
+          speed={0}
+          factor={1}
+          style={{
+            backgroundImage: `url(${wizard})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            filter: "blur(4px) grayscale(30%)",
+          }}
+          onClick={() => ref.current?.scrollTo(0)}
+        ></ParallaxLayer>
 
         <ParallaxLayer
           offset={0}
@@ -79,9 +92,9 @@ function ParallaxComponent() {
               boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: theme.palette.secondary.main,
+              backgroundColor: theme.palette.primary.main,
               margin: "35px",
-              width: "50vw",
+              width: "fit-content",
               Height: "25vh",
               textAlign: "center",
               mx: "auto",
@@ -329,7 +342,7 @@ function ParallaxComponent() {
               />
               <h3>
                 <FontAwesomeIcon icon={faWandSparkles} size="lg" /> Cloud based
-                and paperless system to save the trees!
+                and paperless system to save your data costs and the trees!
               </h3>
             </Box>
 
