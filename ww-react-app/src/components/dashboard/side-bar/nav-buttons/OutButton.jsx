@@ -1,9 +1,9 @@
 import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faTruckArrowRight } from "@fortawesome/free-solid-svg-icons";
 
-function MapButton() {
+function OutButton() {
   const theme = useTheme();
   return (
     <ListItemButton
@@ -14,21 +14,18 @@ function MapButton() {
           transition: "transform 0.35s",
         },
       }}
-      onClick={() => {
-        // Handle button click
-      }}
     >
-      {" "}
       <FontAwesomeIcon
-        icon={faMapLocationDot}
+        icon={faTruckArrowRight}
         size="lg"
+        flip="horizontal"
         style={{
           color: theme.palette.primary.contrastText,
-          paddingRight: "10px",
+          paddingLeft: "10px",
         }}
       />
-      <ListItemText primary="Map" />
+      <ListItemText primary="Outgoing" />
     </ListItemButton>
   );
 }
-export default MapButton;
+export default OutButton;
