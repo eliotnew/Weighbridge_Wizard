@@ -3,6 +3,15 @@ import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import { Divider, Typography } from "@mui/material";
+import CalendarButton from "./nav-buttons/CalendarButton";
+import ClosedOrdersButton from "./nav-buttons/ClosedOrdersButton";
+import CreateNewOrderButton from "./nav-buttons/CreateNewOrderButton";
+import InButton from "./nav-buttons/InButton";
+import MapButton from "./nav-buttons/MapButton";
+import OnSiteButton from "./nav-buttons/OnSiteButton";
+import OutButton from "./nav-buttons/OutButton";
+import OutstandingOrderButton from "./nav-buttons/OutstandingOrderButton";
+import TrainingButton from "./nav-buttons/TrainingButton";
 
 function SideBar() {
   const theme = useTheme();
@@ -82,3 +91,4 @@ function SideBar() {
     </Drawer>
   );
 }
+export default SideBar;
