@@ -5,16 +5,16 @@ import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { Box, Typography, Container, useTheme } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHatWizard, faWandSparkles } from "@fortawesome/free-solid-svg-icons";
-import pic1 from "../img_Assets/truck1.jpg";
-import pic2 from "../img_Assets/truck2.jpg";
-import pic3 from "../img_Assets/truck3.jpg";
-import tabs from "../img_Assets/tabsBlue.png";
-import manage from "../img_Assets/manageBlue.png";
-import learning from "../img_Assets/learningBlue.png";
-import ai from "../img_Assets/Artificial intelligence-bro.png";
-import cloud from "../img_Assets/cloudGreen.png";
-import loading from "../img_Assets/loadingGreen.png";
-import wizard from "../img_Assets/littleWizard.png";
+import pic1 from "../../img_Assets/truck1.jpg";
+import pic2 from "../../img_Assets/truck2.jpg";
+import pic3 from "../../img_Assets/truck3.jpg";
+import tabs from "../../img_Assets/tabsBlue.png";
+import manage from "../../img_Assets/manageBlue.png";
+import learning from "../../img_Assets/learningBlue.png";
+import ai from "../../img_Assets/Artificial intelligence-bro.png";
+import cloud from "../../img_Assets/cloudGreen.png";
+import loading from "../../img_Assets/loadingGreen.png";
+import wizard from "../../img_Assets/littleWizard.png";
 
 function ParallaxComponent() {
   const [thisPage, setThisPage] = useState(0); //Starting state on page zero
