@@ -2,12 +2,7 @@ import { useTheme } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import {
-  Divider,
-  ListItemButton,
-  ListSubheader,
-  Typography,
-} from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 
 function SideBar() {
   const theme = useTheme();
