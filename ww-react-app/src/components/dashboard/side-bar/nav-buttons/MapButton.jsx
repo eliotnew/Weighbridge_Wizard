@@ -18,7 +18,6 @@ function MapButton() {
         // Handle button click
       }}
     >
-      {" "}
       <FontAwesomeIcon
         icon={faMapLocationDot}
         size="lg"

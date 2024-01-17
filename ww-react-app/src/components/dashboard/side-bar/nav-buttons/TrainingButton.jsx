@@ -1,9 +1,9 @@
 import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHelmetSafety } from "@fortawesome/free-solid-svg-icons";
+import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 
-function OnSiteButton() {
+function TrainingButton() {
   const theme = useTheme();
   return (
     <ListItemButton
@@ -18,16 +18,17 @@ function OnSiteButton() {
         // Handle button click
       }}
     >
+      {" "}
       <FontAwesomeIcon
-        icon={faHelmetSafety}
+        icon={faGraduationCap}
         size="lg"
         style={{
           color: theme.palette.primary.contrastText,
           paddingRight: "10px",
         }}
       />
-      <ListItemText primary="View Onsite" />
+      <ListItemText primary="Training" />
     </ListItemButton>
   );
 }
-export default OnSiteButton;
+export default TrainingButton;

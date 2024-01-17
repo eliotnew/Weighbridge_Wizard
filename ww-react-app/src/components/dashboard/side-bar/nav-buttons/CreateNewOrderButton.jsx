@@ -19,7 +19,6 @@ function CreateNewOrderButton() {
         // Handle button click
       }}
     >
-      {" "}
       <FontAwesomeIcon
         icon={faFolderPlus}
         size="lg"

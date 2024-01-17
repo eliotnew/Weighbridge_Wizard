@@ -1,9 +1,9 @@
 import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHelmetSafety } from "@fortawesome/free-solid-svg-icons";
+import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
 
-function OnSiteButton() {
+function OutstandingOrderButton() {
   const theme = useTheme();
   return (
     <ListItemButton
@@ -19,15 +19,15 @@ function OnSiteButton() {
       }}
     >
       <FontAwesomeIcon
-        icon={faHelmetSafety}
+        icon={faFolderOpen}
         size="lg"
         style={{
           color: theme.palette.primary.contrastText,
           paddingRight: "10px",
         }}
       />
-      <ListItemText primary="View Onsite" />
+      <ListItemText primary="Manage Outstanding Orders" />
     </ListItemButton>
   );
 }
-export default OnSiteButton;
+export default OutstandingOrderButton;

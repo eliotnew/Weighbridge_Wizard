@@ -18,7 +18,6 @@ function ClosedOrdersButton() {
         // Handle button click
       }}
     >
-      {" "}
       <FontAwesomeIcon
         icon={faFolderClosed}
         size="lg"
