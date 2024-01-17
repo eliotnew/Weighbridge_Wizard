@@ -1,9 +1,9 @@
 import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarDays } from "@fortawesome/free-solid-svg-icons";
+import { faFolderClosed } from "@fortawesome/free-solid-svg-icons";
 
-function CalendarButton() {
+function ClosedOrdersButton() {
   const theme = useTheme();
   return (
     <ListItemButton
@@ -18,16 +18,17 @@ function CalendarButton() {
         // Handle button click
       }}
     >
+      {" "}
       <FontAwesomeIcon
-        icon={faCalendarDays}
+        icon={faFolderClosed}
         size="lg"
         style={{
           color: theme.palette.primary.contrastText,
           paddingRight: "10px",
         }}
       />
-      <ListItemText primary="Calendar" />
+      <ListItemText primary="View Closed Orders" />
     </ListItemButton>
   );
 }
-export default CalendarButton;
+export default ClosedOrdersButton;
