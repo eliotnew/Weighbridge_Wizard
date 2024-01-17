@@ -1,4 +1,4 @@
-import Clock from "./Clock"; //i will add my clock
+import Clock from "./Clock";
 import { AppBar } from "@mui/material";
 import { useTheme } from "@mui/material";
 
@@ -23,3 +23,4 @@ function BottomAppBar() {
     </AppBar>
   );
 }
+export default BottomAppBar;
