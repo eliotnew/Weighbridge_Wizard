@@ -27,6 +27,7 @@ function LogoutButton() {
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
+      Log Out
       {isHover ? (
         <FontAwesomeIcon
           icon={faRightFromBracket}
