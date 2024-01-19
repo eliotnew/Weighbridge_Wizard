@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, Button, useTheme } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHatWizard } from "@fortawesome/free-solid-svg-icons";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function LPappbar() {
   const theme = useTheme();
@@ -71,6 +72,7 @@ function LPappbar() {
         >
           |
         </Typography>
+        <Link to="/dashboard">
         <Button
           sx={{
             color: theme.palette.primary.contrastText,
@@ -91,6 +93,11 @@ function LPappbar() {
             style={{ marginLeft: "6px" }}
           />
         </Button>
+
+
+
+        </Link>
+        
       </Toolbar>
     </AppBar>
   );

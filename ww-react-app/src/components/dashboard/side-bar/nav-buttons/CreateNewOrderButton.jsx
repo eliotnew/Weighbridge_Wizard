@@ -1,5 +1,4 @@
 import { useTheme } from "@mui/material";
-import { useColorTheme } from "../../../themes/use-color-theme";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";

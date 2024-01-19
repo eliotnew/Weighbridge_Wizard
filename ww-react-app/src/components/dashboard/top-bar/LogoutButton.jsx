@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, useTheme } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { useTheme } from "@mui/material";
 
 /**
  *  A button for the top app bar that will log the user out, returning to the main page.
