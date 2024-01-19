@@ -72,7 +72,7 @@ function LPappbar() {
         >
           |
         </Typography>
-        <Link to="/dashboard">
+        <Link to="/signin">
         <Button
           sx={{
             color: theme.palette.primary.contrastText,
