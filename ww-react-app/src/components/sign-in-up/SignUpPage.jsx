@@ -1,9 +1,9 @@
 import React from "react";
 import pic from "../../img_Assets/littleWizard.png";
 import DashboardAppBar from "../dashboard/top-bar/DashboardAppBar";
-import SignInForm from "./SignInForm";
+import SignUpForm from "./SignUpForm";
 
-function SignInPage(){
+function SignUpPage(){
     return(
         <>
         <div
@@ -30,11 +30,11 @@ function SignInPage(){
               margin: "auto",
             }}
           >
-            <SignInForm/>
+            <SignUpForm/>
           </div>
         </div>
       </>
     )
 }
 
-export default SignInPage;
+export default SignUpPage;
