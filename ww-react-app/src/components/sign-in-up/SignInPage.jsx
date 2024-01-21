@@ -2,6 +2,7 @@ import React from "react";
 import pic from "../../img_Assets/littleWizard.png";
 import DashboardAppBar from "../dashboard/top-bar/DashboardAppBar";
 import SignInForm from "./SignInForm";
+import LPappbar from "../landing-page/LPappbar";
 
 function SignInPage(){
     return(
@@ -16,7 +17,7 @@ function SignInPage(){
             minWidth: "100vw",
           }}
         >
-          <DashboardAppBar />
+          <LPappbar/>
   
           <div
             id="content"

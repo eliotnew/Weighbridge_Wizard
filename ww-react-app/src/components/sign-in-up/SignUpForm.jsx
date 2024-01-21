@@ -17,7 +17,9 @@ import Container from "@mui/material/Container";
 import { useLoggedInContext } from "../../loggedInContext";
 import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
-// import passwordEvaluate from "../functionality/passwordEvaluate";
+import evaluatePassword from "../../functions/account_functions/evaluatePassword";
+import evaluatePassLength from "../../functions/account_functions/evaluatePassLength";
+
 
 function SignUpForm() {
   const [alertType, setAlertType] = useState(0);
@@ -35,58 +37,65 @@ function SignUpForm() {
     const forename = data.get("firstName");
     const surname = data.get("firstName");
 
-    // if (email === null || email === "") {
-    //   setAlertType(6); //inform the user that you need an email address
-    //   return;
-    // }
+    if (email === null || email === "") {
+      setAlertType(6); //inform the user that you need an email address
+      return;
+    }
 
-    // if (forename === null || surname === null) {
-    //   setAlertType(7); //inform user that passwords dont match
-    //   return;
-    // }
+    if (forename === null || surname === null) {
+      setAlertType(7); //inform user that passwords dont match
+      return;
+    }
 
-    // if (password1 !== password2) {
-    //   setAlertType(3); //inform user that passwords dont match
-    //   return;
-    // }
+    if (password1 !== password2) {
+      setAlertType(3); //inform user that passwords dont match
+      return;
+    }
 
-    // const isStrong = passwordEvaluate(password1);
+    const isLong = evaluatePassLength(password1);
+    if (!isLong) {
+        setAlertType(8); //inform user that password is not good enough
+        return;
+    }
 
-    // if (!isStrong) {
-    //   setAlertType(4); //inform user that password is not good enough
-    //   return;
-    // }
+    const isStrong = evaluatePassword(password1);
+    
 
-    // const jsonObj = {
-    //   foreName: data.get("firstName"),
-    //   surName: data.get("lastName"),
-    //   email: data.get("email"),
-    //   password: password1,
-    // };
+    if (!isStrong) {
+      setAlertType(4); //inform user that password is not good enough
+      return;
+    }
 
-    // try {
-    //   const successAccount = await createAccount(jsonObj);
-    //   if (
-    //     successAccount &&
-    //     successAccount.message === "Account created successfully"
-    //   ) {
-    //     saveAccToLS(successAccount);
-    //     login();
-    //     navigate("/account");
-    //   } else if (
-    //     successAccount &&
-    //     successAccount.message ===
-    //       "An account with this email already exists, did you mean to sign IN instead?"
-    //   ) {
-    //     setAlertType(5);
-    //   } else {
-    //     window.alert(
-    //       "Something went wrong , please contact the page administrator"
-    //     );
-    //   }
-    // } catch {
-    //   setAlertType(2);
-    // }
+    const jsonObj = {
+      foreName: data.get("firstName"),
+      surName: data.get("lastName"),
+      email: data.get("email"),
+      password: password1,
+    };
+
+    try {
+      const successAccount = await createAccount(jsonObj);
+      if (
+        successAccount &&
+        successAccount.message === "Account created successfully"
+      ) {
+        saveAccToLS(successAccount);
+        login();
+        navigate("/account");
+      } else if (
+        successAccount &&
+        successAccount.message ===
+          "An account with this email already exists, did you mean to sign IN instead?"
+      ) {
+        setAlertType(5);
+      } else {
+        window.alert(
+          "Something went wrong , please contact the page administrator"
+        );
+      }
+    } catch {
+      setAlertType(2);
+    }
   };
 
   return (
@@ -253,6 +262,15 @@ function SignUpForm() {
             onClose={() => setAlertType(0)}
           >
             You must sign up with your first and last names!
+          </Alert>
+        ) : null}
+        {alertType === 8 ? (
+          <Alert
+            sx={{ padding: "10px" }}
+            severity="warning"
+            onClose={() => setAlertType(0)}
+          >
+            Password too short! Please input a password that is more than 10 characters long!
           </Alert>
         ) : null}
       </>
