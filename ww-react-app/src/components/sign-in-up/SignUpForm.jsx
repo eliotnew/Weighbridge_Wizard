@@ -12,12 +12,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import createAccount from "../functionality/createAccount";
-import saveAccToLS from "../functionality/saveAccToLS";
+// import createAccount from "../functionality/createAccount";
+// import saveAccToLS from "../functionality/saveAccToLS";
 import { useLoggedInContext } from "../../loggedInContext";
 import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
-import passwordEvaluate from "../functionality/passwordEvaluate";
+// import passwordEvaluate from "../functionality/passwordEvaluate";
 
 function SignUpForm() {
   const [alertType, setAlertType] = useState(0);
@@ -35,58 +35,58 @@ function SignUpForm() {
     const forename = data.get("firstName");
     const surname = data.get("firstName");
 
-    if (email === null || email === "") {
-      setAlertType(6); //inform the user that you need an email address
-      return;
-    }
+    // if (email === null || email === "") {
+    //   setAlertType(6); //inform the user that you need an email address
+    //   return;
+    // }
 
-    if (forename === null || surname === null) {
-      setAlertType(7); //inform user that passwords dont match
-      return;
-    }
+    // if (forename === null || surname === null) {
+    //   setAlertType(7); //inform user that passwords dont match
+    //   return;
+    // }
 
-    if (password1 !== password2) {
-      setAlertType(3); //inform user that passwords dont match
-      return;
-    }
+    // if (password1 !== password2) {
+    //   setAlertType(3); //inform user that passwords dont match
+    //   return;
+    // }
 
-    const isStrong = passwordEvaluate(password1);
+    // const isStrong = passwordEvaluate(password1);
 
-    if (!isStrong) {
-      setAlertType(4); //inform user that password is not good enough
-      return;
-    }
+    // if (!isStrong) {
+    //   setAlertType(4); //inform user that password is not good enough
+    //   return;
+    // }
 
-    const jsonObj = {
-      foreName: data.get("firstName"),
-      surName: data.get("lastName"),
-      email: data.get("email"),
-      password: password1,
-    };
+    // const jsonObj = {
+    //   foreName: data.get("firstName"),
+    //   surName: data.get("lastName"),
+    //   email: data.get("email"),
+    //   password: password1,
+    // };
 
-    try {
-      const successAccount = await createAccount(jsonObj);
-      if (
-        successAccount &&
-        successAccount.message === "Account created successfully"
-      ) {
-        saveAccToLS(successAccount);
-        login();
-        navigate("/account");
-      } else if (
-        successAccount &&
-        successAccount.message ===
-          "An account with this email already exists, did you mean to sign IN instead?"
-      ) {
-        setAlertType(5);
-      } else {
-        window.alert(
-          "Something went wrong , please contact the page administrator"
-        );
-      }
-    } catch {
-      setAlertType(2);
-    }
+    // try {
+    //   const successAccount = await createAccount(jsonObj);
+    //   if (
+    //     successAccount &&
+    //     successAccount.message === "Account created successfully"
+    //   ) {
+    //     saveAccToLS(successAccount);
+    //     login();
+    //     navigate("/account");
+    //   } else if (
+    //     successAccount &&
+    //     successAccount.message ===
+    //       "An account with this email already exists, did you mean to sign IN instead?"
+    //   ) {
+    //     setAlertType(5);
+    //   } else {
+    //     window.alert(
+    //       "Something went wrong , please contact the page administrator"
+    //     );
+    //   }
+    // } catch {
+    //   setAlertType(2);
+    // }
   };
 
   return (
@@ -100,7 +100,7 @@ function SignUpForm() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: blue}}>
+        <Avatar sx={{ m: 1}}>
         <FontAwesomeIcon
             icon={faRightToBracket}
             beatFade
