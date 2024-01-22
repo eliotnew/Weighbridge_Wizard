@@ -30,7 +30,7 @@ function SideBar() {
           position: "relative",
           backgroundColor: theme.palette.secondary.main,
           color: theme.palette.secondary.contrastText,
-          borderRadius: "0 24px 24px 0",
+          
           boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
           marginLeft: "3px",
         },
