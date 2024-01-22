@@ -18,11 +18,11 @@ function SideBar() {
   const drawerWidth = 300; //275
 
   const handleButtonClick = (item) => {
-    // Create a new tab based on the sidebar item clicked
+    // Create a new tab of type defined by the button clicked 
     const newTab = {
-      id: item.id, // Ensure this is unique
+      id: item.id, // THis needs to be unique
       label: item.label,
-      content: <div>{item.label}</div> // Placeholder content
+      content: <div>{item.label}</div> 
     };
     addTab(newTab); };
 
