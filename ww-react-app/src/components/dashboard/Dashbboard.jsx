@@ -44,7 +44,7 @@ function Dashboard() {
 
       <Grid container>
         <Grid item xs={2}>
-          <SideBar />
+          <SideBar addTab={addTab}/>
         </Grid>
 
         {/* Box to the Right */}

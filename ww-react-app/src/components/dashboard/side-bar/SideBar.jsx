@@ -17,6 +17,15 @@ function SideBar() {
   const theme = useTheme();
   const drawerWidth = 300; //275
 
+  const handleButtonClick = (item) => {
+    // Create a new tab based on the sidebar item clicked
+    const newTab = {
+      id: item.id, // Ensure this is unique
+      label: item.label,
+      content: <div>{item.label}</div> // Placeholder content
+    };
+    addTab(newTab); };
+
   return (
     <Drawer
       variant="permanent"
@@ -50,7 +59,7 @@ function SideBar() {
           </Typography>
           <Divider />
 
-          <InButton></InButton>
+          <InButton/>
           <OutButton></OutButton>
           <OnSiteButton></OnSiteButton>
 
