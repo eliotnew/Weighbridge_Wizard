@@ -24,7 +24,24 @@ function Dashboard() {
   };
 
   const removeTab = (tabId) => {
-    setTabs(tabs.filter((tab) => tab.id !== tabId));
+    //setTabs(tabs.filter((tab) => tab.id !== tabId));
+
+    const indexToRemove = tabs.findIndex((tab) => tab.id === tabId);
+    const isLastTab = indexToRemove === tabs.length - 1; //if the deleted tab is last one, set the previous one as the active tab
+    const newTabs = tabs.filter((tab) => tab.id !== tabId);
+    setTabs(newTabs);
+
+    if (indexToRemove === activeTab) {
+      if (newTabs.length === 0) {
+        setActiveTab(0); //no more tabs left
+      } else if (isLastTab) {
+        setActiveTab(indexToRemove - 1); // If its the last tab, set the previous tab as active
+      } else {
+        setActiveTab(indexToRemove); // normal behaviour is to set the next tab as active
+      }
+    } else if (indexToRemove < activeTab) {
+      setActiveTab(activeTab - 1);
+    }
   };
 
   // Handle changing tabs
