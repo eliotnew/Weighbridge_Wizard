@@ -20,7 +20,9 @@ function Dashboard() {
   const [activeTab, setActiveTab] = useState(0);
 
   const addTab = (newTab) => {
+    const newTabs = [...tabs, newTab];
     setTabs([...tabs, newTab]);
+    setActiveTab(newTabs.length - 1);
   };
 
   const removeTab = (tabId) => {
