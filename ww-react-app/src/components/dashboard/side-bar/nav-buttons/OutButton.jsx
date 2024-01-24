@@ -2,9 +2,19 @@ import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruckArrowRight } from "@fortawesome/free-solid-svg-icons";
+import Calendar from "../../tab-content/calendar";
 
-function OutButton() {
+function OutButton({ addTab }) {
   const theme = useTheme();
+
+  const handleClick = () => {
+    const newTab = {
+      id: "unique-id-1",
+      label: "Outgoing",
+      content: <Calendar />,
+    };
+    addTab(newTab);
+  };
   return (
     <ListItemButton
       sx={{
@@ -14,6 +24,7 @@ function OutButton() {
           transition: "transform 0.35s",
         },
       }}
+      onClick={handleClick}
     >
       <FontAwesomeIcon
         icon={faTruckArrowRight}

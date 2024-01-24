@@ -2,9 +2,20 @@ import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderClosed } from "@fortawesome/free-solid-svg-icons";
+import Calendar from "../../tab-content/calendar";
 
-function ClosedOrdersButton() {
+function ClosedOrdersButton({ addTab }) {
   const theme = useTheme();
+
+  const handleClick = () => {
+    const newTab = {
+      id: "unique-id-2",
+      label: "Closed Orders",
+      content: <Calendar />,
+    };
+    addTab(newTab);
+  };
+
   return (
     <ListItemButton
       sx={{
@@ -14,9 +25,7 @@ function ClosedOrdersButton() {
           transition: "transform 0.35s",
         },
       }}
-      onClick={() => {
-        // Handle button click
-      }}
+      onClick={handleClick}
     >
       <FontAwesomeIcon
         icon={faFolderClosed}
