@@ -3,15 +3,17 @@ import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "../../tab-content/calendar";
+import Map from "../../tab-content/Map";
 
 function MapButton({ addTab }) {
   const theme = useTheme();
 
   const handleClick = () => {
+    const id = Math.floor(Math.random() * 100000);
     const newTab = {
-      id: "unique-id-1",
+      id: id,
       label: "Map",
-      content: <Calendar />,
+      content: <Map />,
     };
     addTab(newTab);
   };

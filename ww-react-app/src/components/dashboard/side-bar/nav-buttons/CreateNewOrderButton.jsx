@@ -8,8 +8,9 @@ function CreateNewOrderButton({ addTab }) {
   const theme = useTheme();
 
   const handleClick = () => {
+    const id = Math.floor(Math.random() * 100000);
     const newTab = {
-      id: "unique-id-1",
+      id: id,
       label: "Create New Order",
       content: <Calendar />,
     };

@@ -7,8 +7,9 @@ import Calendar from "../../tab-content/calendar";
 function TrainingButton({ addTab }) {
   const theme = useTheme();
   const handleClick = () => {
+    const id = Math.floor(Math.random() * 100000);
     const newTab = {
-      id: "unique-id-1",
+      id: id,
       label: "Training",
       content: <Calendar />,
     };
