@@ -10,12 +10,12 @@ import { Tabs, Tab } from "@mui/material";
 import TabPanel from "./tabs-interface/TabPanel";
 
 /**
- * Tabs are opened via interaction with the sidebar.   
+ * Tabs are opened via interaction with the sidebar.
  */
 
 function Dashboard() {
   const theme = useTheme();
-  const [tabs,setTabs] = useState([]);
+  const [tabs, setTabs] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
 
   const addTab = (newTab) => {
@@ -23,14 +23,13 @@ function Dashboard() {
   };
 
   const removeTab = (tabId) => {
-    setTabs(tabs.filter(tab => tab.id !== tabId));
+    setTabs(tabs.filter((tab) => tab.id !== tabId));
   };
 
   // Handle changing tabs
   const handleChange = (event, newValue) => {
     setActiveTab(newValue);
   };
-
 
   return (
     <div
@@ -44,51 +43,56 @@ function Dashboard() {
 
       <Grid container>
         <Grid item xs={2}>
-          <SideBar addTab={addTab}/>
+          <SideBar addTab={addTab} />
         </Grid>
 
         {/* Box to the Right */}
         <Grid item xs={10}>
-          <Paper elevation={6} square={false} p={2} sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
+          <Paper
+            elevation={6}
+            square={false}
+            p={2}
+            sx={{
               backgroundColor: "white",
               margin: "35px",
               minHeight: "70vh",
-              textAlign: "center",}}>
-          
-          {tabs.length > 0 && (
-              <Tabs value={activeTab} onChange={handleChange}>
+              display: "flex",
+              flexDirection: "column",
+              alignItems: tabs.length === 0 ? "center" : "flex-start",
+              justifyContent: tabs.length === 0 ? "center" : "flex-start",
+            }}
+          >
+            {tabs.length > 0 && (
+              <>
+                <Tabs value={activeTab} onChange={handleChange}>
+                  {tabs.map((tab, index) => (
+                    <Tab key={tab.id} label={tab.label} />
+                  ))}
+                </Tabs>
                 {tabs.map((tab, index) => (
-                  <Tab key={tab.id} label={tab.label} />
+                  <TabPanel key={tab.id} value={activeTab} index={index}>
+                    {tab.content}
+                  </TabPanel>
                 ))}
-              </Tabs>
+              </>
             )}
 
-            {tabs.map((tab, index) => (
-              <TabPanel key={tab.id} value={activeTab} index={index}>
-                {tab.content}
-              </TabPanel>
-            ))}
-            
             {tabs.length === 0 && (
-              <h2>              
-              <FontAwesomeIcon
-                icon={faHandPointLeft}
-                beatFade
-                style={{
-                  color: theme.palette.primary.contrastText,
-                  paddingRight: "20px",
-                }}
-              />
-              Begin work by selecting an action from the 'Actions Menu'
-            </h2>
+              <Box sx={{ textAlign: "center" }}>
+                <h2>
+                  <FontAwesomeIcon
+                    icon={faHandPointLeft}
+                    beatFade
+                    style={{
+                      color: theme.palette.primary.contrastText,
+                      paddingRight: "20px",
+                    }}
+                  />
+                  Begin work by selecting an action from the 'Actions Menu'
+                </h2>
+              </Box>
             )}
-          
           </Paper>
-          
         </Grid>
       </Grid>
 
