@@ -2,7 +2,7 @@ import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderClosed } from "@fortawesome/free-solid-svg-icons";
-import Calendar from "../../tab-content/calendar";
+import CalendarContent from "../../tab-content/CalendarContent";
 
 function ClosedOrdersButton({ addTab }) {
   const theme = useTheme();
@@ -12,7 +12,7 @@ function ClosedOrdersButton({ addTab }) {
     const newTab = {
       id: id,
       label: "Closed Orders",
-      content: <Calendar />,
+      content: <CalendarContent />,
     };
     addTab(newTab);
   };

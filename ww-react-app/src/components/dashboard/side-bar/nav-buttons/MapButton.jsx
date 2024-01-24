@@ -2,7 +2,6 @@ import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
-import Calendar from "../../tab-content/calendar";
 import Map from "../../tab-content/Map";
 
 function MapButton({ addTab }) {
