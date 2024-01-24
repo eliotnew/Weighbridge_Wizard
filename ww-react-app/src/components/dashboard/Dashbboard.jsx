@@ -8,6 +8,7 @@ import BottomAppbar from "./bottom-bar/BottomAppBar";
 import SideBar from "./side-bar/SideBar";
 import { Tabs, Tab } from "@mui/material";
 import TabPanel from "./tabs-interface/TabPanel";
+import CustomTab from "./tabs-interface/CustomTab";
 
 /**
  * Tabs are opened via interaction with the sidebar.
@@ -64,9 +65,45 @@ function Dashboard() {
           >
             {tabs.length > 0 && (
               <>
-                <Tabs value={activeTab} onChange={handleChange}>
+                <Tabs
+                  value={activeTab}
+                  onChange={handleChange}
+                  variant="scrollable"
+                  allowScrollButtonsMobile
+                  sx={{
+                    ".MuiTabs-flexContainer": {
+                      position: "relative",
+                      zIndex: 1,
+                    },
+                    ".MuiTab-root": {
+                      border: "1px solid #ccc",
+                      borderTopLeftRadius: "6px",
+                      borderTopRightRadius: "14px",
+                      marginRight: "0px",
+                      minWidth: "120px",
+                      "&:hover": {
+                        backgroundColor: "#f5f5f5",
+                      },
+                      "&.Mui-selected": {
+                        zIndex: 2,
+                        backgroundColor: theme.palette.secondary.main,
+                        borderColor: "#ccc",
+                        color: theme.palette.secondary.contrastText,
+                        borderBottomColor: "transparent",
+                      },
+                      ".MuiTabs-indicator": {
+                        display: "none",
+                      },
+                    },
+                  }}
+                >
                   {tabs.map((tab, index) => (
-                    <Tab key={tab.id} label={tab.label} />
+                    <CustomTab
+                      key={tab.id}
+                      label={tab.label}
+                      onClose={() => removeTab(tab.id)}
+                      {...(activeTab === index ? { id: `tab-${index}` } : {})}
+                    />
                   ))}
                 </Tabs>
                 {tabs.map((tab, index) => (
