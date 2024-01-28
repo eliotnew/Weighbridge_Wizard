@@ -13,7 +13,7 @@ import OutButton from "./nav-buttons/OutButton";
 import OutstandingOrderButton from "./nav-buttons/OutstandingOrderButton";
 import TrainingButton from "./nav-buttons/TrainingButton";
 
-function SideBar() {
+function SideBar({ addTab }) {
   const theme = useTheme();
   const drawerWidth = 300; //275
 
@@ -30,7 +30,7 @@ function SideBar() {
           position: "relative",
           backgroundColor: theme.palette.secondary.main,
           color: theme.palette.secondary.contrastText,
-          borderRadius: "0 24px 24px 0",
+
           boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
           marginLeft: "3px",
         },
@@ -50,9 +50,9 @@ function SideBar() {
           </Typography>
           <Divider />
 
-          <InButton></InButton>
-          <OutButton></OutButton>
-          <OnSiteButton></OnSiteButton>
+          <InButton addTab={addTab} />
+          <OutButton addTab={addTab} />
+          <OnSiteButton addTab={addTab} />
 
           <Typography
             variant="h6"
@@ -62,9 +62,9 @@ function SideBar() {
           </Typography>
           <Divider />
 
-          <CreateNewOrderButton></CreateNewOrderButton>
-          <OutstandingOrderButton></OutstandingOrderButton>
-          <ClosedOrdersButton></ClosedOrdersButton>
+          <CreateNewOrderButton addTab={addTab} />
+          <OutstandingOrderButton addTab={addTab} />
+          <ClosedOrdersButton addTab={addTab} />
 
           <Typography
             variant="h6"
@@ -74,8 +74,8 @@ function SideBar() {
           </Typography>
           <Divider />
 
-          <CalendarButton></CalendarButton>
-          <MapButton></MapButton>
+          <CalendarButton addTab={addTab} />
+          <MapButton addTab={addTab} />
 
           <Typography
             variant="h6"
@@ -85,7 +85,7 @@ function SideBar() {
           </Typography>
           <Divider />
 
-          <TrainingButton></TrainingButton>
+          <TrainingButton addTab={addTab} />
         </List>
       </div>
     </Drawer>

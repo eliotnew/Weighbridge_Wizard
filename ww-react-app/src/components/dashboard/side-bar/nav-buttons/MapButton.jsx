@@ -2,9 +2,21 @@ import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
+import Map from "../../tab-content/Map";
 
-function MapButton() {
+function MapButton({ addTab }) {
   const theme = useTheme();
+
+  const handleClick = () => {
+    const id = Math.floor(Math.random() * 100000);
+    const newTab = {
+      id: id,
+      label: "Map",
+      content: <Map />,
+    };
+    addTab(newTab);
+  };
+
   return (
     <ListItemButton
       sx={{
@@ -14,9 +26,7 @@ function MapButton() {
           transition: "transform 0.35s",
         },
       }}
-      onClick={() => {
-        // Handle button click
-      }}
+      onClick={handleClick}
     >
       <FontAwesomeIcon
         icon={faMapLocationDot}

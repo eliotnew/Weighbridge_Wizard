@@ -2,9 +2,19 @@ import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
+import Calendar from "../../tab-content/CalendarContent";
 
-function TrainingButton() {
+function TrainingButton({ addTab }) {
   const theme = useTheme();
+  const handleClick = () => {
+    const id = Math.floor(Math.random() * 100000);
+    const newTab = {
+      id: id,
+      label: "Training",
+      content: <Calendar />,
+    };
+    addTab(newTab);
+  };
   return (
     <ListItemButton
       sx={{
@@ -14,9 +24,7 @@ function TrainingButton() {
           transition: "transform 0.35s",
         },
       }}
-      onClick={() => {
-        // Handle button click
-      }}
+      onClick={handleClick}
     >
       {" "}
       <FontAwesomeIcon

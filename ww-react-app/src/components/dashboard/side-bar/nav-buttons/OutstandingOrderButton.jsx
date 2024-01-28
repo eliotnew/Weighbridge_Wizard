@@ -2,9 +2,20 @@ import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
+import CalendarContent from "../../tab-content/CalendarContent";
 
-function OutstandingOrderButton() {
+function OutstandingOrderButton({ addTab }) {
   const theme = useTheme();
+
+  const handleClick = () => {
+    const id = Math.floor(Math.random() * 100000);
+    const newTab = {
+      id: id,
+      label: "Outstanding Orders",
+      content: <CalendarContent />,
+    };
+    addTab(newTab);
+  };
   return (
     <ListItemButton
       sx={{
@@ -14,9 +25,7 @@ function OutstandingOrderButton() {
           transition: "transform 0.35s",
         },
       }}
-      onClick={() => {
-        // Handle button click
-      }}
+      onClick={handleClick}
     >
       <FontAwesomeIcon
         icon={faFolderOpen}

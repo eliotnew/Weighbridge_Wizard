@@ -1,11 +1,22 @@
 import { useTheme } from "@mui/material";
-import { useColorTheme } from "../../../themes/use-color-theme";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
+import CalendarContent from "../../tab-content/CalendarContent";
 
-function CreateNewOrderButton() {
+function CreateNewOrderButton({ addTab }) {
   const theme = useTheme();
+
+  const handleClick = () => {
+    const id = Math.floor(Math.random() * 100000);
+    const newTab = {
+      id: id,
+      label: "Create New Order",
+      content: <CalendarContent />,
+    };
+    addTab(newTab);
+  };
+
   return (
     <ListItemButton
       sx={{
@@ -15,9 +26,7 @@ function CreateNewOrderButton() {
           transition: "transform 0.35s",
         },
       }}
-      onClick={() => {
-        // Handle button click
-      }}
+      onClick={handleClick}
     >
       <FontAwesomeIcon
         icon={faFolderPlus}
