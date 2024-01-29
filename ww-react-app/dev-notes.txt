@@ -1,0 +1,2 @@
+to build:   npm run build
+to run: npm run dev

@@ -2,7 +2,7 @@ import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHelmetSafety } from "@fortawesome/free-solid-svg-icons";
-import CalendarContent from "../../tab-content/CalendarContent";
+import ViewOnsiteContent from "../../tab-content/ViewOnsiteContent";
 
 function OnSiteButton({ addTab }) {
   const theme = useTheme();
@@ -12,7 +12,7 @@ function OnSiteButton({ addTab }) {
     const newTab = {
       id: id,
       label: "Onsite",
-      content: <CalendarContent />,
+      content: <ViewOnsiteContent />,
     };
     addTab(newTab);
   };
