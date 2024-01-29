@@ -11,7 +11,7 @@ function BasicWebcam() {
         alignItems: "center",
       }}
     >
-      <Webcam audio={false} style={{ width: 640, height: 480 }} />
+      <Webcam audio={false} style={{ width: 640, height: 320 }} />
     </div>
   );
 }

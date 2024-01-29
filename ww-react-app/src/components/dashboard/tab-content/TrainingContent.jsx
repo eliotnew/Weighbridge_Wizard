@@ -1,7 +1,11 @@
 import React from "react";
+import { Typography } from "@mui/material";
 
 function TrainingContent() {
-  const num = Math.floor(Math.random() * 10000);
-  return <>Training Content {num}</>;
+  return (
+    <>
+      <Typography variant="h3"> Training Under Construction... </Typography>
+    </>
+  );
 }
 export default TrainingContent;

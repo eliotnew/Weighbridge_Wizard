@@ -28,10 +28,9 @@ function IncomingContent() {
           padding: "20px",
         }}
       >
-        <BasicWebcam />
         <div>
           <TextField
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             name="registration"
@@ -41,7 +40,7 @@ function IncomingContent() {
             autoComplete=""
           />
           <TextField
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             id="tare"
@@ -68,7 +67,7 @@ function IncomingContent() {
 
           {job !== "none" && (
             <TextField
-              margin="normal"
+              margin="dense"
               fullWidth
               id="product"
               value={product}
@@ -79,6 +78,8 @@ function IncomingContent() {
           )}
           <SubmitFormButton />
         </div>
+
+        <BasicWebcam />
       </div>
     </>
   );

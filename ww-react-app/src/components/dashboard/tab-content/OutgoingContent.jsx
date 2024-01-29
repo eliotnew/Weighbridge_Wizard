@@ -23,10 +23,9 @@ function OutgoingContent() {
           padding: "20px",
         }}
       >
-        <BasicWebcam />
         <div>
           <TextField
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             name="registration"
@@ -36,7 +35,7 @@ function OutgoingContent() {
             autoComplete=""
           />
           <TextField
-            margin="normal"
+            margin="dense"
             fullWidth
             id="tare"
             label="Tare"
@@ -45,7 +44,7 @@ function OutgoingContent() {
           />
 
           <TextField
-            margin="normal"
+            margin="dense"
             required
             fullWidth
             id="gross"
@@ -55,7 +54,7 @@ function OutgoingContent() {
           />
 
           <TextField
-            margin="normal"
+            margin="dense"
             fullWidth
             id="net"
             label="Net Weight"
@@ -64,7 +63,7 @@ function OutgoingContent() {
           />
           {grossWeight !== "" && (
             <TextField
-              margin="normal"
+              margin="dense"
               fullWidth
               id="net"
               label="Net Weight"
@@ -75,6 +74,7 @@ function OutgoingContent() {
 
           <SubmitFormButton />
         </div>
+        <BasicWebcam />
       </div>
     </>
   );
