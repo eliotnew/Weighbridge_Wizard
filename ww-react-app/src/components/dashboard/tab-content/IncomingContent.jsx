@@ -6,10 +6,11 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
+import SubmitFormButton from "../../basicUI/SubmitFormButton";
 
 function IncomingContent() {
-  const num = Math.floor(Math.random() * 10000);
   const [job, setJob] = useState("none"); // I will go back and make it do a server query to check available jobs.
+  const [product, setProduct] = useState("Example Product");
   const jobOptions = ["under construction", "asks server"];
 
   const handleChange = (event) => {
@@ -64,6 +65,19 @@ function IncomingContent() {
               ))}
             </Select>
           </FormControl>
+
+          {job !== "none" && (
+            <TextField
+              margin="normal"
+              fullWidth
+              id="product"
+              value={product}
+              label="Product to be Loaded:"
+              variant="outlined"
+              disabled="true"
+            />
+          )}
+          <SubmitFormButton />
         </div>
       </div>
     </>
