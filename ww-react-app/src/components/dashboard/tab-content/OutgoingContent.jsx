@@ -5,6 +5,12 @@ import TextField from "@mui/material/TextField";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
 
 function OutgoingContent() {
+  const [grossWeight, setGrossWeight] = useState("");
+  const [netWeight, setNetWeight] = useState("");
+
+  const handleGrossChange = (event) => {
+    setGrossWeight(event);
+  };
   return (
     <>
       <Typography variant="h3"> Weigh Out </Typography>
@@ -45,6 +51,7 @@ function OutgoingContent() {
             id="gross"
             label="Enter Gross Weight (kg)"
             variant="outlined"
+            onChange={handleGrossChange}
           />
 
           <TextField
@@ -55,6 +62,16 @@ function OutgoingContent() {
             variant="outlined"
             disabled="true"
           />
+          {grossWeight !== "" && (
+            <TextField
+              margin="normal"
+              fullWidth
+              id="net"
+              label="Net Weight"
+              variant="outlined"
+              disabled="true"
+            />
+          )}
 
           <SubmitFormButton />
         </div>
