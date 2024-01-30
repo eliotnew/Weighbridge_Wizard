@@ -2,7 +2,7 @@ import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolderPlus } from "@fortawesome/free-solid-svg-icons";
-import CalendarContent from "../../tab-content/CalendarContent";
+import CreateNewOrderContent from "../../tab-content/CreateNewOrderContent";
 
 function CreateNewOrderButton({ addTab }) {
   const theme = useTheme();
@@ -12,7 +12,7 @@ function CreateNewOrderButton({ addTab }) {
     const newTab = {
       id: id,
       label: "Create New Order",
-      content: <CalendarContent />,
+      content: <CreateNewOrderContent />,
     };
     addTab(newTab);
   };

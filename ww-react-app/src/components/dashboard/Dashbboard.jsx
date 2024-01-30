@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Paper, useTheme } from "@mui/material";
 import { Box, Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHandPointLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHandPointLeft,
+  faHatWizard,
+} from "@fortawesome/free-solid-svg-icons";
 import DashboardAppBar from "./top-bar/DashboardAppBar";
 import BottomAppbar from "./bottom-bar/BottomAppBar";
 import SideBar from "./side-bar/SideBar";
@@ -75,7 +78,7 @@ function Dashboard() {
             sx={{
               backgroundColor: "white",
               margin: "35px",
-              minHeight: "70vh",
+              minHeight: "80vh",
               display: "flex",
               flexDirection: "column",
               alignItems: tabs.length === 0 ? "center" : "flex-start",
@@ -135,17 +138,15 @@ function Dashboard() {
 
             {tabs.length === 0 && (
               <Box sx={{ textAlign: "center" }}>
-                <h2>
-                  <FontAwesomeIcon
-                    icon={faHandPointLeft}
-                    beatFade
-                    style={{
-                      color: theme.palette.primary.contrastText,
-                      paddingRight: "20px",
-                    }}
-                  />
-                  Begin work by selecting an action from the 'Actions Menu'
-                </h2>
+                <FontAwesomeIcon
+                  icon={faHatWizard}
+                  size="8x"
+                  bounce
+                  style={{
+                    color: "lightgray",
+                    animationDuration: "3s",
+                  }}
+                />
               </Box>
             )}
           </Paper>

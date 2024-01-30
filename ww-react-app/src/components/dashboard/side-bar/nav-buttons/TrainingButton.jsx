@@ -2,7 +2,7 @@ import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
-import Calendar from "../../tab-content/CalendarContent";
+import TrainingContent from "../../tab-content/TrainingContent";
 
 function TrainingButton({ addTab }) {
   const theme = useTheme();
@@ -11,7 +11,7 @@ function TrainingButton({ addTab }) {
     const newTab = {
       id: id,
       label: "Training",
-      content: <Calendar />,
+      content: <TrainingContent />,
     };
     addTab(newTab);
   };

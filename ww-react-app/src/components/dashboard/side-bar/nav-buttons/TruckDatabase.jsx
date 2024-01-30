@@ -1,18 +1,17 @@
 import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHelmetSafety } from "@fortawesome/free-solid-svg-icons";
-import ViewOnsiteContent from "../../tab-content/ViewOnsiteContent";
+import { faTruckFront } from "@fortawesome/free-solid-svg-icons";
+import TrainingContent from "../../tab-content/TrainingContent";
 
-function OnSiteButton({ addTab }) {
+function TruckDatabaseButton({ addTab }) {
   const theme = useTheme();
-
   const handleClick = () => {
     const id = Math.floor(Math.random() * 100000);
     const newTab = {
       id: id,
-      label: "Onsite",
-      content: <ViewOnsiteContent />,
+      label: "Truck Database",
+      content: <TrainingContent />,
     };
     addTab(newTab);
   };
@@ -28,15 +27,15 @@ function OnSiteButton({ addTab }) {
       onClick={handleClick}
     >
       <FontAwesomeIcon
-        icon={faHelmetSafety}
+        icon={faTruckFront}
         size="lg"
         style={{
           color: theme.palette.primary.contrastText,
           paddingRight: "10px",
         }}
       />
-      <ListItemText primary="View Onsite" />
+      <ListItemText primary="Truck Database" />
     </ListItemButton>
   );
 }
-export default OnSiteButton;
+export default TruckDatabaseButton;

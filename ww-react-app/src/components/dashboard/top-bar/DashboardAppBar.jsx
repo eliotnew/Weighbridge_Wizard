@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Button, useTheme } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHatWizard } from "@fortawesome/free-solid-svg-icons";
 import SettingsButton from "./SettingsButton";
-import LogoutButton  from "./LogoutButton";
+import LogoutButton from "./LogoutButton";
 
 function DashboardAppBar() {
   const theme = useTheme();
@@ -21,7 +21,7 @@ function DashboardAppBar() {
       <Toolbar>
         <FontAwesomeIcon
           icon={faHatWizard}
-          size="2xl"
+          size="2x"
           flip="horizontal"
           style={{ color: theme.palette.primary.contrastText }}
         />

@@ -12,6 +12,8 @@ import OnSiteButton from "./nav-buttons/OnSiteButton";
 import OutButton from "./nav-buttons/OutButton";
 import OutstandingOrderButton from "./nav-buttons/OutstandingOrderButton";
 import TrainingButton from "./nav-buttons/TrainingButton";
+import ViewTicketsButton from "./nav-buttons/ViewTicketsButton";
+import TruckDatabaseButton from "./nav-buttons/TruckDatabase";
 
 function SideBar({ addTab }) {
   const theme = useTheme();
@@ -46,7 +48,7 @@ function SideBar({ addTab }) {
             variant="h6"
             sx={{ textAlign: "left", fontWeight: "bold" }}
           >
-            Truck Operations
+            WeighBridge Operations
           </Typography>
           <Divider />
 
@@ -65,6 +67,16 @@ function SideBar({ addTab }) {
           <CreateNewOrderButton addTab={addTab} />
           <OutstandingOrderButton addTab={addTab} />
           <ClosedOrdersButton addTab={addTab} />
+
+          <Typography
+            variant="h6"
+            sx={{ textAlign: "left", fontWeight: "bold" }}
+          >
+            Manage Trucks
+          </Typography>
+          <Divider />
+          <TruckDatabaseButton addTab={addTab} />
+          <ViewTicketsButton addTab={addTab} />
 
           <Typography
             variant="h6"
