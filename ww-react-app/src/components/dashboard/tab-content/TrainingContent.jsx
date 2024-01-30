@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 function TrainingContent() {
   return (
     <>
-      <Typography variant="h3"> Training Under Construction... </Typography>
+      <Typography variant="h3"> Under Construction... </Typography>
     </>
   );
 }

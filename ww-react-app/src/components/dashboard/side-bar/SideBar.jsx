@@ -75,8 +75,8 @@ function SideBar({ addTab }) {
             Manage Trucks
           </Typography>
           <Divider />
-          <TruckDatabaseButton />
-          <ViewTicketsButton />
+          <TruckDatabaseButton addTab={addTab} />
+          <ViewTicketsButton addTab={addTab} />
 
           <Typography
             variant="h6"

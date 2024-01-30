@@ -17,6 +17,9 @@ function BottomAppBar() {
         "&": {
           boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
         },
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <Clock />

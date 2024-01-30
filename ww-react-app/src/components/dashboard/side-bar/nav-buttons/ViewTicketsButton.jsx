@@ -10,7 +10,7 @@ function ViewTicketsButton({ addTab }) {
     const id = Math.floor(Math.random() * 100000);
     const newTab = {
       id: id,
-      label: "Tickets History",
+      label: "View Tickets",
       content: <TrainingContent />,
     };
     addTab(newTab);
