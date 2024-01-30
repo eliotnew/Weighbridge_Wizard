@@ -7,6 +7,7 @@ const { MongoMemoryServer } = require("mongodb-memory-server");
 /**
  *      This is the Express App for The WeighBridge Wizard. It should handle data traffic to and from a mongo database.
  *      Some of this code may be similar to my submission for the fullstack cw
+ *      This setup currently requires a docker container of a mongodb but that is not yet setup. After development i will use a cloud hosted one using mongos free cloud hosting
  */
 
 //---------------------------------------------------Set up the express app
@@ -81,4 +82,5 @@ server.listen(port, () => {
   );
 });
 
-//module.exports = server;????
+//module.exports = server;
+//Uncomment when i begin testing
