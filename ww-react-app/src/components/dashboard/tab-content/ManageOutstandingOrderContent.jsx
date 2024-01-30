@@ -112,7 +112,10 @@ function ManageOutstandingOrderContent() {
 
                 <TableCell>
                   <Button
-                    sx={{ backgroundColor: "warning", color: "black" }}
+                    sx={{
+                      backgroundColor: theme.palette.accent.main,
+                      color: "black",
+                    }}
                     onClick={() => handleCancel(Reg)}
                   >
                     View/Edit
