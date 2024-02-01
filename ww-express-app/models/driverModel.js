@@ -21,7 +21,7 @@ const driverSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  maxCapacity: {
+  maxGVW: {
     type: Number,
     required: true,
   },
