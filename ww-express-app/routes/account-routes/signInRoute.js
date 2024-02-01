@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const accountModel = require("../../models/accountModel");
 const bcrypt = require("bcryptjs");
 const checkAccExists = require("../../functions/accountCheck");
 const getAccountObject = require("../../functions/getAccount");
