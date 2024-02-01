@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-//I will need to confirm what details are needed to keep with the driver
-const driverSchema = new mongoose.Schema({
-  name: {
+// GVW = Max Gross Vehicle Weight.
+const truckSchema = new mongoose.Schema({
+  driverName: {
     type: String,
     required: true,
   },
@@ -13,8 +13,8 @@ const driverSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  wheels: {
-    type: Number,
+  truckType: {
+    type: String,
     required: true,
   },
   phone: {
@@ -27,6 +27,6 @@ const driverSchema = new mongoose.Schema({
   },
 });
 
-const driverModel = mongoose.model("Driver", driverSchema);
+const truckModel = mongoose.model("Truck", truckSchema);
 
-module.exports = driverModel;
+module.exports = truckModel;
