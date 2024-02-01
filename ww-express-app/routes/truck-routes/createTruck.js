@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const truckModel = require("../../models/truckModel");
 
 /**
- * Creates a truck on the db. Hashes personal data for cyber security.
+ * Creates a truck on the db.
  */
 
 router.post("/", async (req, res) => {
@@ -20,17 +20,12 @@ router.post("/", async (req, res) => {
       .json({ message: "Truck with this registration already exists." });
   }
 
-  const saltRounds = 8;
-  const hashedPhone = await bcrypt.hash(phone, saltRounds);
-  const hashedEmail = await bcrypt.hash(email, saltRounds);
-  const hashedName = await bcrypt.hash(driverName, saltRounds);
-
   const truck = new truckModel({
-    hashedName,
-    hashedEmail,
+    driverName,
+    email,
     reg,
     truckType,
-    hashedPhone,
+    phone,
     maxGVW,
   });
 
