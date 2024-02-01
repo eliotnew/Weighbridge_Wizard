@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const ticketModel = reqiore("../../models/ticketModel");
+const ticketModel = require("../../models/ticketModel");
+const getTime = require("../../functions/getTime");
+const getDate = require("../../functions/getDate");
 
 /**
  * Weigh in creates a ticket which will be half completed.
@@ -21,8 +23,10 @@ router.post("/", async (req, res) => {
 
   const empty = "";
   const onsite = true;
-  let timeIn;
-  let date; //come back and let the server decide weigh in time and date?
+
+  const timeNow = getTime();
+  const dateNow = getDate();
+
   const ticket = new ticketModel({
     driverName: driverName,
     reg: reg,
@@ -32,9 +36,9 @@ router.post("/", async (req, res) => {
     clerk_Id: clerk_Id,
     loadedLocation: loadedLocation,
     order_Id: order_Id,
-    timeIn: timeIn,
+    timeIn: timeNow,
     timeOut: empty,
-    date: date,
+    date: dateNow,
     onsite: onsite,
   });
   try {
