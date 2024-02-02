@@ -6,8 +6,8 @@ const truckModel = require("../../models/truckModel");
  * gets a truck on the db by reg.
  */
 
-router.get("/", async (req, res) => {
-  const { reg } = req.query;
+router.get("/:reg", async (req, res) => {
+  const { reg } = req.params.reg;
 
   console.log("Recieved a request to GET a truck by reg:", reg);
 

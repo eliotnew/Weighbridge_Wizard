@@ -6,8 +6,8 @@ const truckModel = require("../../models/truckModel");
  * delete truck on the db by reg.
  */
 
-router.delete("/", async (req, res) => {
-  const { reg } = req.body;
+router.delete("/:reg", async (req, res) => {
+  const { reg } = req.params.reg;
 
   console.log("Recieved a request to DELETE a truck by reg:", reg);
 

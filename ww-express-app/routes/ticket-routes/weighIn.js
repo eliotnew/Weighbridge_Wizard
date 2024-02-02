@@ -32,6 +32,7 @@ router.post("/", async (req, res) => {
     reg: reg,
     product: product,
     tareWeight: tareWeight,
+    outWeight: empty,
     netWeight: empty,
     clerk_Id: clerk_Id,
     loadedLocation: loadedLocation,
