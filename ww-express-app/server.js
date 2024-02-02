@@ -3,6 +3,27 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const socketIO = require("socket.io");
 const { MongoMemoryServer } = require("mongodb-memory-server");
+//Account Routes
+const deleteAccount = require("./routes/account-routes/deleteAccount");
+const signIn = require("./routes/account-routes/signIn");
+const signup = require("./routes/account-routes/signUp");
+const updateAccount = require("./routes/account-routes/updateAccount");
+const updatePassword = require("./routes/account-routes/updatePassword");
+//Order Routes
+const closeOrder = require("./routes/order-routes/closeOrder");
+const createOrder = require("./routes/order-routes/createOrder");
+const getClosedOrders = require("./routes/order-routes/getClosedOrders");
+const getOpenOrders = require("./routes/order-routes/getOpenOrders");
+//Ticket Routes
+const cancelOnsite = require("./routes/ticket-routes/cancelOnsite");
+const getAllOnsite = require("./routes/ticket-routes/getAllOnsite");
+const weighIn = require("./routes/ticket-routes/weighIn");
+const weighOut = require("./routes/ticket-routes/weighOut");
+//Truck Routes
+const createTruck = require("./routes/truck-routes/createTruck");
+const deleteTruck = require("./routes/truck-routes/deleteTruck");
+const getTruck = require("./routes/truck-routes/getTruck");
+const updateTruck = require("./routes/truck-routes/updateTruck");
 
 /**
  *      This is the Express App for The WeighBridge Wizard. It should handle data traffic to and from a mongo database.
@@ -19,8 +40,27 @@ const port = 3060;
 app.use(cors());
 
 //---------------------------------------------------Use API routes
-
-//I will add the routes later
+//Account Routes
+app.use("/account/delete", deleteAccount);
+app.use("/account/signin", signIn);
+app.use("/account/signup", signup);
+app.use("/account/update", updateAccount);
+app.use("/account/updatepassword", updatePassword);
+//Order Routes
+app.use("/order/close", closeOrder);
+app.use("/order/create", createOrder);
+app.use("/order/getclosed", getClosedOrders);
+app.use("/order/getopen", getOpenOrders);
+//Ticket Routes
+app.use("/ticket/cancelonsite", cancelOnsite);
+app.use("/ticket/get/onsite", getAllOnsite);
+app.use("/weigh/in", weighIn);
+app.use("/weigh/out", weighOut);
+//Truck Routes
+app.use("/truck/create", createTruck);
+app.use("/truck/delete", deleteTruck);
+app.use("/truck/get", getTruck);
+app.use("/truck/update", updateTruck);
 
 // ---------------------------------------------------Connect to MongoDB
 async function connectToDatabase() {
