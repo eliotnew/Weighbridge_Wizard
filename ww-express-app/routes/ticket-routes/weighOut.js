@@ -4,76 +4,86 @@ const ticketModel = require("../../models/ticketModel");
 const truckModel = require("../../models/truckModel");
 const orderModel = require("../../models/orderModel");
 const getTime = require("../../functions/getTime");
+const mongoose = require("mongoose");
 
 /**
  * Weigh out finishes the half completed ticket.
+ * It performs multiple transactions on the database.
  * This function myst first of check the truck is not overweight by querying the truck schema,
  * then It needs to attempt to update the order the amount of product being sent through before updating the ticket.
  */
 
 router.put("/", async (req, res) => {
   const { reg, outWeight } = req.body;
-  let netWeight;
-  let order_Id;
-  let totalDelivered;
 
-  console.log("Recieved a weigh out request with reg:", reg);
+  const session = await mongoose.startSession();
+  session.startTransaction(); //Uses a transaction session so that it can roll back if the whole operation fails at any point.
 
   try {
-    //---------------Finds truck and then assesses whether it is onsite and isnt overweight
-    const truck = await truckModel.findOne({ reg: reg });
-    if (!truck) {
-      //Case where no truck on db
-      return res.status(404).json({ message: "Truck not found on database!." });
-    }
-    netWeight = truck.outWeight - truck.tareWeight;
-    order_Id = truck.order_Id;
+    await session.withTransaction(async () => {
+      //--------------------------------------------------------->> First Check the truck is not exceeding max Gross weight
+      const truck = await truckModel
+        .findOne({ reg: reg, onSite: true })
+        .session(session);
+      if (!truck) throw new Error("Truck not found on records!");
 
-    if (outWeight > truck.maxGVW) {
-      //Bad request, refuse to save any tickets with overweight loads server side.
-      return res.status(400).json({
-        message:
-          "Vehicle overweight, Please instruct driver to return to loading site and drop off some payload",
-      });
-    }
-    //------------------------updates the ticket
-    const timeNow = getTime();
-    const updateResult = await ticketModel.updateOne(
-      { reg: reg, onsite: true },
-      {
-        $set: {
-          outWeight: outWeight,
-          timeOut: timeNow,
-          netWeight: netWeight,
-          onsite: false,
-        },
+      if (outWeight > truck.maxGVW) {
+        throw new Error("Vehicle overweight."); //Inform the clerk to instruct driver to tip off and return for a weigh out.
       }
-    );
+      //--------------------------------------------------------->> Next Update the Ticket
+      const netWeight = outWeight - truck.tareWeight;
+      const timeNow = getTime();
 
-    if (updateResult.matchedCount === 0) {
-      return res
-        .status(404)
-        .json({ message: "Ticket not found or truck not onsite." });
-    }
+      const ticketUpdate = await ticketModel.updateOne(
+        { reg: reg, onsite: true },
+        {
+          $set: {
+            outWeight: outWeight,
+            timeOut: timeNow,
+            netWeight: netWeight,
+            onsite: false,
+          },
+        },
+        { session }
+      );
 
-    //-----------------------updates the associated order to record that the quantity sent out is recorded
+      if (ticketUpdate.matchedCount === 0) {
+        throw new Error("No onsite ticket found for truck.");
+      }
+      //--------------------------------------------------------->> Find the associated order
+      const order = await orderModel
+        .findOne({ orderNumber: truck.order_Id, open: true })
+        .session(session);
+      if (!order) {
+        throw new Error("Associated open order not found.");
+      }
 
-    //get the amount delivered , add the net weight, and update the records of the order
-    const order = await orderModel.findOne({
-      orderNumber: order_Id,
-      open: true,
+      //--------------------------------------------------------->> If the quota (order.quantity) is met, closes order and updates
+      const newDelivered = order.amountDelivered + netWeight;
+      if (newDelivered > order.quantity) {
+        await orderModel.updateOne(
+          { _id: order._id },
+          { $set: { amountDelivered: newDelivered, open: false } },
+          { session }
+        );
+        console.log("An order contract was completed.");
+      } else {
+        //--------------------------------------------------------->> Update the order's amount delivered.
+        await orderModel.updateOne(
+          { _id: order._id },
+          { $set: { amountDelivered: newDelivered } },
+          { session }
+        );
+      }
     });
-    totalDelivered = order.amountDelivered;
-    const newDelivered = totalDelivered + netWeight;
 
-    await orderModel.updateOne(
-      { orderNumber: order_Id, open: true },
-      { $set: { amountDelivered: newDelivered } }
-    );
-
-    res.status(200).json({ message: "Weigh out Successful," });
+    await session.commitTransaction();
+    res.status(200).json({ message: "Weigh out successful." });
   } catch (error) {
+    await session.abortTransaction();
     res.status(500).json({ message: error.message });
+  } finally {
+    session.endSession();
   }
 });
 
