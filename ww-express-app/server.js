@@ -34,7 +34,7 @@ const updateTruck = require("./routes/truck-routes/updateTruck");
 //---------------------------------------------------Set up the express app
 const app = express();
 app.use(express.json());
-const port = 3060;
+const port = 3001;
 
 // cross origins resource sharing policy set up to only accept from local host (ie the same as server). This should be sufficient for this CW.
 app.use(cors());
