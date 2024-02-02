@@ -33,10 +33,6 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  amountRemaining: {
-    type: String,
-    required: true,
-  },
   deliveryAddress1: {
     type: String,
     required: true,
