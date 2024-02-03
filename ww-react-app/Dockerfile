@@ -10,7 +10,7 @@ COPY . .
 RUN npm run build
 
 # port
-EXPOSE 3000
+EXPOSE 5173
 
 # Entry point
 CMD ["npm", "run", "dev"]
