@@ -178,7 +178,7 @@ async function populateOrders() {
       );
     }
   } catch (error) {
-    console.error("Error populating the products in the database:", error);
+    console.error("Error populating the orders in the database:", error);
   }
 }
 module.exports = populateOrders;
