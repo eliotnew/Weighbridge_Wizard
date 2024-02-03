@@ -1,9 +1,7 @@
 const productModel = require("../../models/productModel");
-const checkAccExists = require("../accountCheck");
-const bcrypt = require("bcryptjs");
 /**
  * This function ensures that the required data exists on the db everytime it is started up.
- * Account for login.
+ * Products.
  */
 async function populateProducts() {
   try {
