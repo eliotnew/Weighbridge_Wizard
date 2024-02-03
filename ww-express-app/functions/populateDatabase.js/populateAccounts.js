@@ -1,11 +1,11 @@
-const accountModel = require("../models/accountModel");
-const checkAccExists = require("./accountCheck");
+const accountModel = require("../../models/accountModel");
+const checkAccExists = require("../accountCheck");
 const bcrypt = require("bcryptjs");
 /**
  * This function ensures that the required data exists on the db everytime it is started up.
- * This mostly pertains to products and also an account and data to populate my tables for development and demonstration.
+ * Account for login.
  */
-async function populateDB() {
+async function populateAccounts() {
   try {
     //----------------------------------------------------> Puts a default account on Weighbridge Wizard. (if it doesnt exist.)
     const password = "Helloworld1!";
@@ -44,4 +44,4 @@ async function populateDB() {
     console.error("Error populating the database:", error);
   }
 }
-module.exports = populateDB;
+module.exports = populateAccounts;
