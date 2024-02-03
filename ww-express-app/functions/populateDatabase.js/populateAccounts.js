@@ -30,8 +30,8 @@ async function populateAccounts() {
         { email: "arthur.pendragon@email.com" },
         {
           $set: {
-            foreName: arthurAccount.firstName,
-            surName: arthurAccount.lastName,
+            firstName: arthurAccount.firstName,
+            lastName: arthurAccount.lastName,
             email: arthurAccount.email,
             password: arthurAccount.password,
             location: arthurAccount.location,

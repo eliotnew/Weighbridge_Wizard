@@ -10,8 +10,8 @@ async function getAccountObject(email) {
 
     const accountObject = {
       _id: existingAccount._id,
-      foreName: existingAccount.foreName,
-      surName: existingAccount.surName,
+      firstName: existingAccount.firstName,
+      lastName: existingAccount.lastName,
       email: existingAccount.email,
       password: existingAccount.password,
       location: existingAccount.location,
