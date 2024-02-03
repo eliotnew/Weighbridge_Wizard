@@ -6,3 +6,4 @@ EXPOSE 27017
 
 #starts mongoDb as soon as container is running
 CMD ["mongodb"]
+
