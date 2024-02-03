@@ -28,6 +28,7 @@ const createTruck = require("./routes/truck-routes/createTruck");
 const deleteTruck = require("./routes/truck-routes/deleteTruck");
 const getTruck = require("./routes/truck-routes/getTruck");
 const updateTruck = require("./routes/truck-routes/updateTruck");
+const getAllTrucks = require("./routes/truck-routes/getAllTrucks");
 
 /**
  *      This is the Express App for The WeighBridge Wizard. It should handle data traffic to and from a mongo database.
@@ -65,6 +66,7 @@ app.use("/truck/create", createTruck);
 app.use("/truck/delete", deleteTruck);
 app.use("/truck/get", getTruck);
 app.use("/truck/update", updateTruck);
+app.use("/trucks/getall", getAllTrucks);
 
 // ---------------------------------------------------Connect to MongoDB
 async function connectToDatabase() {
