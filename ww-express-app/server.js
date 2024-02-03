@@ -80,10 +80,7 @@ async function connectToDatabase() {
       console.log("Connected to in-memory MongoDB!");
     } else {
       //non test environment
-      await mongoose.connect(realDbConnection, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
+      await mongoose.connect(realDbConnection);
       console.log("Connected to MongoDB");
     }
   } catch (error) {

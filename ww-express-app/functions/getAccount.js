@@ -1,4 +1,4 @@
-const accountModel = require("./Models/accountModel");
+const accountModel = require("../models/accountModel");
 
 /**
  * Returns an object of the account.

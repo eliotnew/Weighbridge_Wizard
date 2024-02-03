@@ -59,6 +59,7 @@ const orderSchema = new mongoose.Schema({
   },
 });
 
-const orderModel = mongoose.model("Account", orderSchema);
+const orderModel = mongoose.model("Order", orderSchema);
 
 module.exports = orderModel;
+//fixed?
