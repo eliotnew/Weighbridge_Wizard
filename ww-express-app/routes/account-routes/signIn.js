@@ -37,8 +37,8 @@ router.post("/", async (req, res) => {
           res.status(200).json({
             message: "Login successful",
             userId: idString,
-            foreName: existingAccount.foreName,
-            surName: existingAccount.surName,
+            firstName: existingAccount.firstName,
+            lastName: existingAccount.lastName,
             email: existingAccount.email,
             location: existingAccount.location,
           });

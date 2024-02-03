@@ -38,7 +38,6 @@ async function populateAccounts() {
           },
         }
       );
-      console.log("Restored King Arthur's account!");
     }
   } catch (error) {
     console.error("Error populating the database:", error);

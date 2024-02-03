@@ -15,7 +15,7 @@ const orderSchema = new mongoose.Schema({
   },
   dateFinish: {
     type: String,
-    required: true,
+    required: false,
   },
   open: {
     type: Boolean,

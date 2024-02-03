@@ -11,11 +11,11 @@ const getAccountObject = require("../../functions/getAccount");
 
 router.post("/", async (req, res) => {
   try {
-    const { foreName, surName, email, password, location } = req.body;
+    const { firstName, lastName, email, password, location } = req.body;
 
     console.log("Recieved body : foreName:", foreName);
-    console.log("surName:", surName);
-    console.log("email:", email);
+    console.log("surName:", firstName);
+    console.log("email:", lastName);
     console.log("password:", password);
     console.log("location:", location);
 
@@ -30,8 +30,8 @@ router.post("/", async (req, res) => {
       console.log("encrypting password " + password + "into " + hashedPassword);
 
       const createAccount = new accountModel({
-        foreName,
-        surName,
+        firstName,
+        lastName,
         email,
         password: hashedPassword,
         location,
@@ -48,8 +48,8 @@ router.post("/", async (req, res) => {
       res.status(201).json({
         message: "Account created successfully",
         userId: theID,
-        foreName: existingAccount.foreName,
-        surName: existingAccount.surName,
+        firstName: existingAccount.firstName,
+        lastName: existingAccount.lastName,
         email: existingAccount.email,
         location: existingAccount.location,
       }); //returns the account object without password for client side to use.

@@ -97,12 +97,14 @@ async function connectToDatabase() {
 connectToDatabase();
 
 //---------------------------------------------------Populate the Database
-
-await populateAccounts();
-await populateProducts();
-await populateOrders();
-await populateTrucks();
-console.log("Ran all functions to populate/Maintain core DB data. ");
+try {
+  populateAccounts();
+  populateProducts();
+  populateOrders();
+  populateTrucks();
+} catch (error) {
+  console.log("Something went wrong populating the database!");
+}
 
 //---------------------------------------------------WebSocket code
 
