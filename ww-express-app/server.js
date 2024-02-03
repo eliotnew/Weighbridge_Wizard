@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const socketIO = require("socket.io");
 const { MongoMemoryServer } = require("mongodb-memory-server");
+const populateOrders = require("./functions/populateDatabase.js/populateOrders");
+const populateProducts = require("./functions/populateDatabase.js/populateProducts");
+const populateTrucks = require("./functions/populateDatabase.js/populateTrucks");
+const populateAccounts = require("./functions/populateDatabase.js/populateAccounts");
 //Account Routes
 const deleteAccount = require("./routes/account-routes/deleteAccount");
 const signIn = require("./routes/account-routes/signIn");
@@ -89,6 +93,14 @@ async function connectToDatabase() {
 }
 
 connectToDatabase();
+
+//---------------------------------------------------Populate the Database
+
+await populateAccounts();
+await populateProducts();
+await populateOrders();
+await populateTrucks();
+console.log("Ran all functions to populate/Maintain core DB data. ");
 
 //---------------------------------------------------WebSocket code
 
