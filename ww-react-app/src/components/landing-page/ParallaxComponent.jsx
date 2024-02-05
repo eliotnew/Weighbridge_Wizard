@@ -49,7 +49,7 @@ function ParallaxComponent() {
             backgroundImage: `url(${pic1})`,
             backgroundSize: "cover",
             backgroundPosition: "center center",
-            filter: "blur(8px) grayscale(20%)",
+            filter: "blur(0px) grayscale(20%)",
           }}
           onClick={() => ref.current?.scrollTo(2)}
         ></ParallaxLayer>
@@ -61,7 +61,7 @@ function ParallaxComponent() {
             backgroundImage: `url(${pic3})`,
             backgroundSize: "cover",
             backgroundPosition: "center center",
-            filter: "blur(8px) grayscale(20%)",
+            filter: "blur(0px) grayscale(20%)",
           }}
           onClick={() => ref.current?.scrollTo(0)}
         ></ParallaxLayer>
@@ -87,10 +87,13 @@ function ParallaxComponent() {
           <Box
             p={2}
             sx={{
+              backgroundColor: "rgba(255, 255, 255, 0.7)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
               boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: theme.palette.primary.main,
+
               margin: "35px",
               width: "fit-content",
               Height: "25vh",
@@ -137,9 +140,11 @@ function ParallaxComponent() {
           <Box
             p={2}
             sx={{
+              backgroundColor: "rgba(255, 255, 255, 0.7)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)", //for safari compatibility
               boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
               justifyContent: "center",
-              backgroundColor: theme.palette.primary.main,
               margin: "35px",
               width: "50vw",
               Height: "25vh",
@@ -167,10 +172,13 @@ function ParallaxComponent() {
             <Box
               p={2}
               sx={{
-                boxShadow: "0px 8px 16px rgba(0, 0, 0,0.4)",
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: theme.palette.secondary.main,
+
                 width: "25vw",
                 Height: "25vh",
                 textAlign: "center",
@@ -193,10 +201,13 @@ function ParallaxComponent() {
             <Box
               p={2}
               sx={{
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
                 boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: theme.palette.secondary.main,
+
                 width: "25vw",
                 Height: "25vh",
                 textAlign: "center",
@@ -220,10 +231,13 @@ function ParallaxComponent() {
             <Box
               p={2}
               sx={{
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
                 boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: theme.palette.secondary.main,
+
                 width: "25vw",
                 Height: "25vh",
                 textAlign: "center",
@@ -259,10 +273,13 @@ function ParallaxComponent() {
           <Box
             p={2}
             sx={{
+              backgroundColor: "rgba(255, 255, 255, 0.7)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
               boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
               alignItems: "left",
               justifyContent: "center",
-              backgroundColor: theme.palette.secondary.main,
+
               margin: "35px",
               width: "50vw",
               Height: "25vh",
@@ -286,10 +303,13 @@ function ParallaxComponent() {
             <Box
               p={2}
               sx={{
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
                 boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: theme.palette.primary.main,
+
                 width: "25vw",
                 Height: "25vh",
                 textAlign: "center",
@@ -313,10 +333,13 @@ function ParallaxComponent() {
             <Box
               p={2}
               sx={{
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
                 boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: theme.palette.primary.main,
+
                 width: "25vw",
                 Height: "25vh",
                 textAlign: "center",
@@ -340,10 +363,13 @@ function ParallaxComponent() {
             <Box
               p={2}
               sx={{
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
                 boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: theme.palette.primary.main,
+
                 width: "25vw",
                 Height: "25vh",
                 textAlign: "center",
