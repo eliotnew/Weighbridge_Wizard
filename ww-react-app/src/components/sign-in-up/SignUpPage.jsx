@@ -26,7 +26,7 @@ function SignUpPage() {
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",
             boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
-            maxWidth: "60vw",
+            width: "fit-content",
             maxHeight: "90vh",
             borderRadius: "6px",
             textAlign: "center",

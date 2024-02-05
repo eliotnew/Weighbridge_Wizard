@@ -94,7 +94,6 @@ function LPappbar() {
             Sign In{" "}
             <FontAwesomeIcon
               icon={faRightToBracket}
-              beatFade
               style={{ marginLeft: "6px" }}
             />
           </Button>

@@ -20,10 +20,9 @@ import Alert from "@mui/material/Alert";
 import evaluatePassword from "../../functions/account_functions/evaluatePassword";
 import evaluatePassLength from "../../functions/account_functions/evaluatePassLength";
 
-
 function SignUpForm() {
   const [alertType, setAlertType] = useState(0);
-  const { login } = useLoggedInContext();  
+  const { login } = useLoggedInContext();
   const theme = useTheme();
   const navigate = useNavigate();
 
@@ -54,12 +53,11 @@ function SignUpForm() {
 
     const isLong = evaluatePassLength(password1);
     if (!isLong) {
-        setAlertType(8); //inform user that password is not good enough
-        return;
+      setAlertType(8); //inform user that password is not good enough
+      return;
     }
 
     const isStrong = evaluatePassword(password1);
-    
 
     if (!isStrong) {
       setAlertType(4); //inform user that password is not good enough
@@ -109,11 +107,14 @@ function SignUpForm() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1}}>
-        <FontAwesomeIcon
+        <Avatar sx={{ m: 1, bgcolor: theme.palette.primary.contrastText }}>
+          <FontAwesomeIcon
             icon={faRightToBracket}
-            beatFade
-            style={{  }}
+            flip
+            style={{
+              color: theme.palette.secondary.main,
+              animationDuration: "8s",
+            }}
           />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -270,7 +271,8 @@ function SignUpForm() {
             severity="warning"
             onClose={() => setAlertType(0)}
           >
-            Password too short! Please input a password that is more than 10 characters long!
+            Password too short! Please input a password that is more than 10
+            characters long!
           </Alert>
         ) : null}
       </>

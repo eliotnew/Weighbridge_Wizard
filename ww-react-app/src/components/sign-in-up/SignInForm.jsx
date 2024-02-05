@@ -17,8 +17,6 @@ import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import { useTheme } from "@mui/material";
 
-
-
 function SignInForm() {
   const [alertType, setAlertType] = useState(0);
   const { login } = useLoggedInContext();
@@ -82,11 +80,14 @@ function SignInForm() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: blue}}>
-        <FontAwesomeIcon
+        <Avatar sx={{ m: 1, bgcolor: theme.palette.primary.contrastText }}>
+          <FontAwesomeIcon
             icon={faRightToBracket}
-            beatFade
-            style={{  }}
+            flip
+            style={{
+              color: theme.palette.secondary.main,
+              animationDuration: "8s",
+            }}
           />
         </Avatar>
         <Typography component="h1" variant="h5">

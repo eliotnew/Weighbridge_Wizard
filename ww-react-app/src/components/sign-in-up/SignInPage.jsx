@@ -27,7 +27,7 @@ function SignInPage() {
             WebkitBackdropFilter: "blur(10px)",
             boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
             borderRadius: "6px",
-            maxWidth: "60vw",
+            width: "fit-content",
             maxHeight: "90vh",
             textAlign: "center",
             margin: "auto",
