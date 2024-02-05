@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHatWizard } from "@fortawesome/free-solid-svg-icons";
 import SettingsButton from "./SettingsButton";
 import LogoutButton from "./LogoutButton";
+import AccountButton from "./AccountButton";
 
 function DashboardAppBar() {
   const theme = useTheme();
@@ -12,7 +13,7 @@ function DashboardAppBar() {
       position="static"
       sx={{
         backgroundColor: theme.palette.primary.main,
-        height: "7.98vh",
+
         "&": {
           boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
         },
@@ -45,6 +46,21 @@ function DashboardAppBar() {
         />
 
         <SettingsButton />
+
+        <Typography
+          variant="h6"
+          component="span"
+          style={{
+            margin: "0 8px",
+            marginBottom: "5px",
+            color: theme.palette.primary.contrastText,
+            fontWeight: 1000,
+          }}
+        >
+          |
+        </Typography>
+
+        <AccountButton />
 
         <Typography
           variant="h6"

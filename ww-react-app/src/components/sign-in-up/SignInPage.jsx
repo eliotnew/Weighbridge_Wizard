@@ -24,8 +24,9 @@ function SignInPage() {
             marginTop: "50px",
             backgroundColor: "rgba(255, 255, 255, 0.7)",
             backdropFilter: "blur(10px)",
-            WebkitBackdropFilter: "blur(10px)", //for safari compatibility
+            WebkitBackdropFilter: "blur(10px)",
             boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+            borderRadius: "6px",
             maxWidth: "60vw",
             maxHeight: "90vh",
             textAlign: "center",

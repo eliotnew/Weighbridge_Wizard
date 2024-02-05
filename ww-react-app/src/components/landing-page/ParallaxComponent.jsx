@@ -93,7 +93,7 @@ function ParallaxComponent() {
               boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
               alignItems: "center",
               justifyContent: "center",
-
+              borderRadius: "6px",
               margin: "35px",
               width: "fit-content",
               Height: "25vh",
@@ -153,6 +153,7 @@ function ParallaxComponent() {
               display: "flex",
               flexDirection: "column",
               color: theme.palette.primary.contrastText,
+              borderRadius: "6px",
             }}
           >
             <h1>
@@ -178,7 +179,7 @@ function ParallaxComponent() {
                 boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
                 alignItems: "center",
                 justifyContent: "center",
-
+                borderRadius: "6px",
                 width: "25vw",
                 Height: "25vh",
                 textAlign: "center",
@@ -207,7 +208,7 @@ function ParallaxComponent() {
                 boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
                 alignItems: "center",
                 justifyContent: "center",
-
+                borderRadius: "6px",
                 width: "25vw",
                 Height: "25vh",
                 textAlign: "center",
@@ -237,7 +238,7 @@ function ParallaxComponent() {
                 boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
                 alignItems: "center",
                 justifyContent: "center",
-
+                borderRadius: "6px",
                 width: "25vw",
                 Height: "25vh",
                 textAlign: "center",
@@ -279,7 +280,7 @@ function ParallaxComponent() {
               boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
               alignItems: "left",
               justifyContent: "center",
-
+              borderRadius: "6px",
               margin: "35px",
               width: "50vw",
               Height: "25vh",
@@ -309,7 +310,7 @@ function ParallaxComponent() {
                 boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
                 alignItems: "center",
                 justifyContent: "center",
-
+                borderRadius: "6px",
                 width: "25vw",
                 Height: "25vh",
                 textAlign: "center",
@@ -339,7 +340,7 @@ function ParallaxComponent() {
                 boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
                 alignItems: "center",
                 justifyContent: "center",
-
+                borderRadius: "6px",
                 width: "25vw",
                 Height: "25vh",
                 textAlign: "center",
@@ -369,7 +370,7 @@ function ParallaxComponent() {
                 boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.4)",
                 alignItems: "center",
                 justifyContent: "center",
-
+                borderRadius: "6px",
                 width: "25vw",
                 Height: "25vh",
                 textAlign: "center",
