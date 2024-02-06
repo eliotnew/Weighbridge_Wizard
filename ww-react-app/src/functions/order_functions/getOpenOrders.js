@@ -1,6 +1,6 @@
 async function getClosedOrders() {
   /**
-   * Using the userID , requests for and returns all bookings for hotel rooms
+   * Get all orders that are open
    **/
   const apiEndpoint = "http://localhost:3001/order/getopen";
 

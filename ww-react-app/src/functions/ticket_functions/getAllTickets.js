@@ -1,19 +1,15 @@
-async function createOrder(jsonObj) {
+async function getAllTickets() {
   /**
-   * creates an order
+   * Returns all tickets
    **/
-  const apiEndpoint = "http://localhost:3001/order/create";
+  const apiEndpoint = "http://localhost:3001/ticket/getall";
 
   try {
     const response = await fetch(apiEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(jsonObj),
+      method: "GET",
+      headers: {},
     });
 
-    // Check if the request was successful
     if (response.ok) {
       const result = await response.json();
       return result;
@@ -30,4 +26,4 @@ async function createOrder(jsonObj) {
     throw error;
   }
 }
-export default createOrder;
+export default getAllTickets;

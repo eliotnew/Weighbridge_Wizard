@@ -1,6 +1,6 @@
 async function getAllTrucks() {
   /**
-   * Using the userID , requests for and returns all bookings for hotel rooms
+   * Returns all trucks from server
    **/
   const apiEndpoint = "http://localhost:3001/trucks/getall";
 

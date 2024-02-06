@@ -1,7 +1,6 @@
 async function createAccount(jsonObj) {
   /**
-   * Takes the sign up Json Object that matches the schema for the endpoint, sends it off to server asynchronously,
-   * and returns a Json object containing the response.
+   * Signs up the user with a post request.
    **/
   const apiEndpoint = "http://localhost:3001/account/signup";
 

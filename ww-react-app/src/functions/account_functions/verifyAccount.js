@@ -1,6 +1,6 @@
 async function verifyAccount(jsonObj) {
   /**
-   * Takes the object returned by the express API.
+   * Checks the account is there and that the password matches to allow a sign in
    *
    */
   const apiEndpoint = "http://localhost:3001/account/signin";
