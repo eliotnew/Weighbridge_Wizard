@@ -1,20 +1,10 @@
 import React, { useState } from "react";
-import { Typography, TextField, Button, Box } from "@mui/material";
+import { Typography, TextField, Button, Box, Alert } from "@mui/material";
 import createOrder from "../../../functions/order_functions/createOrder";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
 
 function CreateNewOrderContent() {
-  //const [company, setCompany] = useState("");
-  // const [product, setProduct] = useState("");
-  // const [quantity, setQuantity] = useState("");
-  // const [deliveryAddress1, setDeliveryAddress1] = useState("");
-  // const [deliveryAddress2, setDeliveryAddress2] = useState("");
-  // const [deliveryTown, setDeliveryTown] = useState("");
-  // const [deliveryPostCode, setDeliveryPostCode] = useState("");
-  // const [contactPhone, setContactPhone] = useState("");
-  // const [contactEmail, setContactEmail] = useState("");
-
-  //make it set the values from the form before logic.
+  const [alertType, setAlertType] = useState(0);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -59,13 +49,22 @@ function CreateNewOrderContent() {
     }
 
     if (!filledIn) {
-      console.log("all fields must be filled in!");
+      setAlertType(3);
     } else {
       try {
+        if (isNaN(parseFloat(quantity))) {
+          setAlertType(1);
+          return;
+        }
+        if (isNaN(parseFloat(contactPhone))) {
+          setAlertType(2);
+          return;
+        }
         const response = await createOrder(jsonObj);
         console.log(response);
         // Handle response (e.g., display a success message, clear form, etc.)
       } catch (error) {
+        setAlertType(4);
         console.error("Failed to create order:", error);
       }
     }
@@ -177,6 +176,46 @@ function CreateNewOrderContent() {
         />
         <SubmitFormButton />
       </Box>
+      {alertType === 1 ? (
+        <Alert
+          sx={{ padding: "10px" }}
+          severity="error"
+          onClose={() => setAlertType(0)}
+        >
+          Quantity Field Must be a Number!
+          <Button color="inherit" size="small"></Button>
+        </Alert>
+      ) : null}
+      {alertType === 2 ? (
+        <Alert
+          sx={{ padding: "10px" }}
+          severity="error"
+          onClose={() => setAlertType(0)}
+        >
+          Phone Number Field Must be a Number!
+          <Button color="inherit" size="small"></Button>
+        </Alert>
+      ) : null}
+      {alertType === 3 ? (
+        <Alert
+          sx={{ padding: "10px" }}
+          severity="error"
+          onClose={() => setAlertType(0)}
+        >
+          You Have Empty Inputs that are still required!
+          <Button color="inherit" size="small"></Button>
+        </Alert>
+      ) : null}
+      {alertType === 4 ? (
+        <Alert
+          sx={{ padding: "10px" }}
+          severity="warning"
+          onClose={() => setAlertType(0)}
+        >
+          Something Went Wrong on the server. Please Contact the Administrator!
+          <Button color="inherit" size="small"></Button>
+        </Alert>
+      ) : null}
     </>
   );
 }
