@@ -5,26 +5,15 @@ const generateOrderNumberID = require("../generateOrderNumberID");
  * Orders to assign Jobs.
  */
 async function populateOrders() {
+  await orderModel.deleteMany();
   try {
     //---------------------------------------------------> Create ids
     const id1 = generateOrderNumberID();
-    const exists1 = await orderModel.findOne({ orderNumber: id1 });
-
     const id2 = generateOrderNumberID();
-    const exists2 = await orderModel.findOne({ orderNumber: id2 });
-
     const id3 = generateOrderNumberID();
-    const exists3 = await orderModel.findOne({ orderNumber: id3 });
-
     const id4 = generateOrderNumberID();
-    const exists4 = await orderModel.findOne({ orderNumber: id4 });
-
     const id5 = generateOrderNumberID();
-    const exists5 = await orderModel.findOne({ orderNumber: id5 });
-
     const id6 = generateOrderNumberID();
-    const exists6 = await orderModel.findOne({ orderNumber: id6 });
-
     //---------------------------------------------------> Create Entities
 
     const closedOrder1 = new orderModel({
@@ -125,58 +114,13 @@ async function populateOrders() {
     });
 
     //----------------------------------------------------> Check that my default orders are there and replace/insert them
-    if (!exists1) {
-      await closedOrder1.save();
-    } else
-      orderModel.updateOne(
-        { orderNumber: id1 },
-        { $set: closedOrder1.toObject() }
-      );
 
-    if (!exists2) {
-      await closedOrder2.save();
-    } else {
-      await orderModel.updateOne(
-        { orderNumber: id2 },
-        { $set: closedOrder2.toObject() }
-      );
-    }
-
-    if (!exists3) {
-      await openOrder1.save();
-    } else {
-      await orderModel.updateOne(
-        { orderNumber: id3 },
-        { $set: openOrder1.toObject() }
-      );
-    }
-
-    if (!exists4) {
-      await openOrder2.save();
-    } else {
-      await orderModel.updateOne(
-        { orderNumber: id4 },
-        { $set: openOrder2.toObject() }
-      );
-    }
-
-    if (!exists5) {
-      await openOrder3.save();
-    } else {
-      await orderModel.updateOne(
-        { orderNumber: id5 },
-        { $set: openOrder3.toObject() }
-      );
-    }
-
-    if (!exists6) {
-      await openOrder4.save();
-    } else {
-      await orderModel.updateOne(
-        { orderNumber: id6 },
-        { $set: openOrder4.toObject() }
-      );
-    }
+    await closedOrder1.save();
+    await closedOrder2.save();
+    await openOrder1.save();
+    await openOrder2.save();
+    await openOrder3.save();
+    await openOrder4.save();
   } catch (error) {
     console.error("Error populating the orders in the database:", error);
   }

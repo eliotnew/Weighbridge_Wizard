@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -12,31 +12,25 @@ import {
   Typography,
 } from "@mui/material";
 import CircleProgressBar from "../../basicUI/CircleProgressBar";
+import getClosedOrders from "../../../functions/order_functions/getClosedOrders";
+import getOpenOrders from "../../../functions/order_functions/getOpenOrders";
 
 function ManageOutstandingOrderContent() {
   const theme = useTheme();
-  const data = [
-    {
-      orderNumber: "1234567",
-      company: "Construction LTD.",
-      date: "07/12/2023",
-      productType: "Clay Pellets",
-      remaining: "44012",
-      progress: "32",
-    },
-    {
-      orderNumber: "1567895",
-      company: "Argricultural & Co.",
-      date: "21/12/2023",
-      productType: "40mm Limestone",
-      remaining: "3712",
-      progress: "75",
-    },
-  ];
+  const [orders, setOrders] = useState([]);
 
   const cellStyle = {
     borderRight: "1px solid rgba(224, 224, 224, 1)",
   };
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const openOrders = await getOpenOrders();
+      setOrders(openOrders);
+    };
+
+    fetchOrders();
+  }, []);
 
   return (
     <>
@@ -100,14 +94,16 @@ function ManageOutstandingOrderContent() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row, index) => (
+            {orders.map((row, index) => (
               <TableRow key={index}>
                 <TableCell sx={{ ...cellStyle }}>{row.orderNumber}</TableCell>
                 <TableCell sx={{ ...cellStyle }}>{row.company}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.date}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.productType}</TableCell>
+                <TableCell sx={{ ...cellStyle }}>{row.dateStart}</TableCell>
+                <TableCell sx={{ ...cellStyle }}>{row.product}</TableCell>
                 <TableCell sx={{ ...cellStyle }}>
-                  <CircleProgressBar value={row.progress} />
+                  <CircleProgressBar
+                    value={(orders.amountDelivered / orders.quantity) * 100}
+                  />
                 </TableCell>
 
                 <TableCell>
