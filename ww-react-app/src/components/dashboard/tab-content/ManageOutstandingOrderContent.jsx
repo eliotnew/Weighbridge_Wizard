@@ -12,7 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 import CircleProgressBar from "../../basicUI/CircleProgressBar";
-import getClosedOrders from "../../../functions/order_functions/getClosedOrders";
 import getOpenOrders from "../../../functions/order_functions/getOpenOrders";
 
 function ManageOutstandingOrderContent() {
@@ -81,7 +80,7 @@ function ManageOutstandingOrderContent() {
                   color: theme.palette.secondary.contrastText,
                 }}
               >
-                Remainder Quantity
+                Remaining
               </TableCell>
               <TableCell
                 sx={{
@@ -89,7 +88,15 @@ function ManageOutstandingOrderContent() {
                   color: theme.palette.secondary.contrastText,
                 }}
               >
-                View/ Edit Details
+                Order Progress
+              </TableCell>
+              <TableCell
+                sx={{
+                  backgroundColor: theme.palette.secondary.main,
+                  color: theme.palette.secondary.contrastText,
+                }}
+              >
+                View/Edit
               </TableCell>
             </TableRow>
           </TableHead>
@@ -101,8 +108,11 @@ function ManageOutstandingOrderContent() {
                 <TableCell sx={{ ...cellStyle }}>{row.dateStart}</TableCell>
                 <TableCell sx={{ ...cellStyle }}>{row.product}</TableCell>
                 <TableCell sx={{ ...cellStyle }}>
+                  {row.quantity - row.amountDelivered + " kg"}
+                </TableCell>
+                <TableCell sx={{ ...cellStyle }}>
                   <CircleProgressBar
-                    value={(orders.amountDelivered / orders.quantity) * 100}
+                    value={(row.amountDelivered / row.quantity) * 100}
                   />
                 </TableCell>
 

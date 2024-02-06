@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -11,32 +11,24 @@ import {
   useTheme,
   Typography,
 } from "@mui/material";
-import CircleProgressBar from "../../basicUI/CircleProgressBar";
+import getClosedOrders from "../../../functions/order_functions/getClosedOrders";
 
 function ViewClosedOrdersContent() {
   const theme = useTheme();
-  const data = [
-    {
-      orderNumber: "1234567",
-      company: "Construction LTD.",
-      dateOpened: "07/12/2023",
-      dateClosed: "06/01/2024",
-      productType: "Clay Pellets",
-      delivered: "44012",
-    },
-    {
-      orderNumber: "1567895",
-      company: "Argricultural & Co.",
-      dateOpened: "21/12/2023",
-      dateClosed: "06/01/2024",
-      productType: "40mm Limestone",
-      delivered: "3712",
-    },
-  ];
+  const [orders, setOrders] = useState([]);
 
   const cellStyle = {
     borderRight: "1px solid rgba(224, 224, 224, 1)",
   };
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const closedOrders = await getClosedOrders();
+      setOrders(closedOrders);
+    };
+
+    fetchOrders();
+  }, []);
 
   return (
     <>
@@ -108,15 +100,16 @@ function ViewClosedOrdersContent() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row, index) => (
+            {orders.map((row, index) => (
               <TableRow key={index}>
                 <TableCell sx={{ ...cellStyle }}>{row.orderNumber}</TableCell>
                 <TableCell sx={{ ...cellStyle }}>{row.company}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.dateOpened}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.dateClosed}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.productType}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.delivered}</TableCell>
-
+                <TableCell sx={{ ...cellStyle }}>{row.dateStart}</TableCell>
+                <TableCell sx={{ ...cellStyle }}>{row.dateFinish}</TableCell>
+                <TableCell sx={{ ...cellStyle }}>{row.product}</TableCell>
+                <TableCell sx={{ ...cellStyle }}>
+                  {row.amountDelivered + " kg"}
+                </TableCell>
                 <TableCell>
                   <Button
                     sx={{
