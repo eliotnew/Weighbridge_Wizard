@@ -68,6 +68,11 @@ function SignUpForm() {
       return;
     }
 
+    if (location == "") {
+      setAlertType(9);
+      return;
+    }
+
     const jsonObj = {
       firstName: forename,
       lastName: surname,
@@ -297,6 +302,15 @@ function SignUpForm() {
           >
             Password too short! Please input a password that is more than 10
             characters long!
+          </Alert>
+        ) : null}
+        {alertType === 9 ? (
+          <Alert
+            sx={{ padding: "10px" }}
+            severity="warning"
+            onClose={() => setAlertType(0)}
+          >
+            You must select the location of your WeighBridge!
           </Alert>
         ) : null}
       </>
