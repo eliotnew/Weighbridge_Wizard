@@ -10,8 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-// import verifyAccount from "../functionality/verifyAccount";
-// import saveAccToLS from "../functionality/saveAccToLS";
+import verifyAccount from "../../functions/account_functions/verifyAccount";
+import saveLocalAccountDetails from "../../functions/account_functions/saveLocalAccountDetails";
 import { useLoggedInContext } from "../../loggedInContext";
 import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
@@ -38,35 +38,35 @@ function SignInForm() {
       return;
     }
 
-    // const jsonObj = {
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    // };
+    const jsonObj = {
+      email: data.get("email"),
+      password: data.get("password"),
+    };
 
-    // try {
-    //   const result = await verifyAccount(jsonObj);
-    //   if (result && result.message === "Login successful") {
-    //     saveAccToLS(result);
-    //     login();
-    //     navigate("/account");
-    //   } else if (result && result.message === "Invalid password") {
-    //     setAlertType(401);
-    //     //something happens
-    //   } else if (
-    //     result &&
-    //     result.message ===
-    //       "Account does not exist, did you mean to sign up instead?"
-    //   ) {
-    //     setAlertType(404);
-    //     //something happens
-    //   } else {
-    //     window.alert(
-    //       "Something went wrong , please contact the page administrator"
-    //     );
-    //   }
-    // } catch {
-    //   //error alert?
-    // }
+    try {
+      const result = await verifyAccount(jsonObj);
+      if (result && result.message === "Login successful") {
+        saveLocalAccountDetails(result);
+        login();
+        navigate("/dashboard");
+      } else if (result && result.message === "Invalid password") {
+        setAlertType(401);
+        //something happens
+      } else if (
+        result &&
+        result.message ===
+          "Account does not exist, did you mean to sign up instead?"
+      ) {
+        setAlertType(404);
+        //something happens
+      } else {
+        window.alert(
+          "Something went wrong , please contact the page administrator"
+        );
+      }
+    } catch {
+      //error alert?
+    }
   };
 
   return (
