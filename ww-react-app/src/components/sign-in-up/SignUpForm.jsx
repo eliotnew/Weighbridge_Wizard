@@ -7,21 +7,26 @@ import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 import { useTheme } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-// import createAccount from "../functionality/createAccount";
-// import saveAccToLS from "../functionality/saveAccToLS";
+import createAccount from "../../functions/account_functions/createAccount";
+import saveLocalAccountDetails from "../../functions/account_functions/saveLocalAccountDetails";
 import { useLoggedInContext } from "../../loggedInContext";
 import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import evaluatePassword from "../../functions/account_functions/evaluatePassword";
 import evaluatePassLength from "../../functions/account_functions/evaluatePassLength";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 
 function SignUpForm() {
   const [alertType, setAlertType] = useState(0);
+  const [location, setLocation] = useState("");
   const { login } = useLoggedInContext();
   const theme = useTheme();
   const navigate = useNavigate();
@@ -32,10 +37,9 @@ function SignUpForm() {
 
     const password1 = data.get("password1");
     const password2 = data.get("password2");
-    const email = data.get("email");
     const forename = data.get("firstName");
-    const surname = data.get("firstName");
-
+    const surname = data.get("lastName");
+    const email = data.get("email");
     if (email === null || email === "") {
       setAlertType(6); //inform the user that you need an email address
       return;
@@ -65,21 +69,21 @@ function SignUpForm() {
     }
 
     const jsonObj = {
-      foreName: data.get("firstName"),
-      surName: data.get("lastName"),
-      email: data.get("email"),
+      firstName: forename,
+      lastName: surname,
+      email: email,
       password: password1,
+      location: location,
     };
-
     try {
       const successAccount = await createAccount(jsonObj);
       if (
         successAccount &&
         successAccount.message === "Account created successfully"
       ) {
-        saveAccToLS(successAccount);
-        login();
-        navigate("/account");
+        saveLocalAccountDetails(successAccount);
+        //login();
+        navigate("/dashboard");
       } else if (
         successAccount &&
         successAccount.message ===
@@ -173,7 +177,27 @@ function SignUpForm() {
                 id="password2"
               />
             </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel id="location-label">
+                  WeighBridge Location:
+                </InputLabel>
+                <Select
+                  labelId="location-label"
+                  id="location"
+                  name="location"
+                  value={location}
+                  label="WeighBridge Location:"
+                  onChange={(event) => setLocation(event.target.value)}
+                  required
+                >
+                  <MenuItem value={"Camelot"}>Camelot</MenuItem>
+                  <MenuItem value={"Plymouth"}>Plymouth</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
           </Grid>
+
           <Button
             type="submit"
             fullWidth
