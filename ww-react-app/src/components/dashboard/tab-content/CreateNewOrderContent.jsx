@@ -1,12 +1,67 @@
-import React from "react";
-import { Typography, TextField } from "@mui/material";
+import React, { useState } from "react";
+import { Typography, TextField, Button, Box } from "@mui/material";
+import createOrder from "../../../functions/order_functions/createOrder";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
 
 function CreateNewOrderContent() {
+  const [company, setCompany] = useState("");
+  const [product, setProduct] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [deliveryAddress1, setDeliveryAddress1] = useState("");
+  const [deliveryAddress2, setDeliveryAddress2] = useState("");
+  const [deliveryTown, setDeliveryTown] = useState("");
+  const [deliveryPostCode, setDeliveryPostCode] = useState("");
+  const [contactPhone, setContactPhone] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+
+  //make it set the values from the form before logic.
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const jsonObj = {
+      company: company,
+      product: product,
+      quantity: Number(quantity),
+      deliveryAddress1: deliveryAddress1,
+      deliveryAddress2: deliveryAddress2,
+      deliveryTown: deliveryTown,
+      deliveryPostCode: deliveryPostCode,
+      contactPhone: Number(contactPhone),
+      contactEmail: contactEmail,
+    };
+
+    console.log(jsonObj);
+
+    //Check there are no empty inputs, but deliveryAddress2 is optional.
+    let filledIn = true;
+    for (const key in jsonObj) {
+      if (key === "deliveryAddress2") {
+        continue;
+      }
+      const value = jsonObj[key];
+      if (value === "" || value === undefined) {
+        filledIn = false;
+        break;
+      }
+    }
+
+    if (!filledIn) {
+      console.log("all fields must be filled in!");
+    } else {
+      try {
+        const response = await createOrder(jsonObj);
+        console.log(response);
+        // Handle response (e.g., display a success message, clear form, etc.)
+      } catch (error) {
+        console.error("Failed to create order:", error);
+      }
+    }
+  };
+
   return (
     <>
       <Typography variant="h3"> Create New Order </Typography>
-      <div>
+      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
         <TextField
           margin="normal"
           required
@@ -57,10 +112,9 @@ function CreateNewOrderContent() {
         />
 
         <TextField
-          required
           fullWidth
           margin="dense"
-          label="Address Line 2:"
+          label="Address Line 2 (Optional):"
           variant="outlined"
           id="ad2"
           size="small"
@@ -109,7 +163,7 @@ function CreateNewOrderContent() {
           size="small"
         />
         <SubmitFormButton />
-      </div>
+      </Box>
     </>
   );
 }
