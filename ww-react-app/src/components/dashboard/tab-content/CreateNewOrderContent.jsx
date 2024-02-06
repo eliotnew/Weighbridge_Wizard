@@ -4,20 +4,32 @@ import createOrder from "../../../functions/order_functions/createOrder";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
 
 function CreateNewOrderContent() {
-  const [company, setCompany] = useState("");
-  const [product, setProduct] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [deliveryAddress1, setDeliveryAddress1] = useState("");
-  const [deliveryAddress2, setDeliveryAddress2] = useState("");
-  const [deliveryTown, setDeliveryTown] = useState("");
-  const [deliveryPostCode, setDeliveryPostCode] = useState("");
-  const [contactPhone, setContactPhone] = useState("");
-  const [contactEmail, setContactEmail] = useState("");
+  //const [company, setCompany] = useState("");
+  // const [product, setProduct] = useState("");
+  // const [quantity, setQuantity] = useState("");
+  // const [deliveryAddress1, setDeliveryAddress1] = useState("");
+  // const [deliveryAddress2, setDeliveryAddress2] = useState("");
+  // const [deliveryTown, setDeliveryTown] = useState("");
+  // const [deliveryPostCode, setDeliveryPostCode] = useState("");
+  // const [contactPhone, setContactPhone] = useState("");
+  // const [contactEmail, setContactEmail] = useState("");
 
   //make it set the values from the form before logic.
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const data = new FormData(event.currentTarget);
+    const company = data.get("company");
+    const product = data.get("product");
+    const quantity = data.get("quantity");
+    const deliveryAddress1 = data.get("ad1");
+    const deliveryAddress2 = data.get("ad2");
+    const deliveryTown = data.get("deliveryTown");
+    const deliveryPostCode = data.get("postcode");
+    const contactPhone = data.get("phone");
+    const contactEmail = data.get("email");
+
     const jsonObj = {
       company: company,
       product: product,
@@ -35,6 +47,7 @@ function CreateNewOrderContent() {
     //Check there are no empty inputs, but deliveryAddress2 is optional.
     let filledIn = true;
     for (const key in jsonObj) {
+      console.log(key, jsonObj[key]);
       if (key === "deliveryAddress2") {
         continue;
       }
@@ -68,7 +81,7 @@ function CreateNewOrderContent() {
           fullWidth
           label="Company Name:"
           variant="outlined"
-          id="company"
+          name="company"
           size="small"
         />
 
@@ -84,7 +97,7 @@ function CreateNewOrderContent() {
             required
             label="Product:"
             variant="outlined"
-            id="product"
+            name="product"
             size="small"
           />
 
@@ -93,7 +106,7 @@ function CreateNewOrderContent() {
             required
             label="Quantity (kg):"
             variant="outlined"
-            id="quantity"
+            name="quantity"
             size="small"
           />
         </div>
@@ -107,7 +120,7 @@ function CreateNewOrderContent() {
           margin="dense"
           label="Address Line 1:"
           variant="outlined"
-          id="ad1"
+          name="ad1"
           size="small"
         />
 
@@ -116,7 +129,7 @@ function CreateNewOrderContent() {
           margin="dense"
           label="Address Line 2 (Optional):"
           variant="outlined"
-          id="ad2"
+          name="ad2"
           size="small"
         />
 
@@ -126,7 +139,7 @@ function CreateNewOrderContent() {
           margin="dense"
           label="City/Town:"
           variant="outlined"
-          id="product"
+          name="deliveryTown"
           size="small"
         />
 
@@ -136,7 +149,7 @@ function CreateNewOrderContent() {
           margin="dense"
           label="Postcode:"
           variant="outlined"
-          id="product"
+          name="postcode"
           size="small"
         />
 
@@ -149,7 +162,7 @@ function CreateNewOrderContent() {
           fullWidth
           label="Phone Number:"
           variant="outlined"
-          id="phone"
+          name="phone"
           size="small"
         />
 
@@ -159,7 +172,7 @@ function CreateNewOrderContent() {
           fullWidth
           label="e-mail Address:"
           variant="outlined"
-          id="email"
+          name="email"
           size="small"
         />
         <SubmitFormButton />
