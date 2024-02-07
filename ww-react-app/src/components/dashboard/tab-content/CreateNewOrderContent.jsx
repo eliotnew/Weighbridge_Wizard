@@ -21,7 +21,6 @@ function CreateNewOrderContent() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      setIsLoading(true);
       try {
         const fetchedProducts = await getAllProducts();
         setProducts(fetchedProducts);
@@ -125,9 +124,9 @@ function CreateNewOrderContent() {
               id="product"
               name="product"
               size="small"
-              value={selectedProduct} // You'll need a state variable to track the selected product
+              value={selectedProduct}
               label="Product"
-              onChange={(event) => setSelectedProduct(event.target.value)} // Update the state when a new product is selected
+              onChange={(event) => setSelectedProduct(event.target.value)}
               required
             >
               {products.map((product, index) => (
