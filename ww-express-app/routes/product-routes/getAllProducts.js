@@ -8,9 +8,9 @@ router.get("/", async (req, res) => {
     const products = await productModel.find();
 
     if (products.length === 0) {
-      return res.status(404).json({ message: "No tickets found" });
+      return res.status(404).json({ message: "No products found" });
     } else {
-      res.status(200).json(tickets);
+      res.status(200).json(products);
     }
   } catch (error) {
     res.status(500).json({ message: error.message });

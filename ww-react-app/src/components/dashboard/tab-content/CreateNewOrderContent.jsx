@@ -1,10 +1,37 @@
-import React, { useState } from "react";
-import { Typography, TextField, Button, Box, Alert } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+  Typography,
+  TextField,
+  Button,
+  Box,
+  Alert,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import createOrder from "../../../functions/order_functions/createOrder";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
+import getAllProducts from "../../../functions/product_functions/getAllProducts";
 
 function CreateNewOrderContent() {
   const [alertType, setAlertType] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState("");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      try {
+        const fetchedProducts = await getAllProducts();
+        setProducts(fetchedProducts);
+      } catch (error) {
+        setAlertType(404);
+        console.error("Failed to fetch tickets:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -91,14 +118,25 @@ function CreateNewOrderContent() {
             alignItems: "center",
           }}
         >
-          <TextField
-            margin="normal"
-            required
-            label="Product:"
-            variant="outlined"
-            name="product"
-            size="small"
-          />
+          <FormControl fullWidth>
+            <InputLabel id="product-label">Product:</InputLabel>
+            <Select
+              labelId="product-label"
+              id="product"
+              name="product"
+              size="small"
+              value={selectedProduct} // You'll need a state variable to track the selected product
+              label="Product"
+              onChange={(event) => setSelectedProduct(event.target.value)} // Update the state when a new product is selected
+              required
+            >
+              {products.map((product, index) => (
+                <MenuItem key={index} value={product.product}>
+                  {product.product}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
           <TextField
             margin="normal"
@@ -213,6 +251,17 @@ function CreateNewOrderContent() {
           onClose={() => setAlertType(0)}
         >
           Something Went Wrong on the server. Please Contact the Administrator!
+          <Button color="inherit" size="small"></Button>
+        </Alert>
+      ) : null}
+      {alertType === 404 ? (
+        <Alert
+          sx={{ padding: "10px" }}
+          severity="warning"
+          onClose={() => setAlertType(0)}
+        >
+          Something Went Wrong on the server. Failed to Load in the products
+          from the server!
           <Button color="inherit" size="small"></Button>
         </Alert>
       ) : null}
