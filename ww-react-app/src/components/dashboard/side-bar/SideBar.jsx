@@ -25,7 +25,7 @@ function SideBar({ addTab }) {
       open
       sx={{
         width: drawerWidth,
-        height: "86.55vh",
+        height: "90vh",
         flexShrink: 0,
         "& .MuiDrawer-paper": {
           width: "15vw",
