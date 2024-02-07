@@ -34,6 +34,7 @@ function TruckDatabaseContent() {
           setIsEmpty(true);
         } else {
           setTrucks(fetchedTrucks);
+          setIsLoading(false);
           setIsEmpty(false);
           setIsError(false);
         }

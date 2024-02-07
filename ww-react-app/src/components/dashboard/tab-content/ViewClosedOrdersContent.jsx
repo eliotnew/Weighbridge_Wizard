@@ -33,6 +33,7 @@ function ViewClosedOrdersContent() {
         if (closedOrders.length === 0) {
           setIsEmpty(true);
         } else {
+          setIsLoading(false);
           setOrders(closedOrders);
           setIsEmpty(false);
           setIsError(false);

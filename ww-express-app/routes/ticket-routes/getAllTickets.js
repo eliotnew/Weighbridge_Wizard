@@ -6,7 +6,12 @@ const ticketModel = require("../../models/ticketModel");
 router.get("/", async (req, res) => {
   try {
     const tickets = await ticketModel.find();
-    res.status(200).json(tickets);
+
+    if (tickets.length === 0) {
+      return res.status(404).json({ message: "No tickets found" });
+    } else {
+      res.status(200).json(tickets);
+    }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

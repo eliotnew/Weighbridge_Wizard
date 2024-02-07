@@ -2,8 +2,8 @@ import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTicket } from "@fortawesome/free-solid-svg-icons";
-import TrainingContent from "../../tab-content/TrainingContent";
-import TicketsContent from "../../tab-content/ticketsContent";
+import TicketsContent from "../../tab-content/TicketsContent";
+//import TicketsContent from "../../tab-content/ticketsContent";
 
 function ViewTicketsButton({ addTab }) {
   const theme = useTheme();

@@ -19,10 +19,10 @@ async function getAllTickets() {
         response.statusText
       );
       const errorresponse = await response.json();
-      return errorresponse;
+      return [];
     }
   } catch (error) {
-    throw error;
+    throw [];
   }
 }
 export default getAllTickets;

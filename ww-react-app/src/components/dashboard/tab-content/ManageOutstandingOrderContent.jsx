@@ -37,6 +37,8 @@ function ManageOutstandingOrderContent() {
           setOrders(openOrders);
           setIsEmpty(false);
           setIsError(false);
+
+          setIsLoading(false);
         }
       } catch (error) {
         if (error.response && error.response.status === 404) {

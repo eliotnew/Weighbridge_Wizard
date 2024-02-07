@@ -25,31 +25,26 @@ function TicketsContent() {
 
   useEffect(() => {
     const fetchTickets = async () => {
+      setIsLoading(true);
       try {
         const fetchedTickets = await getAllTickets();
-
-        if (fetchedTickets.length === 0) {
-          setIsEmpty(true);
-        } else {
+        setIsLoading(false);
+        if (fetchedTickets && fetchedTickets.length > 0) {
           setTickets(fetchedTickets);
           setIsEmpty(false);
-          setIsError(false);
-        }
-      } catch (error) {
-        if (error.response && error.response.status === 404) {
-          setIsEmpty(true);
-          setIsLoading(false);
         } else {
-          console.error("Failed to fetch tickets:", error);
-          setIsError(true);
-          setIsLoading(false);
+          setIsEmpty(true);
         }
+        setIsError(false);
+      } catch (error) {
+        setIsLoading(false);
+        setIsError(true);
+        console.error("Failed to fetch tickets:", error);
       }
     };
 
     fetchTickets();
-  }, []); // Dependency array is empty, so this effect runs once on mount
-
+  }, []);
   if (isLoading) {
     return <LoadingContent />;
   }
