@@ -117,7 +117,7 @@ function CreateNewOrderContent() {
             alignItems: "center",
           }}
         >
-          <FormControl fullWidth>
+          <FormControl fullWidth margin="normal">
             <InputLabel id="product-label">Product:</InputLabel>
             <Select
               labelId="product-label"
