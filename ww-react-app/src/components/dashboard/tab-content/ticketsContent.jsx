@@ -11,9 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import getAllTickets from "../../../functions/ticket_functions/getAllTickets";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-
+import LoadingContent from "../../basicUI/LoadingContent";
 function TicketsContent() {
   const theme = useTheme();
   const [tickets, setTickets] = useState([]);
@@ -53,23 +51,7 @@ function TicketsContent() {
   }, []); // Dependency array is empty, so this effect runs once on mount
 
   if (isLoading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-          width: "100%",
-        }}
-      >
-        <Typography variant="h3" style={{ marginBottom: "20px" }}>
-          Loading...
-        </Typography>
-        <FontAwesomeIcon icon={faSpinner} spin size="4x" />
-      </div>
-    );
+    return <LoadingContent />;
   }
 
   return (

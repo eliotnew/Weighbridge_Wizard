@@ -13,8 +13,7 @@ import {
 } from "@mui/material";
 import CircleProgressBar from "../../basicUI/CircleProgressBar";
 import getOpenOrders from "../../../functions/order_functions/getOpenOrders";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import LoadingContent from "../../basicUI/LoadingContent";
 
 function ManageOutstandingOrderContent() {
   const theme = useTheme();
@@ -55,23 +54,7 @@ function ManageOutstandingOrderContent() {
   }, []);
 
   if (isLoading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-          width: "100%",
-        }}
-      >
-        <Typography variant="h3" style={{ marginBottom: "20px" }}>
-          Loading...
-        </Typography>
-        <FontAwesomeIcon icon={faSpinner} spin size="4x" />
-      </div>
-    );
+    return <LoadingContent />;
   }
 
   return (

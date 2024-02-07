@@ -12,8 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import getClosedOrders from "../../../functions/order_functions/getClosedOrders";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import LoadingContent from "../../basicUI/LoadingContent";
 
 function ViewClosedOrdersContent() {
   const theme = useTheme();
@@ -43,7 +42,7 @@ function ViewClosedOrdersContent() {
           setIsEmpty(true);
           setIsLoading(false);
         } else {
-          console.error("Failed to fetch tickets:", error);
+          console.error("Failed to fetch closed orders:", error);
           setIsError(true);
           setIsLoading(false);
         }
@@ -54,25 +53,8 @@ function ViewClosedOrdersContent() {
   }, []);
 
   if (isLoading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-          width: "100%",
-        }}
-      >
-        <Typography variant="h3" style={{ marginBottom: "20px" }}>
-          Loading...
-        </Typography>
-        <FontAwesomeIcon icon={faSpinner} spin size="4x" />
-      </div>
-    );
+    return <LoadingContent />;
   }
-
   return (
     <>
       <Typography variant="h3"> View Closed Orders </Typography>

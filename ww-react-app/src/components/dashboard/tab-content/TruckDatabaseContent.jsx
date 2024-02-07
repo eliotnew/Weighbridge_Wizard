@@ -12,9 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import getAllTrucks from "../../../functions/truck_functions/getAllTrucks";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import LoadingContent from "../../basicUI/LoadingContent";
 
 function TruckDatabaseContent() {
   const theme = useTheme();
@@ -55,23 +53,7 @@ function TruckDatabaseContent() {
   }, []); // Dependency array is empty, so this effect runs once on mount
 
   if (isLoading) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-          width: "100%",
-        }}
-      >
-        <Typography variant="h3" style={{ marginBottom: "20px" }}>
-          Loading...
-        </Typography>
-        <FontAwesomeIcon icon={faSpinner} spin size="4x" />
-      </div>
-    );
+    return <LoadingContent />;
   }
 
   return (
