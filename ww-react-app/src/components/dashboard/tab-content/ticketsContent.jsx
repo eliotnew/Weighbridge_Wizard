@@ -7,7 +7,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Button,
   useTheme,
   Typography,
 } from "@mui/material";
@@ -30,7 +29,6 @@ function TicketsContent() {
     const fetchTickets = async () => {
       try {
         const fetchedTickets = await getAllTickets();
-        //Displays different page content if it is empty
 
         if (fetchedTickets.length === 0) {
           setIsEmpty(true);
@@ -41,7 +39,7 @@ function TicketsContent() {
         }
       } catch (error) {
         if (error.response && error.response.status === 404) {
-          setIsEmpty(true); // Set to true if a 404 error is returned from the API
+          setIsEmpty(true);
           setIsLoading(false);
         } else {
           console.error("Failed to fetch tickets:", error);
@@ -69,7 +67,7 @@ function TicketsContent() {
         <Typography variant="h3" style={{ marginBottom: "20px" }}>
           Loading...
         </Typography>
-        <FontAwesomeIcon icon={faSpinner} spin size="6x" />
+        <FontAwesomeIcon icon={faSpinner} spin size="4x" />
       </div>
     );
   }

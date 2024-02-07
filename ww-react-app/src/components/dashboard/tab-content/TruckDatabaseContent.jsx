@@ -69,7 +69,7 @@ function TruckDatabaseContent() {
         <Typography variant="h3" style={{ marginBottom: "20px" }}>
           Loading...
         </Typography>
-        <FontAwesomeIcon icon={faSpinner} spin size="6x" />
+        <FontAwesomeIcon icon={faSpinner} spin size="4x" />
       </div>
     );
   }

@@ -22,7 +22,6 @@ async function getClosedOrders() {
       return errorresponse;
     }
   } catch (error) {
-    window.alert("Error during API Request:", error.message);
     throw error;
   }
 }
