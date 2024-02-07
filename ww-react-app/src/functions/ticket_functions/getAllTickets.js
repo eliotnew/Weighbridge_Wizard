@@ -22,7 +22,6 @@ async function getAllTickets() {
       return errorresponse;
     }
   } catch (error) {
-    window.alert("Error during API Request:", error.message);
     throw error;
   }
 }
