@@ -7,29 +7,31 @@ const populateOrders = require("./functions/populateDatabase.js/populateOrders")
 const populateProducts = require("./functions/populateDatabase.js/populateProducts");
 const populateTrucks = require("./functions/populateDatabase.js/populateTrucks");
 const populateAccounts = require("./functions/populateDatabase.js/populateAccounts");
-//Account Routes
+//Import Account Routes
 const deleteAccount = require("./routes/account-routes/deleteAccount");
 const signIn = require("./routes/account-routes/signIn");
 const signup = require("./routes/account-routes/signUp");
 const updateAccount = require("./routes/account-routes/updateAccount");
 const updatePassword = require("./routes/account-routes/updatePassword");
-//Order Routes
+//Import Order Routes
 const closeOrder = require("./routes/order-routes/closeOrder");
 const createOrder = require("./routes/order-routes/createOrder");
 const getClosedOrders = require("./routes/order-routes/getClosedOrders");
 const getOpenOrders = require("./routes/order-routes/getOpenOrders");
-//Ticket Routes
+//Import Ticket Routes
 const cancelOnsite = require("./routes/ticket-routes/cancelOnsite");
 const getAllOnsite = require("./routes/ticket-routes/getAllOnsite");
 const weighIn = require("./routes/ticket-routes/weighIn");
 const weighOut = require("./routes/ticket-routes/weighOut");
 const getAll = require("./routes/ticket-routes/getAllTickets");
-//Truck Routes
+//Import Truck Routes
 const createTruck = require("./routes/truck-routes/createTruck");
 const deleteTruck = require("./routes/truck-routes/deleteTruck");
 const getTruck = require("./routes/truck-routes/getTruck");
 const updateTruck = require("./routes/truck-routes/updateTruck");
 const getAllTrucks = require("./routes/truck-routes/getAllTrucks");
+//Import Product Routes
+const getAllProducts = require("./routes/product-routes/getAllProducts");
 
 /**
  *      This is the Express App for The WeighBridge Wizard. It should handle data traffic to and from a mongo database.
@@ -69,6 +71,8 @@ app.use("/truck/delete", deleteTruck);
 app.use("/truck/get", getTruck);
 app.use("/truck/update", updateTruck);
 app.use("/trucks/getall", getAllTrucks);
+//Product Routes
+app.use("/products/getall", getAllProducts);
 
 // ---------------------------------------------------Connect to MongoDB
 async function connectToDatabase() {
