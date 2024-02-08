@@ -25,6 +25,12 @@ function ViewClosedOrdersContent() {
     borderRight: "1px solid rgba(224, 224, 224, 1)",
   };
 
+  const informUser = (event) => {
+    window.alert(
+      "This Functionality wasn't implemented, as it is not required for proof of concept. Besides the only remaning information is contact information!"
+    );
+  };
+
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -132,7 +138,7 @@ function ViewClosedOrdersContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
-                    View Details
+                    See More...
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -157,7 +163,7 @@ function ViewClosedOrdersContent() {
                           backgroundColor: theme.palette.accent.main,
                           color: "black",
                         }}
-                        onClick={() => handleCancel(Reg)}
+                        onClick={() => informUser()}
                       >
                         View
                       </Button>
