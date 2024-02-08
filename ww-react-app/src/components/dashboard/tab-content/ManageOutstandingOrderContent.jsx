@@ -26,6 +26,12 @@ function ManageOutstandingOrderContent() {
     borderRight: "1px solid rgba(224, 224, 224, 1)",
   };
 
+  const informUser = (event) => {
+    window.alert(
+      "This Functionality wasn't implemented, as it is not required for proof of concept."
+    );
+  };
+
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -103,7 +109,7 @@ function ManageOutstandingOrderContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
-                    Date
+                    Date Start
                   </TableCell>
                   <TableCell
                     sx={{
@@ -119,7 +125,23 @@ function ManageOutstandingOrderContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
-                    Remaining
+                    Quantity Requested
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
+                    Quantity Received
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
+                    Quantity Remaining
                   </TableCell>
                   <TableCell
                     sx={{
@@ -135,7 +157,15 @@ function ManageOutstandingOrderContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
-                    View/Edit
+                    Truck Required
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
+                    Alter Requested Quantity
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -149,12 +179,24 @@ function ManageOutstandingOrderContent() {
                     <TableCell sx={{ ...cellStyle }}>{row.dateStart}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.product}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>
+                      {row.quantity + " kg"}
+                    </TableCell>
+                    <TableCell sx={{ ...cellStyle }}>
+                      {row.amountDelivered + " kg"}
+                    </TableCell>
+                    <TableCell sx={{ ...cellStyle }}>
                       {row.quantity - row.amountDelivered + " kg"}
                     </TableCell>
+
                     <TableCell sx={{ ...cellStyle }}>
                       <CircleProgressBar
                         value={(row.amountDelivered / row.quantity) * 100}
+                        size={90} // Adjust size to be larger
+                        strokeWidth={50} // Make the progress stroke wider
                       />
+                    </TableCell>
+                    <TableCell sx={{ ...cellStyle }}>
+                      {row.truckRequired}
                     </TableCell>
 
                     <TableCell>
@@ -163,9 +205,9 @@ function ManageOutstandingOrderContent() {
                           backgroundColor: theme.palette.accent.main,
                           color: "black",
                         }}
-                        onClick={() => handleCancel(Reg)}
+                        onClick={() => informUser()}
                       >
-                        View/Edit
+                        +/-
                       </Button>
                     </TableCell>
                   </TableRow>
