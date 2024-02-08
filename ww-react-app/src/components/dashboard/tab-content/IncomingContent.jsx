@@ -52,8 +52,10 @@ function IncomingContent() {
         //window.alert(JSON.stringify(response));
         console.log(response);
         if (JSON.stringify(response) === '{"exists":true}') {
-          window.alert("yes yes yes");
+          //This does work when a true response comes back
+          setShowFields(true);
         } else {
+          //This does work when not true or error, i will put a generic error.
           throw error;
         }
       })

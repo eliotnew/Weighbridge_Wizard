@@ -3,7 +3,7 @@ const router = express.Router();
 const truckModel = require("../../models/truckModel");
 
 /**
- * Confirms whether the truck exists on the database or not
+ * Confirms whether the truck exists on the database or not and returns the truck type
  */
 
 router.get("/:reg", async (req, res) => {
@@ -13,6 +13,7 @@ router.get("/:reg", async (req, res) => {
   if (truck) {
     res.status(200).json({
       exists: true,
+      truckType: truck.truckType,
     });
   } else {
     res
