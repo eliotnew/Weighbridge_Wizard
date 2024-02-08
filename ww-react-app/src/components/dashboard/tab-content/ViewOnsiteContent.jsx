@@ -30,7 +30,7 @@ function ViewOnsiteContent() {
     const fetchOnsiteTickets = async () => {
       try {
         const fetchedTickets = await getAllOnsite();
-
+        setIsLoading(false);
         if (fetchedTickets.length === 0) {
           setIsEmpty(true);
         } else {
@@ -40,14 +40,8 @@ function ViewOnsiteContent() {
           setIsError(false);
         }
       } catch (error) {
-        if (error.response && error.response.status === 404) {
-          setIsEmpty(true);
-          setIsLoading(false);
-        } else {
-          console.error("Failed to fetch tickets:", error);
-          setIsError(true);
-          setIsLoading(false);
-        }
+        setIsLoading(false);
+        setIsError(true);
       }
     };
 
@@ -79,87 +73,98 @@ function ViewOnsiteContent() {
   return (
     <>
       <Typography variant="h3"> View Onsite </Typography>
-      <TableContainer component={Paper}>
-        <Table
-          style={{
-            width: "100%",
-          }}
-        >
-          <TableHead>
-            <TableRow>
-              <TableCell
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-              >
-                Reg
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-              >
-                Driver Name
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-              >
-                Product Loading
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-              >
-                Tare Weight (Kg)
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-              >
-                Arrival
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-              >
-                Cancel Loading
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tickets.map((row, index) => (
-              <TableRow key={index}>
-                <TableCell sx={{ ...cellStyle }}>{row.reg}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.driverName}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.product}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>
-                  {row.tareWeight + " Kg"}
+      {isEmpty === true ? (
+        <div>There are no Trucks on site currently...</div>
+      ) : null}
+      {isError === true ? (
+        <div>
+          Something went wrong fetching data from the server. Please contact the
+          administrator.
+        </div>
+      ) : null}
+      {isEmpty === false && isError === false ? (
+        <TableContainer component={Paper}>
+          <Table
+            style={{
+              width: "100%",
+            }}
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell
+                  sx={{
+                    backgroundColor: theme.palette.secondary.main,
+                    color: theme.palette.secondary.contrastText,
+                  }}
+                >
+                  Reg
                 </TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.timeIn}</TableCell>
-                <TableCell>
-                  <Button
-                    sx={{ backgroundColor: "rosybrown", color: "black" }}
-                    onClick={() => handleCancel(row.reg)}
-                  >
-                    Cancel Loading
-                  </Button>
+                <TableCell
+                  sx={{
+                    backgroundColor: theme.palette.secondary.main,
+                    color: theme.palette.secondary.contrastText,
+                  }}
+                >
+                  Driver Name
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: theme.palette.secondary.main,
+                    color: theme.palette.secondary.contrastText,
+                  }}
+                >
+                  Product Loading
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: theme.palette.secondary.main,
+                    color: theme.palette.secondary.contrastText,
+                  }}
+                >
+                  Tare Weight (Kg)
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: theme.palette.secondary.main,
+                    color: theme.palette.secondary.contrastText,
+                  }}
+                >
+                  Arrival
+                </TableCell>
+                <TableCell
+                  sx={{
+                    backgroundColor: theme.palette.secondary.main,
+                    color: theme.palette.secondary.contrastText,
+                  }}
+                >
+                  Cancel Loading
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {tickets.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell sx={{ ...cellStyle }}>{row.reg}</TableCell>
+                  <TableCell sx={{ ...cellStyle }}>{row.driverName}</TableCell>
+                  <TableCell sx={{ ...cellStyle }}>{row.product}</TableCell>
+                  <TableCell sx={{ ...cellStyle }}>
+                    {row.tareWeight + " Kg"}
+                  </TableCell>
+                  <TableCell sx={{ ...cellStyle }}>{row.timeIn}</TableCell>
+                  <TableCell>
+                    <Button
+                      sx={{ backgroundColor: "rosybrown", color: "black" }}
+                      onClick={() => handleCancel(row.reg)}
+                    >
+                      Cancel Loading
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : null}
     </>
   );
 }
