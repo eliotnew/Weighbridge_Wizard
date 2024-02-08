@@ -27,4 +27,4 @@ async function getOrdersCompatibleByTruckType(query) {
     throw error;
   }
 }
-export default getClosedOrders;
+export default getOrdersCompatibleByTruckType;
