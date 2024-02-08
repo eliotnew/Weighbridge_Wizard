@@ -6,12 +6,10 @@ function CheckButton({ onClick }) {
     <>
       <Button
         type="submit"
-        fullWidth
         variant="contained"
         onClick={onClick}
         sx={{ mt: 3, mb: 2 }}
       >
-        Check Reg
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
           style={{ marginLeft: "5px" }}

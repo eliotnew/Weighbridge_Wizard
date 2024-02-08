@@ -35,6 +35,7 @@ function IncomingContent() {
   const handleRegChange = (event) => {
     setReg(event.target.value);
     setFreshReg(true);
+    setShowFields(false);
     console.log("reg set to: " + reg);
   };
 
@@ -92,38 +93,36 @@ function IncomingContent() {
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
           padding: "20px",
+          alignItems: "flex-start", // Align items at the top
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <>
-            {" "}
+        <div style={{ marginRight: "20px" }}>
+          <BasicWebcam />
+        </div>
+
+        <div>
+          <div
+            style={{
+              display: "flex",
+              marginTop: "10px",
+            }}
+          >
             <TextField
               margin="dense"
               required
-              fullWidth
               name="registration"
               label="Enter Reg:"
               variant="outlined"
               id="registration"
               autoComplete=""
               onChange={handleRegChange}
+              style={{ marginRight: "10px" }} // Add some space between the TextField and the Button
             />
-            <BasicWebcam />
-          </>
+            {freshReg === true && <CheckButton onClick={checkTruck} />}
+          </div>
 
-          {freshReg === true ? <CheckButton onClick={checkTruck} /> : null}
-        </div>
-        <div>
-          {showFields === true ? (
+          {showFields === true && (
             <>
               <TextField
                 margin="dense"
@@ -134,9 +133,14 @@ function IncomingContent() {
                 variant="outlined"
                 value={tareWeight}
                 onChange={handleTareWeightChange}
+                style={{ marginBottom: "10px" }} // Add some space between the inputs
               />
 
-              <FormControl fullWidth margin="normal">
+              <FormControl
+                fullWidth
+                margin="normal"
+                style={{ marginBottom: "10px" }}
+              >
                 <InputLabel id="select-job">Assign Job</InputLabel>
                 <Select
                   labelId="job-select-label"
@@ -153,13 +157,13 @@ function IncomingContent() {
                 </Select>
               </FormControl>
 
-              <Typography>{jobAd1} </Typography>
-              <Typography> {jobAd2} </Typography>
-              <Typography> {jobAdTown} </Typography>
-              <Typography> {jobAdPostCode} </Typography>
+              <Typography>{jobAd1}</Typography>
+              <Typography>{jobAd2}</Typography>
+              <Typography>{jobAdTown}</Typography>
+              <Typography>{jobAdPostCode}</Typography>
               <SubmitFormButton />
             </>
-          ) : null}
+          )}
         </div>
       </div>
     </>
