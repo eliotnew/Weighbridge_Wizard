@@ -9,6 +9,7 @@ function CheckButton({ onClick }) {
         variant="contained"
         onClick={onClick}
         sx={{ mt: 3, mb: 2 }}
+        fullWidth
       >
         <FontAwesomeIcon
           icon={faMagnifyingGlass}

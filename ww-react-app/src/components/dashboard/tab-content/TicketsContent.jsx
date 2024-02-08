@@ -9,7 +9,10 @@ import {
   Paper,
   useTheme,
   Typography,
+  Button,
 } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import getAllTickets from "../../../functions/ticket_functions/getAllTickets";
 import LoadingContent from "../../basicUI/LoadingContent";
 function TicketsContent() {
@@ -21,6 +24,9 @@ function TicketsContent() {
 
   const cellStyle = {
     borderRight: "1px solid rgba(224, 224, 224, 1)",
+  };
+  const informUser = (event) => {
+    window.alert("Woosh! Re-sent the ticket to the driver and the customer.");
   };
 
   useEffect(() => {
@@ -93,7 +99,15 @@ function TicketsContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
-                    Date
+                    Driver Name
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
+                    Date Loaded
                   </TableCell>
 
                   <TableCell
@@ -118,7 +132,23 @@ function TicketsContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
-                    Time Out
+                    Weigh-Out Time
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
+                    Net-Weight
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
+                    Resend Paperless Ticket
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -127,12 +157,32 @@ function TicketsContent() {
                   <TableRow key={index}>
                     <TableCell sx={{ ...cellStyle }}>{row.order_Id}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.reg}</TableCell>
+                    <TableCell sx={{ ...cellStyle }}>
+                      {row.driverName}
+                    </TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.date}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.product}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>
                       {row.loadedLocation}
                     </TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.timeOut}</TableCell>
+                    <TableCell sx={{ ...cellStyle }}>{row.netWeight}</TableCell>
+
+                    <TableCell sx={{ ...cellStyle }}>
+                      <Button
+                        fullWidth
+                        sx={{
+                          backgroundColor: theme.palette.primary.main,
+                          color: theme.palette.primary.contrastText,
+                        }}
+                        onClick={() => informUser()}
+                      >
+                        <FontAwesomeIcon
+                          icon={faEnvelope}
+                          style={{ marginLeft: "5px" }}
+                        />
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

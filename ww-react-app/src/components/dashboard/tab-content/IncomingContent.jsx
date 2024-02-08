@@ -150,33 +150,24 @@ function IncomingContent() {
       <div
         style={{
           display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
           padding: "20px",
-          alignItems: "flex-start", // Align items at the top
         }}
       >
-        <div style={{ marginRight: "20px" }}>
-          <BasicWebcam />
-        </div>
         <div>
-          <div
-            style={{
-              display: "flex",
-              marginTop: "10px",
-            }}
-          >
-            <TextField
-              margin="dense"
-              required
-              name="registration"
-              label="Enter Reg:"
-              variant="outlined"
-              id="registration"
-              autoComplete=""
-              onChange={handleRegChange}
-              style={{ marginRight: "10px" }} // Add some space between the TextField and the Button
-            />
-            {freshReg === true && <CheckButton onClick={checkTruck} />}
-          </div>
+          <TextField
+            margin="dense"
+            required
+            fullWidth
+            name="registration"
+            label="Enter Reg:"
+            variant="outlined"
+            id="registration"
+            autoComplete=""
+            onChange={handleRegChange}
+          />
+          {freshReg === true && <CheckButton onClick={checkTruck} />}
 
           {showFields === true && (
             <>
@@ -189,14 +180,9 @@ function IncomingContent() {
                 variant="outlined"
                 value={tareWeight}
                 onChange={handleTareWeightChange}
-                style={{ marginBottom: "10px" }} // Add some space between the inputs
               />
 
-              <FormControl
-                fullWidth
-                margin="normal"
-                style={{ marginBottom: "10px" }}
-              >
+              <FormControl fullWidth margin="normal">
                 <InputLabel id="select-job">Assign Job</InputLabel>
                 <Select
                   labelId="job-select-label"
@@ -300,6 +286,7 @@ function IncomingContent() {
             </Alert>
           ) : null}
         </div>
+        <BasicWebcam />
       </div>
     </>
   );
