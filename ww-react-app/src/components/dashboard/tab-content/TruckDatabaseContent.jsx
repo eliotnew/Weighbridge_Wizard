@@ -51,7 +51,7 @@ function TruckDatabaseContent() {
     };
 
     fetchTrucks();
-  }, []); // Dependency array is empty, so this effect runs once on mount
+  }, []);
 
   if (isLoading) {
     return <LoadingContent />;

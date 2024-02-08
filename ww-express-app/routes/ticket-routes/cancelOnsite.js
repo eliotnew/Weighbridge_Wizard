@@ -17,7 +17,7 @@ router.delete("/", async (req, res) => {
   console.log("Recieved a request to cancel onsite with reg:", reg);
 
   try {
-    await ticketModel.deleteOne({ reg: reg, onsite: true });
+    await ticketModel.deleteOne({ reg: reg, onSite: true });
     if (result.deletedCount === 0) {
       return res.status(404).json({ message: "Ticket not found or onsite." });
     }

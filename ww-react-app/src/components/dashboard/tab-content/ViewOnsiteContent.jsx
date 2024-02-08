@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -11,28 +11,70 @@ import {
   useTheme,
   Typography,
 } from "@mui/material";
+import getAllOnsite from "../../../functions/ticket_functions/getAllOnsite";
+import LoadingContent from "../../basicUI/LoadingContent";
+import cancelOnsite from "../../../functions/ticket_functions/cancelOnsite";
 function ViewOnsiteContent() {
   const theme = useTheme();
-  const data = [
-    {
-      reg: "WG14 AFT",
-      name: "Rob Banks",
-      contact: "077123983",
-      productLoading: "Clay Pellets",
-      arrival: "10:31AM",
-    },
-    {
-      reg: "WG17 UMP",
-      name: "Yvette F. Hertz",
-      contact: "073424338",
-      productLoading: "40mm Limestone",
-      arrival: "10:35AM",
-    },
-  ];
+
+  const [tickets, setTickets] = useState([]);
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const cellStyle = {
     borderRight: "1px solid rgba(224, 224, 224, 1)",
   };
+
+  useEffect(() => {
+    const fetchOnsiteTickets = async () => {
+      try {
+        const fetchedTickets = await getAllOnsite();
+
+        if (fetchedTickets.length === 0) {
+          setIsEmpty(true);
+        } else {
+          setTickets(fetchedTickets);
+          setIsLoading(false);
+          setIsEmpty(false);
+          setIsError(false);
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+          setIsEmpty(true);
+          setIsLoading(false);
+        } else {
+          console.error("Failed to fetch tickets:", error);
+          setIsError(true);
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchOnsiteTickets();
+  });
+
+  const handleCancel = async (reg) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to cancel loading of " + reg + " ?"
+    );
+
+    if (isConfirmed) {
+      try {
+        const result = await cancelOnsite(reg);
+        console.log("Cancel res:", result.response.status);
+        fetchOnsiteTickets();
+      } catch (error) {
+        console.error("Error canceling onsite ticket:", error);
+      }
+    } else {
+      return;
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingContent />;
+  }
 
   return (
     <>
@@ -67,7 +109,7 @@ function ViewOnsiteContent() {
                   color: theme.palette.secondary.contrastText,
                 }}
               >
-                Phone Number
+                Product Loading
               </TableCell>
               <TableCell
                 sx={{
@@ -75,7 +117,7 @@ function ViewOnsiteContent() {
                   color: theme.palette.secondary.contrastText,
                 }}
               >
-                Product Loading
+                Tare Weight (Kg)
               </TableCell>
               <TableCell
                 sx={{
@@ -96,19 +138,19 @@ function ViewOnsiteContent() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((row, index) => (
+            {tickets.map((row, index) => (
               <TableRow key={index}>
                 <TableCell sx={{ ...cellStyle }}>{row.reg}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.name}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.contact}</TableCell>
+                <TableCell sx={{ ...cellStyle }}>{row.driverName}</TableCell>
+                <TableCell sx={{ ...cellStyle }}>{row.product}</TableCell>
                 <TableCell sx={{ ...cellStyle }}>
-                  {row.productLoading}
+                  {row.tareWeight + " Kg"}
                 </TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.arrival}</TableCell>
+                <TableCell sx={{ ...cellStyle }}>{row.timeIn}</TableCell>
                 <TableCell>
                   <Button
                     sx={{ backgroundColor: "rosybrown", color: "black" }}
-                    onClick={() => handleCancel(Reg)}
+                    onClick={() => handleCancel(row.reg)}
                   >
                     Cancel Loading
                   </Button>
