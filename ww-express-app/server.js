@@ -18,6 +18,7 @@ const closeOrder = require("./routes/order-routes/closeOrder");
 const createOrder = require("./routes/order-routes/createOrder");
 const getClosedOrders = require("./routes/order-routes/getClosedOrders");
 const getOpenOrders = require("./routes/order-routes/getOpenOrders");
+const getCompatibleOpenOrders = require("./routes/order-routes/getCompatibleOpenOrders");
 //Import Ticket Routes
 const cancelOnsite = require("./routes/ticket-routes/cancelOnsite");
 const getAllOnsite = require("./routes/ticket-routes/getAllOnsite");
@@ -59,6 +60,7 @@ app.use("/order/close", closeOrder);
 app.use("/order/create", createOrder);
 app.use("/order/getclosed", getClosedOrders);
 app.use("/order/getopen", getOpenOrders);
+app.use("/order/getcompatible", getCompatibleOpenOrders);
 //Ticket Routes
 app.use("/ticket/cancelonsite", cancelOnsite);
 app.use("/ticket/get/onsite", getAllOnsite);

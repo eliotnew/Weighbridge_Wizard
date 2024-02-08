@@ -5,7 +5,9 @@ const generateOrderNumberID = require("../generateOrderNumberID");
  * Orders to assign Jobs.
  */
 async function populateOrders() {
+  console.log("populateOrders()");
   await orderModel.deleteMany();
+  console.log("Deleted old orders.");
   try {
     //---------------------------------------------------> Create ids
     const id1 = generateOrderNumberID();
@@ -126,7 +128,9 @@ async function populateOrders() {
     await openOrder1.save();
     await openOrder2.save();
     await openOrder3.save();
+    console.log("saving open order 4 = ", openOrder4);
     await openOrder4.save();
+    console.log("Openorder4.truck required = " + openOrder4.truckRequired);
   } catch (error) {
     console.error("Error populating the orders in the database:", error);
   }

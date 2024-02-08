@@ -18,11 +18,12 @@ router.get("/", async (req, res) => {
       truckRequired: compatible,
     });
     if (compatibleOrders.length === 0) {
-      return res
-        .status(404)
-        .json({
-          message: "No orders for this truck type are currently available.",
-        });
+      return res.status(404).json({
+        message:
+          "No orders for this truck type (" +
+          compatible +
+          ")are currently available.",
+      });
     }
 
     res.status(200).json(compatibleOrders);

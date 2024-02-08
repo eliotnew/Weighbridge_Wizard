@@ -57,6 +57,10 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  truckRequired: {
+    type: String,
+    required: true,
+  },
 });
 
 const orderModel = mongoose.model("Order", orderSchema);

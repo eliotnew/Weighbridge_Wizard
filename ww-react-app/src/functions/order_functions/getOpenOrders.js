@@ -12,6 +12,7 @@ async function getClosedOrders() {
 
     if (response.ok) {
       const result = await response.json();
+      console.log(result); // remove later
       return result;
     } else {
       console.log(
