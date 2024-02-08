@@ -31,6 +31,7 @@ async function populateOrders() {
       deliveryPostCode: "PL36YE",
       contactPhone: 445512439303,
       contactEmail: "smith.tarmac@email.com",
+      truckRequired: "hotbox",
     });
     const closedOrder2 = new orderModel({
       orderNumber: id2,
@@ -47,6 +48,7 @@ async function populateOrders() {
       deliveryPostCode: "FV31DA",
       contactPhone: 447390796360,
       contactEmail: "ace.construction@email.com",
+      truckRequired: "dump",
     });
     const openOrder1 = new orderModel({
       orderNumber: id3,
@@ -63,6 +65,7 @@ async function populateOrders() {
       deliveryPostCode: "FV11GT",
       contactPhone: 447390796360,
       contactEmail: "ace.construction@email.com",
+      truckRequired: "hotbox",
     });
     const openOrder2 = new orderModel({
       orderNumber: id4,
@@ -79,6 +82,7 @@ async function populateOrders() {
       deliveryPostCode: "FV31DA",
       contactPhone: 447390796360,
       contactEmail: "ace.construction@email.com",
+      truckRequired: "dump",
     });
     const openOrder3 = new orderModel({
       orderNumber: id5,
@@ -95,6 +99,7 @@ async function populateOrders() {
       deliveryPostCode: "BT21RT",
       contactPhone: 445612425468,
       contactEmail: "colossal.industries@email.com",
+      truckRequired: "sidelifter",
     });
     const openOrder4 = new orderModel({
       orderNumber: id6,
@@ -111,6 +116,7 @@ async function populateOrders() {
       deliveryPostCode: "FV31DA",
       contactPhone: 447390796360,
       contactEmail: "ace.construction@email.com",
+      truckRequired: "dump",
     });
 
     //----------------------------------------------------> Check that my default orders are there and replace/insert them
