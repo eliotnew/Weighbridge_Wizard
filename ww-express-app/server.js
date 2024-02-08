@@ -31,6 +31,7 @@ const deleteTruck = require("./routes/truck-routes/deleteTruck");
 const getTruck = require("./routes/truck-routes/getTruck");
 const updateTruck = require("./routes/truck-routes/updateTruck");
 const getAllTrucks = require("./routes/truck-routes/getAllTrucks");
+const confirmTruck = require("./routes/truck-routes/confirmTruck");
 //Import Product Routes
 const getAllProducts = require("./routes/product-routes/getAllProducts");
 
@@ -73,6 +74,7 @@ app.use("/truck/delete", deleteTruck);
 app.use("/truck/get", getTruck);
 app.use("/truck/update", updateTruck);
 app.use("/trucks/getall", getAllTrucks);
+app.use("/trucks/confirm", confirmTruck);
 //Product Routes
 app.use("/products/getall", getAllProducts);
 
