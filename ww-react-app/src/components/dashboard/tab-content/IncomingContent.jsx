@@ -14,6 +14,7 @@ import SubmitFormButton from "../../basicUI/SubmitFormButton";
 import CheckButton from "../../basicUI/CheckButton";
 import getOrdersCompatibleByTruckType from "../../../functions/order_functions/getOrdersCompatibleByTruckType";
 import confirmTruck from "../../../functions/truck_functions/confirmTruck";
+import weighIn from "../../../functions/ticket_functions/weighIn";
 
 // TO DO: Takes input for reg plate , on pressing the checkButton, it calls confirmTruck(reg).
 // if response = true, the enter tareweight box becomes visible and also the assign job select box will too. That box will collect it's list values by passing reg through (getOrdersCompatibleByTruckType).
@@ -22,7 +23,7 @@ import confirmTruck from "../../../functions/truck_functions/confirmTruck";
 function IncomingContent() {
   const [reg, setReg] = useState("");
   const [freshReg, setFreshReg] = useState(false);
-  const [job, setJob] = useState("Loading...");
+  const [job, setJob] = useState("");
   const [product, setProduct] = useState("Make a selection");
   const [message, setMessage] = useState("");
   const [message2, setMessage2] = useState("");
@@ -36,6 +37,7 @@ function IncomingContent() {
   const [jobOptions, setJobOptions] = useState([]);
   const [tareWeight, setTareWeight] = useState(0);
   const [alertType, setAlertType] = useState(0);
+  const [orderNumberString, setOrderNumberString] = useState("");
 
   const handleRegChange = (event) => {
     setReg(event.target.value);
@@ -59,10 +61,53 @@ function IncomingContent() {
     setJobAd2(selectedJob.deliveryAddress2);
     setJobAdTown(selectedJob.deliveryTown);
     setJobPostCode(selectedJob.deliveryPostCode);
+    setOrderNumberString(selectedJob.orderNumber);
     setMessage(
       "Your Driver will recieve a paperless ticket with full details when weighed in."
     );
     setMessage2("Deliver To:");
+  };
+
+  const handleSubmit = async () => {
+    if (tareWeight <= 0) {
+      setAlertType(1);
+      return;
+    }
+    if (isNaN(tareWeight)) {
+      setAlertType(2);
+      return;
+    }
+    if (job === "") {
+      setAlertType(3);
+      return;
+    }
+
+    const clerkId = localStorage.getItem("id");
+    const location = localStorage.getItem("location");
+
+    if (clerkId == null || location == null) {
+      return setAlertType(401);
+    }
+    console.log("orderNumberString is :" + orderNumberString);
+
+    const jsonObj = {
+      reg: reg,
+      tareWeight: tareWeight,
+      clerk_Id: clerkId,
+      loadedLocation: location,
+      order_Id: orderNumberString,
+    };
+
+    setShowFields(false);
+    console.log(jsonObj);
+
+    const save = await weighIn(jsonObj);
+    if (save.message === "Weigh in Successfull") {
+      setAlertType(201);
+    } else {
+      setAlertType(500);
+    }
+    console.log(save);
   };
 
   const checkTruck = async () => {
@@ -84,6 +129,7 @@ function IncomingContent() {
             deliveryAddress2: order.deliveryAddress2,
             deliveryTown: order.deliveryTown,
             deliveryPostCode: order.deliveryPostCode,
+            orderNumber: order.orderNumber,
           }));
           setJobOptions(formattedOrders);
         }
@@ -184,7 +230,7 @@ function IncomingContent() {
                   {message}
                 </Typography>
               </div>
-              <SubmitFormButton />
+              <SubmitFormButton onClick={handleSubmit} />
             </>
           )}
           {alertType === 404 ? (
@@ -206,14 +252,51 @@ function IncomingContent() {
               ERROR: Your Tare Weight must be greater than 0kg!
             </Alert>
           ) : null}
+          {alertType === 2 ? (
+            <Alert
+              sx={{ padding: "10px" }}
+              severity="error"
+              onClose={() => setAlertType(0)}
+            >
+              ERROR: Your Tare Weight must be a number!
+            </Alert>
+          ) : null}
+          {alertType === 3 ? (
+            <Alert
+              sx={{ padding: "10px" }}
+              severity="warning"
+              onClose={() => setAlertType(0)}
+            >
+              Please select a job
+            </Alert>
+          ) : null}
           {alertType === 500 ? (
             <Alert
               sx={{ padding: "10px" }}
               severity="error"
               onClose={() => setAlertType(0)}
             >
-              ERROR: fetching truck from the database! Please Contact your
+              ERROR: Difficulties Server Side! Please Contact your
               administrator!
+            </Alert>
+          ) : null}
+          {alertType === 401 ? (
+            <Alert
+              sx={{ padding: "10px" }}
+              severity="error"
+              onClose={() => setAlertType(0)}
+            >
+              Un-authorised activity - Please Sign in to continue.
+            </Alert>
+          ) : null}
+          {alertType === 201 ? (
+            <Alert
+              sx={{ padding: "10px" }}
+              severity="success"
+              onClose={() => setAlertType(0)}
+            >
+              Successfully Weighed In ! You may now close this tab or Weigh in
+              another truck...
             </Alert>
           ) : null}
         </div>

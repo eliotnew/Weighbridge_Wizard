@@ -7,6 +7,6 @@ function saveLocalAccountDetails(responseBody) {
   localStorage.setItem("lastName", responseBody.lastName);
   localStorage.setItem("id", responseBody.userId);
   localStorage.setItem("email", responseBody.email);
-  localStorage.setItem("location", location);
+  localStorage.setItem("location", responseBody.location);
 }
 export default saveLocalAccountDetails;
