@@ -24,13 +24,18 @@ function IncomingContent() {
   const [freshReg, setFreshReg] = useState(false);
   const [job, setJob] = useState("Loading...");
   const [product, setProduct] = useState("Make a selection");
-  const [jobAd1, setJobAd1] = useState("");
+  const [message, setMessage] = useState("");
+  const [message2, setMessage2] = useState("");
+  const [jobAd1, setJobAd1] = useState(
+    "Make a selection to view delivery information."
+  );
   const [jobAd2, setJobAd2] = useState("");
   const [jobAdTown, setJobAdTown] = useState("");
   const [jobAdPostCode, setJobPostCode] = useState("");
   const [showFields, setShowFields] = useState(false); //input fields only show if truck exists or else prompts user to add the truck to the database.
   const [jobOptions, setJobOptions] = useState([]);
   const [tareWeight, setTareWeight] = useState(0);
+  const [alertType, setAlertType] = useState(0);
 
   const handleRegChange = (event) => {
     setReg(event.target.value);
@@ -50,10 +55,14 @@ function IncomingContent() {
       (option) => option.label === event.target.value
     );
     setProduct(selectedJob.product);
-    setJobAd1("Deliver to: " + selectedJob.deliveryAddress1);
+    setJobAd1(selectedJob.deliveryAddress1);
     setJobAd2(selectedJob.deliveryAddress2);
     setJobAdTown(selectedJob.deliveryTown);
     setJobPostCode(selectedJob.deliveryPostCode);
+    setMessage(
+      "Your Driver will recieve a paperless ticket with full details when weighed in."
+    );
+    setMessage2("Deliver To:");
   };
 
   const checkTruck = async () => {
@@ -79,9 +88,11 @@ function IncomingContent() {
           setJobOptions(formattedOrders);
         }
       } else {
+        setAlertType(404);
         console.log("Truck does not exist");
       }
     } catch (error) {
+      setAlertType(500);
       console.error("Error checking truck:", error);
     }
   };
@@ -100,7 +111,6 @@ function IncomingContent() {
         <div style={{ marginRight: "20px" }}>
           <BasicWebcam />
         </div>
-
         <div>
           <div
             style={{
@@ -157,13 +167,55 @@ function IncomingContent() {
                 </Select>
               </FormControl>
 
-              <Typography>{jobAd1}</Typography>
-              <Typography>{jobAd2}</Typography>
-              <Typography>{jobAdTown}</Typography>
-              <Typography>{jobAdPostCode}</Typography>
+              <div
+                style={{
+                  border: "1px dashed",
+                  borderColor: "lightgray",
+                  padding: "10px",
+                  borderRadius: "6px",
+                }}
+              >
+                <Typography sx={{ fontWeight: "bold" }}>{message2}</Typography>
+                <Typography>{jobAd1}</Typography>
+                <Typography>{jobAd2}</Typography>
+                <Typography>{jobAdTown}</Typography>
+                <Typography>{jobAdPostCode}</Typography>
+                <Typography sx={{ fontWeight: "bold", fontStyle: "italic" }}>
+                  {message}
+                </Typography>
+              </div>
               <SubmitFormButton />
             </>
           )}
+          {alertType === 404 ? (
+            <Alert
+              sx={{ padding: "10px" }}
+              severity="warning"
+              onClose={() => setAlertType(0)}
+            >
+              Truck Not Found on Database! Please add it to your records
+              (Actions / Manage Trucks / Add Truck)
+            </Alert>
+          ) : null}
+          {alertType === 1 ? (
+            <Alert
+              sx={{ padding: "10px" }}
+              severity="error"
+              onClose={() => setAlertType(0)}
+            >
+              ERROR: Your Tare Weight must be greater than 0kg!
+            </Alert>
+          ) : null}
+          {alertType === 500 ? (
+            <Alert
+              sx={{ padding: "10px" }}
+              severity="error"
+              onClose={() => setAlertType(0)}
+            >
+              ERROR: fetching truck from the database! Please Contact your
+              administrator!
+            </Alert>
+          ) : null}
         </div>
       </div>
     </>
