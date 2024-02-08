@@ -43,6 +43,8 @@ function IncomingContent() {
     setReg(event.target.value);
     setFreshReg(true);
     setShowFields(false);
+    setTareWeight(0);
+    setAlertType(0);
     console.log("reg set to: " + reg);
   };
 
