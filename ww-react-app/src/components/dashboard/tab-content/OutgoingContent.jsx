@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import BasicWebcam from "../../camera/BasicWebcam";
-import { Typography } from "@mui/material";
+import { Typography, Alert } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
 import weighOut from "../../../functions/ticket_functions/weighOut";
@@ -9,33 +9,43 @@ import getTruck from "../../../functions/truck_functions/getTruck";
 function OutgoingContent() {
   const [grossWeight, setGrossWeight] = useState("");
   const [maxGVW, setMaxGVW] = useState("");
+  const [netWeight, setNetWeight] = useState("");
+  const [tareWeight, setTareWeight] = useState(0);
   const [reg, setReg] = useState("");
 
+  const [alertType, setAlertType] = useState(0);
+
   const handleRegChange = async (event) => {
-    const newReg = event.target.value; // Get the value directly from the event
-    setReg(newReg); // Update the state
-    console.log("The reg inputted is: " + newReg); // Log the new value
+    const newReg = event.target.value;
+    setReg(newReg);
+    console.log("The reg inputted is: " + newReg);
 
     try {
-      const gotTruck = await getTruck(newReg); // Use newReg directly
+      const gotTruck = await getTruck(newReg);
 
       if (!gotTruck) {
         console.log("Didn't find truck for reg:", newReg);
-        // You might want to handle the scenario of not finding the truck here.
-        // Perhaps set an error state, show an alert, or clear previous truck info.
       } else {
         setMaxGVW(gotTruck.maxGVW);
+        setTareWeight(gotTruck.tareWeight); //This fails because its trying to get the tare from a truck when it needs to get it from the ticket!!!
         console.log("The max GVW for", newReg, "is", gotTruck.maxGVW);
       }
+      if (gotTruck.maxGVW === undefined) {
+        setAlertType(404);
+        console.log("Correctly spots no match");
+        return;
+      }
+      setAlertType(0);
     } catch (error) {
       console.error("Error fetching truck info:", error);
       window.alert("Error fetching truck info. Please try again.");
+      setAlertType(500);
     }
   };
 
   const handleSubmit = async () => {
     if (grossWeight > maxGVW) {
-      window.alert("too heavy!");
+      setAlertType(1);
       return;
     }
 
@@ -57,7 +67,18 @@ function OutgoingContent() {
   };
 
   const handleGrossChange = (event) => {
-    setGrossWeight(event);
+    const newGrossWeight = event.target.value;
+    setGrossWeight(newGrossWeight);
+
+    const newNetWeight = newGrossWeight - tareWeight;
+    setNetWeight(newNetWeight);
+
+    if (grossWeight >= maxGVW) {
+      setAlertType(1);
+      console.log("too heavy.");
+    } else {
+      setAlertType(0);
+    }
   };
   return (
     <>
@@ -98,13 +119,42 @@ function OutgoingContent() {
               margin="dense"
               fullWidth
               id="net"
-              label="Net Weight"
+              label="Net Weight (Automatically Calculated):"
               variant="outlined"
               disabled="true"
+              value={netWeight}
             />
           )}
 
           <SubmitFormButton />
+          {alertType === 404 ? (
+            <Alert
+              sx={{ padding: "10px" }}
+              severity="warning"
+              onClose={() => setAlertType(0)}
+            >
+              No Reg matches
+            </Alert>
+          ) : null}
+          {alertType === 500 ? (
+            <Alert
+              sx={{ padding: "10px" }}
+              severity="error"
+              onClose={() => setAlertType(0)}
+            >
+              Server Error
+            </Alert>
+          ) : null}
+          {alertType === 1 ? (
+            <Alert
+              sx={{ padding: "10px" }}
+              severity="error"
+              onClose={() => setAlertType(0)}
+            >
+              Weight Exceeds Safety Limit. Please instruct driver to return and
+              tip off the excess.
+            </Alert>
+          ) : null}
         </div>
         <BasicWebcam />
       </div>
