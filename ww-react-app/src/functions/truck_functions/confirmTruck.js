@@ -26,4 +26,4 @@ async function confirmTruck(reg) {
     throw error;
   }
 }
-export default getOrdersCompatibleByTruckType;
+export default confirmTruck;
