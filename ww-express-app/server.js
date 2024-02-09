@@ -25,6 +25,7 @@ const getAllOnsite = require("./routes/ticket-routes/getAllOnsite");
 const weighIn = require("./routes/ticket-routes/weighIn");
 const weighOut = require("./routes/ticket-routes/weighOut");
 const getAll = require("./routes/ticket-routes/getAllTickets");
+const getOneOnsite = require("./routes/ticket-routes/getOneOnsiteByReg");
 //Import Truck Routes
 const createTruck = require("./routes/truck-routes/createTruck");
 const deleteTruck = require("./routes/truck-routes/deleteTruck");
@@ -68,6 +69,7 @@ app.use("/ticket/get/onsite", getAllOnsite);
 app.use("/weigh/in", weighIn);
 app.use("/weigh/out", weighOut);
 app.use("/ticket/getall", getAll);
+app.use("/ticket/getone/onsite", getOneOnsite);
 //Truck Routes
 app.use("/truck/create", createTruck);
 app.use("/truck/delete", deleteTruck);

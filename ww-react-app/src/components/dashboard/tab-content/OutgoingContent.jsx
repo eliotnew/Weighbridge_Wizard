@@ -5,13 +5,15 @@ import TextField from "@mui/material/TextField";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
 import weighOut from "../../../functions/ticket_functions/weighOut";
 import getTruck from "../../../functions/truck_functions/getTruck";
+import getOneOnesite from "../../../functions/ticket_functions/getOneOnsite";
 
 function OutgoingContent() {
   const [grossWeight, setGrossWeight] = useState("");
   const [maxGVW, setMaxGVW] = useState("");
-  const [netWeight, setNetWeight] = useState("");
+  const [netWeight, setNetWeight] = useState(0);
   const [tareWeight, setTareWeight] = useState(0);
   const [reg, setReg] = useState("");
+  const [showFields, setShowFields] = useState(false);
 
   const [alertType, setAlertType] = useState(0);
 
@@ -22,13 +24,17 @@ function OutgoingContent() {
 
     try {
       const gotTruck = await getTruck(newReg);
+      const getTicket = await getOneOnesite(newReg);
 
       if (!gotTruck) {
         console.log("Didn't find truck for reg:", newReg);
       } else {
+        setShowFields(true);
         setMaxGVW(gotTruck.maxGVW);
-        setTareWeight(gotTruck.tareWeight); //This fails because its trying to get the tare from a truck when it needs to get it from the ticket!!!
+        const numTare = Number(getTicket.tareWeight);
+        setTareWeight(numTare); //This fails because its trying to get the tare from a truck when it needs to get it from the ticket!!!
         console.log("The max GVW for", newReg, "is", gotTruck.maxGVW);
+        console.log("The tare of the truck is " + numTare);
       }
       if (gotTruck.maxGVW === undefined) {
         setAlertType(404);
@@ -38,14 +44,22 @@ function OutgoingContent() {
       setAlertType(0);
     } catch (error) {
       console.error("Error fetching truck info:", error);
-      window.alert("Error fetching truck info. Please try again.");
       setAlertType(500);
+      setShowFields(false);
     }
   };
 
   const handleSubmit = async () => {
+    console.log("submit was pressed");
     if (grossWeight > maxGVW) {
+      //Must be Lighter than the maximum
       setAlertType(1);
+      return;
+    }
+    if (isNaN(grossWeight)) {
+      //GVW must be a number
+      console.log("Error , gross weight needs to be a number");
+      setAlertType(2);
       return;
     }
 
@@ -53,31 +67,37 @@ function OutgoingContent() {
       reg: reg,
       outWeight: grossWeight,
     };
-
-    setShowFields(false);
     console.log(jsonObj);
 
-    const save = await weighIn(jsonObj);
+    const save = await weighOut(jsonObj);
     if (save.message === "Weigh in Successfull") {
-      setAlertType(201);
+      setAlertType(200);
     } else {
-      setAlertType(500);
+      setAlertType(3);
     }
     console.log(save);
   };
 
   const handleGrossChange = (event) => {
-    const newGrossWeight = event.target.value;
+    const newGrossWeightValue = event.target.value;
+    const newGrossWeight = Number(newGrossWeightValue); //Takes the input and change to number
     setGrossWeight(newGrossWeight);
 
-    const newNetWeight = newGrossWeight - tareWeight;
-    setNetWeight(newNetWeight);
+    if (!isNaN(newGrossWeight) && !isNaN(tareWeight)) {
+      // Ensure both are numbers
+      const newNetWeight = newGrossWeight - tareWeight;
+      setNetWeight(newNetWeight);
 
-    if (grossWeight >= maxGVW) {
-      setAlertType(1);
-      console.log("too heavy.");
+      if (newGrossWeight > maxGVW) {
+        setAlertType(1);
+        console.log("too heavy.");
+      } else {
+        setAlertType(0);
+      }
     } else {
-      setAlertType(0);
+      console.log("Invalid weight inputs", { newGrossWeight, tareWeight });
+      setAlertType(2);
+      setNetWeight(0);
     }
   };
   return (
@@ -104,29 +124,32 @@ function OutgoingContent() {
             autoComplete=""
             onChange={handleRegChange}
           />
+          {showFields === true && (
+            <>
+              <TextField
+                margin="dense"
+                required
+                fullWidth
+                id="gross"
+                label="Enter Gross Weight (kg)"
+                variant="outlined"
+                onChange={handleGrossChange}
+              />
+              <Typography>TareWeight: {tareWeight} kg</Typography>
+              {grossWeight !== 0 && (
+                <>
+                  <Typography
+                    style={{ color: netWeight < 0 ? "red" : "inherit" }}
+                  >
+                    Net Weight: {netWeight} kg
+                  </Typography>
+                </>
+              )}
 
-          <TextField
-            margin="dense"
-            required
-            fullWidth
-            id="gross"
-            label="Enter Gross Weight (kg)"
-            variant="outlined"
-            onChange={handleGrossChange}
-          />
-          {grossWeight !== "" && (
-            <TextField
-              margin="dense"
-              fullWidth
-              id="net"
-              label="Net Weight (Automatically Calculated):"
-              variant="outlined"
-              disabled="true"
-              value={netWeight}
-            />
+              <SubmitFormButton onclick={handleSubmit} />
+            </>
           )}
 
-          <SubmitFormButton />
           {alertType === 404 ? (
             <Alert
               sx={{ padding: "10px" }}
@@ -139,10 +162,10 @@ function OutgoingContent() {
           {alertType === 500 ? (
             <Alert
               sx={{ padding: "10px" }}
-              severity="error"
+              severity="warning"
               onClose={() => setAlertType(0)}
             >
-              Server Error
+              Unable to find this reg onsite
             </Alert>
           ) : null}
           {alertType === 1 ? (
@@ -151,8 +174,26 @@ function OutgoingContent() {
               severity="error"
               onClose={() => setAlertType(0)}
             >
-              Weight Exceeds Safety Limit. Please instruct driver to return and
-              tip off the excess.
+              ERR: Weight Exceeds Safety Limit. Please instruct driver to return
+              and tip off the excess.
+            </Alert>
+          ) : null}
+          {alertType === 2 ? (
+            <Alert
+              sx={{ padding: "10px" }}
+              severity="warning"
+              onClose={() => setAlertType(0)}
+            >
+              Gross Weight must be a number.
+            </Alert>
+          ) : null}
+          {alertType === 3 ? (
+            <Alert
+              sx={{ padding: "10px" }}
+              severity="warning"
+              onClose={() => setAlertType(0)}
+            >
+              Gross Weight must be a number.
             </Alert>
           ) : null}
         </div>
