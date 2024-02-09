@@ -50,16 +50,24 @@ function OutgoingContent() {
   };
 
   const handleSubmit = async () => {
-    console.log("submit was pressed");
+    // Called with submit button, must pass several checks before going off to server.
+
+    console.log("gross weight " + grossWeight);
+    if (isNaN(grossWeight)) {
+      //--------------------------------------------------------GVW must be a number
+      setAlertType(2);
+      return;
+    }
+
     if (grossWeight > maxGVW) {
-      //Must be Lighter than the maximum
+      //--------------------------------------------------------Must be Lighter than the maximum
       setAlertType(1);
       return;
     }
-    if (isNaN(grossWeight)) {
-      //GVW must be a number
-      console.log("Error , gross weight needs to be a number");
-      setAlertType(2);
+
+    if (grossWeight < tareWeight) {
+      //--------------------------------------------------------must be heavier than tare to be loaded.
+      setAlertType(4);
       return;
     }
 
@@ -67,7 +75,7 @@ function OutgoingContent() {
       reg: reg,
       outWeight: grossWeight,
     };
-    console.log(jsonObj);
+    console.log("Obj going out: " + jsonObj);
 
     const save = await weighOut(jsonObj);
     if (save.message === "Weigh in Successfull") {
@@ -146,7 +154,7 @@ function OutgoingContent() {
                 </>
               )}
 
-              <SubmitFormButton onclick={handleSubmit} />
+              <SubmitFormButton onClick={handleSubmit} />
             </>
           )}
 
@@ -190,10 +198,19 @@ function OutgoingContent() {
           {alertType === 3 ? (
             <Alert
               sx={{ padding: "10px" }}
+              severity="error"
+              onClose={() => setAlertType(0)}
+            >
+              Didn't Successfully Weigh out!
+            </Alert>
+          ) : null}
+          {alertType === 4 ? (
+            <Alert
+              sx={{ padding: "10px" }}
               severity="warning"
               onClose={() => setAlertType(0)}
             >
-              Gross Weight must be a number.
+              Your Loaded weight should be heavier than the tare weight!
             </Alert>
           ) : null}
         </div>

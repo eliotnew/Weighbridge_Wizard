@@ -106,6 +106,7 @@ function IncomingContent() {
     const save = await weighIn(jsonObj);
     if (save.message === "Weigh in Successfull") {
       setAlertType(201);
+      setReg("");
     } else {
       setAlertType(500);
     }
