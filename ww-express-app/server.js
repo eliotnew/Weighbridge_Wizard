@@ -84,7 +84,10 @@ app.use("/products/getall", getAllProducts);
 async function connectToDatabase() {
   try {
     const useInMemoryDB = process.env.NODE_ENV === "test";
-    const realDbConnection = "mongodb://mongodb:27017/weighbridge-wizard";
+    // for use with containers -> const realDbConnection = "mongodb://mongodb:27017/weighbridge-wizard";
+    const password = "comp3000-WW";
+    const encodedPass = encodeURIComponent(password);
+    const atlasCloudConnection = `mongodb+srv://weighbridgewizard:${encodedPass}@cluster0.tqbevdo.mongodb.net/?retryWrites=true&w=majority`;
 
     if (useInMemoryDB) {
       //test environment
@@ -98,7 +101,7 @@ async function connectToDatabase() {
       console.log("Connected to in-memory MongoDB!");
     } else {
       //non test environment
-      await mongoose.connect(realDbConnection);
+      await mongoose.connect(atlasCloudConnection);
       console.log("Connected to MongoDB");
     }
   } catch (error) {
