@@ -78,7 +78,7 @@ function OutgoingContent() {
     console.log("Obj going out: " + jsonObj);
 
     const save = await weighOut(jsonObj);
-    if (save.message === "Weigh in Successfull") {
+    if (save.ok) {
       setAlertType(200);
     } else {
       setAlertType(3);

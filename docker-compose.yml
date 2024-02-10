@@ -1,13 +1,13 @@
 version: "3"
 
 services:
-  mongodb:
-    image: mongo
-    container_name: ww-mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb-data:/data/db
+  #  mongodb:
+  #    image: mongo
+  #    container_name: ww-mongodb
+  #    ports:
+  #      - "27017:27017"
+  #    volumes:
+  #      - mongodb-data:/data/db
 
   express-server:
     build:
@@ -15,8 +15,8 @@ services:
     container_name: ww-express-app
     ports:
       - "3001:3001"
-    depends_on:
-      - mongodb
+  #    depends_on:
+  #     - mongodb
 
   react-app:
     build:
@@ -25,12 +25,13 @@ services:
     ports:
       - "3000:5173"
     depends_on:
-      - mongodb
+      #      - mongodb
       - express-server
+#volumes:
+# mongodb-data:
 
-volumes:
-  mongodb-data:
+# TO RUN, OPEN TERMINAL AND THEN docker-compose up
+# docker-compose down to stop
+# docker-compose up -d runs it in detatched mode
 
-  # TO RUN, OPEN TERMINAL AND THEN docker-compose up
-  # docker-compose down to stop
-  # docker-compose up -d runs it in detatched mode
+#Uncomment the code if you want to use the docker version of mongo.

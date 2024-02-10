@@ -1,5 +1,4 @@
 const orderModel = require("../../models/orderModel");
-const generateOrderNumberID = require("../generateOrderNumberID");
 /**
  * This function ensures that the required data exists on the db everytime it is started up.
  * Orders to assign Jobs.
@@ -9,17 +8,10 @@ async function populateOrders() {
   await orderModel.deleteMany();
   console.log("Deleted old orders.");
   try {
-    //---------------------------------------------------> Create ids
-    const id1 = generateOrderNumberID();
-    const id2 = generateOrderNumberID();
-    const id3 = generateOrderNumberID();
-    const id4 = generateOrderNumberID();
-    const id5 = generateOrderNumberID();
-    const id6 = generateOrderNumberID();
     //---------------------------------------------------> Create Entities
 
     const closedOrder1 = new orderModel({
-      orderNumber: id1,
+      orderNumber: "ORDR905303",
       company: "Smith & Sons Tarmac",
       dateStart: "04/10/2023",
       dateFinish: "15/10/2023",
@@ -36,7 +28,7 @@ async function populateOrders() {
       truckRequired: "hotbox",
     });
     const closedOrder2 = new orderModel({
-      orderNumber: id2,
+      orderNumber: "ORDR905304",
       company: "Ace Construction",
       dateStart: "08/10/2023",
       dateFinish: "15/12/2023",
@@ -53,7 +45,7 @@ async function populateOrders() {
       truckRequired: "dump",
     });
     const openOrder1 = new orderModel({
-      orderNumber: id3,
+      orderNumber: "ORDR905305",
       company: "Smith & Sons Tarmac",
       dateStart: "05/01/2024",
       dateFinish: "",
@@ -70,7 +62,7 @@ async function populateOrders() {
       truckRequired: "hotbox",
     });
     const openOrder2 = new orderModel({
-      orderNumber: id4,
+      orderNumber: "ORDR905306",
       company: "Ace Construction",
       dateStart: "02/02/2024",
       dateFinish: "",
@@ -87,7 +79,7 @@ async function populateOrders() {
       truckRequired: "dump",
     });
     const openOrder3 = new orderModel({
-      orderNumber: id5,
+      orderNumber: "ORDR905307",
       company: "Colossal Industries",
       dateStart: "25/01/2024",
       dateFinish: "",
@@ -104,7 +96,7 @@ async function populateOrders() {
       truckRequired: "sidelifter",
     });
     const openOrder4 = new orderModel({
-      orderNumber: id6,
+      orderNumber: "ORDR905308",
       company: "Ace Construction",
       dateStart: "14/01/2024",
       dateFinish: "",
@@ -128,7 +120,10 @@ async function populateOrders() {
     await openOrder1.save();
     await openOrder2.save();
     await openOrder3.save();
-    console.log("saving open order 4 = ", openOrder4);
+    console.log(
+      "saved open order 4 with orderNumber: ",
+      openOrder4.orderNumber
+    );
     await openOrder4.save();
     console.log("Openorder4.truck required = " + openOrder4.truckRequired);
   } catch (error) {
