@@ -20,7 +20,6 @@ function OutgoingContent() {
   const handleRegChange = async (event) => {
     const newReg = event.target.value;
     setReg(newReg);
-    console.log("The reg inputted is: " + newReg);
 
     try {
       const gotTruck = await getTruck(newReg);
@@ -33,17 +32,13 @@ function OutgoingContent() {
         setMaxGVW(gotTruck.maxGVW);
         const numTare = Number(getTicket.tareWeight);
         setTareWeight(numTare); //This fails because its trying to get the tare from a truck when it needs to get it from the ticket!!!
-        console.log("The max GVW for", newReg, "is", gotTruck.maxGVW);
-        console.log("The tare of the truck is " + numTare);
       }
       if (gotTruck.maxGVW === undefined) {
         setAlertType(404);
-        console.log("Correctly spots no match");
         return;
       }
       setAlertType(0);
     } catch (error) {
-      console.error("Error fetching truck info:", error);
       setAlertType(500);
       setShowFields(false);
     }
@@ -76,14 +71,19 @@ function OutgoingContent() {
       outWeight: grossWeight,
     };
     console.log("Obj going out: " + jsonObj);
+    console.log(grossWeight);
+    console.log(reg);
 
     const save = await weighOut(jsonObj);
-    if (save.ok) {
+    if (save.message === "Success") {
+      // Assuming 'save.ok' is set correctly inside 'weighOut' if the response status code is 200
       setAlertType(200);
+      showFields(false);
     } else {
       setAlertType(3);
     }
-    console.log(save);
+    console.log("Response from weighOut:", save);
+    console.log("Message from server:", save.message);
   };
 
   const handleGrossChange = (event) => {
@@ -98,7 +98,6 @@ function OutgoingContent() {
 
       if (newGrossWeight > maxGVW) {
         setAlertType(1);
-        console.log("too heavy.");
       } else {
         setAlertType(0);
       }
@@ -211,6 +210,15 @@ function OutgoingContent() {
               onClose={() => setAlertType(0)}
             >
               Your Loaded weight should be heavier than the tare weight!
+            </Alert>
+          ) : null}
+          {alertType === 200 ? (
+            <Alert
+              sx={{ padding: "10px" }}
+              severity="success"
+              onClose={() => setAlertType(0)}
+            >
+              Successfully Weighed out & Ticket Sent off!
             </Alert>
           ) : null}
         </div>

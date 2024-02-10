@@ -115,7 +115,7 @@ router.put("/", async (req, res) => {
         );
       }
       await session.commitTransaction();
-      res.status(200).json({ message: "Weigh out successful." });
+      res.status(200).json({ message: "Success" });
       console.log("Weigh out sucessful!");
     });
   } catch (error) {
