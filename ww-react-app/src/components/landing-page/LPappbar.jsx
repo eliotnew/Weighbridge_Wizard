@@ -21,28 +21,34 @@ function LPappbar() {
             icon={faHatWizard}
             size="2xl"
             flip="horizontal"
-            style={{ color: theme.palette.text.primary }}
+            style={{
+              color: theme.palette.text.primary,
+            }}
           />
         </Link>
-        <Link to="/" style={{ cursor: "pointer" }}>
-          <Typography
-            className="WizardFont"
-            variant="h4"
-            noWrap
-            component="div"
-            sx={{
-              fontFamily: "sans-serif",
-              paddingLeft: "10px",
-              display: { xs: "none", sm: "block" },
-            }}
-            style={{
-              fontFamily: "Bona Nova",
-              color: theme.palette.primary.contrastText,
-              fontWeight: 1000,
-            }}
-          >
-            WeighBridge Wizard
-          </Typography>
+        <Link to="/" style={{ cursor: "pointer", textDecoration: "none" }}>
+          <div>
+            <Typography
+              className="WizardFont"
+              variant="h4"
+              noWrap
+              component="div"
+              sx={{
+                fontFamily: "sans-serif",
+                paddingLeft: "10px",
+                "&:hover": { transform: "scale(1.05)" },
+                display: { xs: "none", sm: "block" },
+                transition: "transform 0.35s",
+              }}
+              style={{
+                fontFamily: "Bona Nova",
+                color: theme.palette.primary.contrastText,
+                fontWeight: 1000,
+              }}
+            >
+              WeighBridge Wizard
+            </Typography>
+          </div>
         </Link>
 
         <Typography
