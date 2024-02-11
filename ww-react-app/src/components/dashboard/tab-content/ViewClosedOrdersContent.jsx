@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -11,128 +11,181 @@ import {
   useTheme,
   Typography,
 } from "@mui/material";
-import CircleProgressBar from "../../basicUI/CircleProgressBar";
+import getClosedOrders from "../../../functions/order_functions/getClosedOrders";
+import LoadingContent from "../../basicUI/LoadingContent";
 
 function ViewClosedOrdersContent() {
   const theme = useTheme();
-  const data = [
-    {
-      orderNumber: "1234567",
-      company: "Construction LTD.",
-      dateOpened: "07/12/2023",
-      dateClosed: "06/01/2024",
-      productType: "Clay Pellets",
-      delivered: "44012",
-    },
-    {
-      orderNumber: "1567895",
-      company: "Argricultural & Co.",
-      dateOpened: "21/12/2023",
-      dateClosed: "06/01/2024",
-      productType: "40mm Limestone",
-      delivered: "3712",
-    },
-  ];
+  const [orders, setOrders] = useState([]);
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const cellStyle = {
     borderRight: "1px solid rgba(224, 224, 224, 1)",
   };
 
+  const informUser = (event) => {
+    window.alert(
+      "This Functionality wasn't implemented, as it is not required for proof of concept. Besides the only remaning information is contact information!"
+    );
+  };
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const closedOrders = await getClosedOrders();
+
+        if (closedOrders.length === 0) {
+          setIsEmpty(true);
+        } else {
+          setIsLoading(false);
+          setOrders(closedOrders);
+          setIsEmpty(false);
+          setIsError(false);
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+          setIsEmpty(true);
+          setIsLoading(false);
+        } else {
+          console.error("Failed to fetch closed orders:", error);
+          setIsError(true);
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  if (isLoading) {
+    return <LoadingContent />;
+  }
   return (
     <>
       <Typography variant="h3"> View Closed Orders </Typography>
-      <TableContainer component={Paper}>
-        <Table
-          style={{
-            width: "100%",
-          }}
-        >
-          <TableHead>
-            <TableRow>
-              <TableCell
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-              >
-                Order Number
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-              >
-                Company
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-              >
-                Date Opened
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-              >
-                Date Closed
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-              >
-                Product Type
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-              >
-                Quantity Delivered
-              </TableCell>
-              <TableCell
-                sx={{
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.secondary.contrastText,
-                }}
-              >
-                View Details
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((row, index) => (
-              <TableRow key={index}>
-                <TableCell sx={{ ...cellStyle }}>{row.orderNumber}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.company}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.dateOpened}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.dateClosed}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.productType}</TableCell>
-                <TableCell sx={{ ...cellStyle }}>{row.delivered}</TableCell>
-
-                <TableCell>
-                  <Button
+      {isEmpty === true ? (
+        <div>There are no Orders on the system yet.</div>
+      ) : null}
+      {isError === true ? (
+        <div>
+          Something went wrong fetching Closed Orders from the server. Please
+          contact the administrator.
+        </div>
+      ) : null}
+      {isEmpty === false && isError === false ? (
+        <>
+          <TableContainer component={Paper}>
+            <Table
+              style={{
+                width: "100%",
+              }}
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell
                     sx={{
-                      backgroundColor: theme.palette.accent.main,
-                      color: "black",
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
                     }}
-                    onClick={() => handleCancel(Reg)}
                   >
-                    View
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                    Order Number
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
+                    Company
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
+                    Date Opened
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
+                    Quantity Quota
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
+                    Date Closed
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
+                    Product Type
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
+                    Quantity Delivered
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
+                    See More...
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {orders.map((row, index) => (
+                  <TableRow key={index}>
+                    <TableCell sx={{ ...cellStyle }}>
+                      {row.orderNumber}
+                    </TableCell>
+                    <TableCell sx={{ ...cellStyle }}>{row.company}</TableCell>
+                    <TableCell sx={{ ...cellStyle }}>{row.dateStart}</TableCell>
+                    <TableCell sx={{ ...cellStyle }}>
+                      {row.quantity + " kg"}
+                    </TableCell>
+                    <TableCell sx={{ ...cellStyle }}>
+                      {row.dateFinish}
+                    </TableCell>
+                    <TableCell sx={{ ...cellStyle }}>{row.product}</TableCell>
+                    <TableCell sx={{ ...cellStyle }}>
+                      {row.amountDelivered + " kg"}
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        sx={{
+                          backgroundColor: theme.palette.accent.main,
+                          color: "black",
+                        }}
+                        onClick={() => informUser()}
+                      >
+                        View
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      ) : null}
     </>
   );
 }

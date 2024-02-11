@@ -39,7 +39,7 @@ const orderSchema = new mongoose.Schema({
   },
   deliveryAddress2: {
     type: String,
-    required: true,
+    required: false,
   },
   deliveryTown: {
     type: String,
@@ -54,6 +54,10 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   contactEmail: {
+    type: String,
+    required: true,
+  },
+  truckRequired: {
     type: String,
     required: true,
   },

@@ -1,41 +1,43 @@
 import React from "react";
-import pic from "../../img_Assets/littleWizard.png";
-import DashboardAppBar from "../dashboard/top-bar/DashboardAppBar";
+import pic from "../../img_Assets/WizardFarAway.png";
 import SignInForm from "./SignInForm";
 import LPappbar from "../landing-page/LPappbar";
 
-function SignInPage(){
-    return(
-        <>
+function SignInPage() {
+  return (
+    <>
+      <div
+        style={{
+          backgroundImage: `url(${pic})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+          width: "100%",
+          minHeight: "100vh",
+          minWidth: "100vw",
+        }}
+      >
+        <LPappbar />
+
         <div
+          id="content"
           style={{
-            backgroundImage: `url(${pic})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-            width: "100%",
-            minHeight: "100vh",
-            minWidth: "100vw",
+            marginTop: "50px",
+            backgroundColor: "rgba(255, 255, 255, 0.7)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+            boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
+            borderRadius: "6px",
+            width: "fit-content",
+            maxHeight: "90vh",
+            textAlign: "center",
+            margin: "auto",
           }}
         >
-          <LPappbar/>
-  
-          <div
-            id="content"
-            style={{
-              marginTop: "50px",
-              backgroundColor: "white",
-              maxWidth: "60vw",
-              maxHeight: "90vh",
-              borderRadius: "25px",
-              textAlign: "center",
-              margin: "auto",
-            }}
-          >
-            <SignInForm/>
-          </div>
+          <SignInForm />
         </div>
-      </>
-    )
+      </div>
+    </>
+  );
 }
 
 export default SignInPage;

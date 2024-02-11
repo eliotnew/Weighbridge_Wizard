@@ -19,11 +19,11 @@ const ticketSchema = new mongoose.Schema({
   },
   outWeight: {
     type: Number,
-    required: true,
+    required: false,
   },
   netWeight: {
     type: Number,
-    required: true,
+    required: false,
   },
   clerk_Id: {
     type: String,
@@ -43,7 +43,7 @@ const ticketSchema = new mongoose.Schema({
   },
   timeOut: {
     type: String,
-    required: true,
+    required: false,
   },
   date: {
     type: String,

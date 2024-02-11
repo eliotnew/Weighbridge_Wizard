@@ -16,30 +16,41 @@ function LPappbar() {
       }}
     >
       <Toolbar>
-        <FontAwesomeIcon
-          icon={faHatWizard}
-          size="2xl"
-          flip="horizontal"
-          style={{ color: theme.palette.text.primary }}
-        />
-        <Typography
-          className="WizardFont"
-          variant="h4"
-          noWrap
-          component="div"
-          sx={{
-            fontFamily: "sans-serif",
-            paddingLeft: "10px",
-            display: { xs: "none", sm: "block" },
-          }}
-          style={{
-            fontFamily: "Bona Nova",
-            color: theme.palette.primary.contrastText,
-            fontWeight: 1000,
-          }}
-        >
-          WeighBridge Wizard
-        </Typography>
+        <Link to="/" style={{ cursor: "pointer" }}>
+          <FontAwesomeIcon
+            icon={faHatWizard}
+            size="2xl"
+            flip="horizontal"
+            style={{
+              color: theme.palette.text.primary,
+            }}
+          />
+        </Link>
+        <Link to="/" style={{ cursor: "pointer", textDecoration: "none" }}>
+          <div>
+            <Typography
+              className="WizardFont"
+              variant="h4"
+              noWrap
+              component="div"
+              sx={{
+                fontFamily: "sans-serif",
+                paddingLeft: "10px",
+                "&:hover": { transform: "scale(1.05)" },
+                display: { xs: "none", sm: "block" },
+                transition: "transform 0.35s",
+              }}
+              style={{
+                fontFamily: "Bona Nova",
+                color: theme.palette.primary.contrastText,
+                fontWeight: 1000,
+              }}
+            >
+              WeighBridge Wizard
+            </Typography>
+          </div>
+        </Link>
+
         <Typography
           variant="h4"
           component="div"
@@ -73,31 +84,26 @@ function LPappbar() {
           |
         </Typography>
         <Link to="/signin">
-        <Button
-          sx={{
-            color: theme.palette.primary.contrastText,
-            fontWeight: 1000,
-            "&:hover": {
-              backgroundColor: theme.palette.primary.contrastText,
-              color: theme.palette.primary.main,
-              transform: "scale(1.1)",
-              transition: "transform 0.35s",
-            },
-          }}
-          color="inherit"
-        >
-          Sign In{" "}
-          <FontAwesomeIcon
-            icon={faRightToBracket}
-            beatFade
-            style={{ marginLeft: "6px" }}
-          />
-        </Button>
-
-
-
+          <Button
+            sx={{
+              color: theme.palette.primary.contrastText,
+              fontWeight: 1000,
+              "&:hover": {
+                backgroundColor: theme.palette.primary.contrastText,
+                color: theme.palette.primary.main,
+                transform: "scale(1.1)",
+                transition: "transform 0.35s",
+              },
+            }}
+            color="inherit"
+          >
+            Sign In{" "}
+            <FontAwesomeIcon
+              icon={faRightToBracket}
+              style={{ marginLeft: "6px" }}
+            />
+          </Button>
         </Link>
-        
       </Toolbar>
     </AppBar>
   );

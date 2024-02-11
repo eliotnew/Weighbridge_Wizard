@@ -1,34 +1,17 @@
 const orderModel = require("../../models/orderModel");
-const generateOrderNumberID = require("../generateOrderNumberID");
 /**
  * This function ensures that the required data exists on the db everytime it is started up.
  * Orders to assign Jobs.
  */
 async function populateOrders() {
+  console.log("populateOrders()");
+  await orderModel.deleteMany();
+  console.log("Deleted old orders.");
   try {
-    //---------------------------------------------------> Create ids
-    const id1 = generateOrderNumberID();
-    const exists1 = await orderModel.findOne({ orderNumber: id1 });
-
-    const id2 = generateOrderNumberID();
-    const exists2 = await orderModel.findOne({ orderNumber: id2 });
-
-    const id3 = generateOrderNumberID();
-    const exists3 = await orderModel.findOne({ orderNumber: id3 });
-
-    const id4 = generateOrderNumberID();
-    const exists4 = await orderModel.findOne({ orderNumber: id4 });
-
-    const id5 = generateOrderNumberID();
-    const exists5 = await orderModel.findOne({ orderNumber: id5 });
-
-    const id6 = generateOrderNumberID();
-    const exists6 = await orderModel.findOne({ orderNumber: id6 });
-
     //---------------------------------------------------> Create Entities
 
     const closedOrder1 = new orderModel({
-      orderNumber: id1,
+      orderNumber: "ORDR905303",
       company: "Smith & Sons Tarmac",
       dateStart: "04/10/2023",
       dateFinish: "15/10/2023",
@@ -42,9 +25,10 @@ async function populateOrders() {
       deliveryPostCode: "PL36YE",
       contactPhone: 445512439303,
       contactEmail: "smith.tarmac@email.com",
+      truckRequired: "hotbox",
     });
     const closedOrder2 = new orderModel({
-      orderNumber: id2,
+      orderNumber: "ORDR905304",
       company: "Ace Construction",
       dateStart: "08/10/2023",
       dateFinish: "15/12/2023",
@@ -58,9 +42,10 @@ async function populateOrders() {
       deliveryPostCode: "FV31DA",
       contactPhone: 447390796360,
       contactEmail: "ace.construction@email.com",
+      truckRequired: "dump",
     });
     const openOrder1 = new orderModel({
-      orderNumber: id3,
+      orderNumber: "ORDR905305",
       company: "Smith & Sons Tarmac",
       dateStart: "05/01/2024",
       dateFinish: "",
@@ -74,9 +59,10 @@ async function populateOrders() {
       deliveryPostCode: "FV11GT",
       contactPhone: 447390796360,
       contactEmail: "ace.construction@email.com",
+      truckRequired: "hotbox",
     });
     const openOrder2 = new orderModel({
-      orderNumber: id4,
+      orderNumber: "ORDR905306",
       company: "Ace Construction",
       dateStart: "02/02/2024",
       dateFinish: "",
@@ -90,9 +76,10 @@ async function populateOrders() {
       deliveryPostCode: "FV31DA",
       contactPhone: 447390796360,
       contactEmail: "ace.construction@email.com",
+      truckRequired: "dump",
     });
     const openOrder3 = new orderModel({
-      orderNumber: id5,
+      orderNumber: "ORDR905307",
       company: "Colossal Industries",
       dateStart: "25/01/2024",
       dateFinish: "",
@@ -106,9 +93,10 @@ async function populateOrders() {
       deliveryPostCode: "BT21RT",
       contactPhone: 445612425468,
       contactEmail: "colossal.industries@email.com",
+      truckRequired: "sidelifter",
     });
     const openOrder4 = new orderModel({
-      orderNumber: id6,
+      orderNumber: "ORDR905308",
       company: "Ace Construction",
       dateStart: "14/01/2024",
       dateFinish: "",
@@ -122,61 +110,22 @@ async function populateOrders() {
       deliveryPostCode: "FV31DA",
       contactPhone: 447390796360,
       contactEmail: "ace.construction@email.com",
+      truckRequired: "dump",
     });
 
     //----------------------------------------------------> Check that my default orders are there and replace/insert them
-    if (!exists1) {
-      await closedOrder1.save();
-    } else
-      orderModel.updateOne(
-        { orderNumber: id1 },
-        { $set: closedOrder1.toObject() }
-      );
 
-    if (!exists2) {
-      await closedOrder2.save();
-    } else {
-      await orderModel.updateOne(
-        { orderNumber: id2 },
-        { $set: closedOrder2.toObject() }
-      );
-    }
-
-    if (!exists3) {
-      await openOrder1.save();
-    } else {
-      await orderModel.updateOne(
-        { orderNumber: id3 },
-        { $set: openOrder1.toObject() }
-      );
-    }
-
-    if (!exists4) {
-      await openOrder2.save();
-    } else {
-      await orderModel.updateOne(
-        { orderNumber: id4 },
-        { $set: openOrder2.toObject() }
-      );
-    }
-
-    if (!exists5) {
-      await openOrder3.save();
-    } else {
-      await orderModel.updateOne(
-        { orderNumber: id5 },
-        { $set: openOrder3.toObject() }
-      );
-    }
-
-    if (!exists6) {
-      await openOrder4.save();
-    } else {
-      await orderModel.updateOne(
-        { orderNumber: id6 },
-        { $set: openOrder4.toObject() }
-      );
-    }
+    await closedOrder1.save();
+    await closedOrder2.save();
+    await openOrder1.save();
+    await openOrder2.save();
+    await openOrder3.save();
+    console.log(
+      "saved open order 4 with orderNumber: ",
+      openOrder4.orderNumber
+    );
+    await openOrder4.save();
+    console.log("Openorder4.truck required = " + openOrder4.truckRequired);
   } catch (error) {
     console.error("Error populating the orders in the database:", error);
   }

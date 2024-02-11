@@ -11,7 +11,7 @@ function OutButton({ addTab }) {
     const id = Math.floor(Math.random() * 100000);
     const newTab = {
       id: id,
-      label: "Outgoing",
+      label: "Weigh-Out",
       content: <OutgoingContent />,
     };
     addTab(newTab);
@@ -36,7 +36,7 @@ function OutButton({ addTab }) {
           paddingLeft: "10px",
         }}
       />
-      <ListItemText primary="Outgoing" />
+      <ListItemText primary="Weigh-Out" />
     </ListItemButton>
   );
 }

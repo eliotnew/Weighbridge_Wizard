@@ -11,7 +11,7 @@ function InButton({ addTab }) {
     const id = Math.floor(Math.random() * 100000);
     const newTab = {
       id: id,
-      label: "Incoming",
+      label: "Weigh-In",
       content: <IncomingContent />,
     };
     addTab(newTab);
@@ -35,7 +35,7 @@ function InButton({ addTab }) {
           paddingRight: "10px",
         }}
       />
-      <ListItemText primary="Incoming" />
+      <ListItemText primary="Weigh-In" />
     </ListItemButton>
   );
 }

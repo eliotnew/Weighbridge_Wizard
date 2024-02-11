@@ -14,6 +14,7 @@ import OutstandingOrderButton from "./nav-buttons/OutstandingOrderButton";
 import TrainingButton from "./nav-buttons/TrainingButton";
 import ViewTicketsButton from "./nav-buttons/ViewTicketsButton";
 import TruckDatabaseButton from "./nav-buttons/TruckDatabase";
+import AddTruckButton from "./nav-buttons/AddTruck";
 
 function SideBar({ addTab }) {
   const theme = useTheme();
@@ -25,7 +26,7 @@ function SideBar({ addTab }) {
       open
       sx={{
         width: drawerWidth,
-        height: "86.55vh",
+        height: "90vh",
         flexShrink: 0,
         "& .MuiDrawer-paper": {
           width: "15vw",
@@ -75,6 +76,7 @@ function SideBar({ addTab }) {
             Manage Trucks
           </Typography>
           <Divider />
+          <AddTruckButton addTab={addTab} />
           <TruckDatabaseButton addTab={addTab} />
           <ViewTicketsButton addTab={addTab} />
 

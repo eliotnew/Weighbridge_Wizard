@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const orderModel = require("../../models/orderModel");
+const productModel = require("../../models/productModel");
 const getDate = require("../../functions/getDate");
 const generateOrderNumberID = require("../../functions/generateOrderNumberID");
 
@@ -28,24 +29,32 @@ router.post("/", async (req, res) => {
 
   console.log("Recieved order creation request: " + company);
 
-  const order = new orderModel({
-    orderNumber: orderNumber,
-    company: company,
-    dateStart: dateStart,
-    dateFinish: empty,
-    open: true,
-    product: product,
-    quantity: quantity,
-    amountDelivered: 0,
-    deliveryAddress1: deliveryAddress1,
-    deliveryAddress2: deliveryAddress2,
-    deliveryTown: deliveryTown,
-    deliveryPostCode: deliveryPostCode,
-    contactPhone: contactPhone,
-    contactEmail: contactEmail,
-  });
+  // Get the required truck type for the order based on the product:
 
   try {
+    const fetchProduct = await productModel.findOne({ product: product });
+    if (!fetchProduct) {
+      return res.status(404).json({ message: "Product not found." });
+    }
+
+    const order = new orderModel({
+      orderNumber: orderNumber,
+      company: company,
+      dateStart: dateStart,
+      dateFinish: empty,
+      open: true,
+      product: product,
+      quantity: quantity,
+      amountDelivered: 0,
+      deliveryAddress1: deliveryAddress1,
+      deliveryAddress2: deliveryAddress2,
+      deliveryTown: deliveryTown,
+      deliveryPostCode: deliveryPostCode,
+      contactPhone: contactPhone,
+      contactEmail: contactEmail,
+      truckRequired: fetchProduct.compatible,
+    });
+
     await order.save();
     res.status(201).json({ message: "Order Created Successfully" });
   } catch (error) {

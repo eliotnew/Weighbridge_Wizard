@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
   try {
     const { firstName, lastName, email, password, location } = req.body;
 
-    console.log("Recieved body : foreName:", foreName);
+    console.log("Recieved body : foreName:", firstName);
     console.log("surName:", firstName);
     console.log("email:", lastName);
     console.log("password:", password);

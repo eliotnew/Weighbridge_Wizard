@@ -2,8 +2,7 @@ import { useTheme } from "@mui/material";
 import { ListItemButton, ListItemText } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruckFront } from "@fortawesome/free-solid-svg-icons";
-import TrainingContent from "../../tab-content/TrainingContent";
-
+import TruckDatabaseContent from "../../tab-content/TruckDatabaseContent";
 function TruckDatabaseButton({ addTab }) {
   const theme = useTheme();
   const handleClick = () => {
@@ -11,7 +10,7 @@ function TruckDatabaseButton({ addTab }) {
     const newTab = {
       id: id,
       label: "Truck Database",
-      content: <TrainingContent />,
+      content: <TruckDatabaseContent />,
     };
     addTab(newTab);
   };
