@@ -114,6 +114,14 @@ function ViewClosedOrdersContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
+                    Quantity Quota
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
                     Date Closed
                   </TableCell>
                   <TableCell
@@ -150,6 +158,9 @@ function ViewClosedOrdersContent() {
                     </TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.company}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.dateStart}</TableCell>
+                    <TableCell sx={{ ...cellStyle }}>
+                      {row.quantity + " kg"}
+                    </TableCell>
                     <TableCell sx={{ ...cellStyle }}>
                       {row.dateFinish}
                     </TableCell>

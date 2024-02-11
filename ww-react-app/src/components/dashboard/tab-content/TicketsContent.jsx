@@ -132,6 +132,14 @@ function TicketsContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
+                    Weigh-In Time
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.secondary.contrastText,
+                    }}
+                  >
                     Weigh-Out Time
                   </TableCell>
                   <TableCell
@@ -165,6 +173,7 @@ function TicketsContent() {
                     <TableCell sx={{ ...cellStyle }}>
                       {row.loadedLocation}
                     </TableCell>
+                    <TableCell sx={{ ...cellStyle }}>{row.timeIn}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.timeOut}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.netWeight}</TableCell>
 
