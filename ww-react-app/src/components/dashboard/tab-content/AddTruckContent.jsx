@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import createTruck from "../../../functions/truck_functions/createTruck";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
+import Truck from "../../../classes/Truck";
 
 function AddTruckContent() {
   const [alertType, setAlertType] = useState(0);
@@ -58,22 +59,21 @@ function AddTruckContent() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const jsonObj = {
-      driverName: driverName,
-      email: email,
-      reg: reg,
-      truckType: trailerType,
-      phone: Number(phoneNumber),
-      maxGVW: Number(truckType),
-    };
-    console.log("json obj is:");
-
-    console.log(jsonObj);
+    const newTruck = new Truck(
+      driverName,
+      email,
+      reg,
+      trailerType,
+      phoneNumber,
+      truckType
+    );
+    const truckJson = newTruck.toJSON();
+    console.log("Truck obj is: ", truckJson);
 
     let filledIn = true;
-    for (const key in jsonObj) {
-      console.log(key, jsonObj[key]);
-      const value = jsonObj[key];
+    for (const key in truckJson) {
+      console.log(key, truckJson[key]);
+      const value = truckJson[key];
       if (value === "" || value === undefined) {
         filledIn = false;
         break;
@@ -92,13 +92,12 @@ function AddTruckContent() {
           setAlertType(2);
           return;
         }
-        const response = await createTruck(jsonObj);
+        const response = await newTruck.addTruck();
         console.log(response);
         if (response.message === "Truck Saved Successfully") {
           clearForm();
           setAlertType(201);
         }
-        // Handle response (e.g., display a success message, clear form, etc.)
       } catch (error) {
         setAlertType(4);
         console.error("Failed to create truck:", error);
