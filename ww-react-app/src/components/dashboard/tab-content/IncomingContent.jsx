@@ -15,6 +15,7 @@ import CheckButton from "../../basicUI/CheckButton";
 import getOrdersCompatibleByTruckType from "../../../functions/order_functions/getOrdersCompatibleByTruckType";
 import confirmTruck from "../../../functions/truck_functions/confirmTruck";
 import weighIn from "../../../functions/ticket_functions/weighIn";
+import InTicket from "../../../classes/InTicket";
 
 // TO DO: Takes input for reg plate , on pressing the checkButton, it calls confirmTruck(reg).
 // if response = true, the enter tareweight box becomes visible and also the assign job select box will too. That box will collect it's list values by passing reg through (getOrdersCompatibleByTruckType).
@@ -92,20 +93,18 @@ function IncomingContent() {
     }
     console.log("orderNumberString is :" + orderNumberString);
 
-    const jsonObj = {
-      reg: reg,
-      tareWeight: tareWeight,
-      clerk_Id: clerkId,
-      loadedLocation: location,
-      order_Id: orderNumberString,
-    };
+    const newInticket = new InTicket(
+      reg,
+      tareWeight,
+      clerkId,
+      location,
+      orderNumberString
+    );
 
-    setShowFields(false);
-    console.log(jsonObj);
-
-    const save = await weighIn(jsonObj);
+    const save = await newInticket.createTicket();
     if (save.message === "Weigh in Successfull") {
       setAlertType(201);
+      setShowFields(false);
       setReg("");
     } else {
       setAlertType(500);
