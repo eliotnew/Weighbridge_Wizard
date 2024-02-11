@@ -88,6 +88,9 @@ function CreateNewOrderContent() {
         }
         const response = await createOrder(jsonObj);
         console.log(response);
+        if (response.message === "Order Created Successfully") {
+          setAlertType(201);
+        }
         // Handle response (e.g., display a success message, clear form, etc.)
       } catch (error) {
         setAlertType(4);
@@ -261,6 +264,16 @@ function CreateNewOrderContent() {
         >
           Something Went Wrong on the server. Failed to Load in the products
           from the server!
+          <Button color="inherit" size="small"></Button>
+        </Alert>
+      ) : null}
+      {alertType === 201 ? (
+        <Alert
+          sx={{ padding: "10px" }}
+          severity="success"
+          onClose={() => setAlertType(0)}
+        >
+          Successfully Created Order!
           <Button color="inherit" size="small"></Button>
         </Alert>
       ) : null}
