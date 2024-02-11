@@ -3,7 +3,7 @@ import BasicWebcam from "../../camera/BasicWebcam";
 import { Typography, Alert } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
-import weighOut from "../../../functions/ticket_functions/weighOut";
+import OutTicket from "../../../classes/OutTicket";
 import getTruck from "../../../functions/truck_functions/getTruck";
 import getOneOnesite from "../../../functions/ticket_functions/getOneOnsite";
 
@@ -66,17 +66,10 @@ function OutgoingContent() {
       return;
     }
 
-    const jsonObj = {
-      reg: reg,
-      outWeight: grossWeight,
-    };
-    console.log("Obj going out: " + jsonObj);
-    console.log(grossWeight);
-    console.log(reg);
+    const newOutTicket = new OutTicket(reg, grossWeight);
 
-    const save = await weighOut(jsonObj);
+    const save = await newOutTicket.updateTicket();
     if (save.message === "Success") {
-      // Assuming 'save.ok' is set correctly inside 'weighOut' if the response status code is 200
       setAlertType(200);
       showFields(false);
     } else {

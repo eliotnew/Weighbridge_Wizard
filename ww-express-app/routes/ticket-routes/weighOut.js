@@ -47,6 +47,7 @@ router.put("/", async (req, res) => {
       console.log(
         "Found the ticket that says that the truck got by reg is onsite."
       );
+      console.log("Before netweight, outweight is : " + outWeight);
       const netWeight = outWeight - onSiteTicket.tareWeight;
       console.log("Net weight it " + netWeight);
       const orderNumberFromTicket = onSiteTicket.order_Id;
