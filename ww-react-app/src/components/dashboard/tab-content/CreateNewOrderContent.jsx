@@ -18,6 +18,7 @@ function CreateNewOrderContent() {
   const [alertType, setAlertType] = useState(0);
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState("");
+  const [hideForm, setHideForm] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -90,6 +91,7 @@ function CreateNewOrderContent() {
         console.log(response);
         if (response.message === "Order Created Successfully") {
           setAlertType(201);
+          setHideForm(true);
         }
         // Handle response (e.g., display a success message, clear form, etc.)
       } catch (error) {
@@ -102,120 +104,122 @@ function CreateNewOrderContent() {
   return (
     <>
       <Typography variant="h3"> Create New Order </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          label="Company Name:"
-          variant="outlined"
-          name="company"
-          size="small"
-        />
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <FormControl fullWidth margin="normal">
-            <InputLabel id="product-label">Product:</InputLabel>
-            <Select
-              labelId="product-label"
-              id="product"
-              name="product"
-              size="small"
-              value={selectedProduct}
-              label="Product"
-              onChange={(event) => setSelectedProduct(event.target.value)}
-              required
-            >
-              {products.map((product, index) => (
-                <MenuItem key={index} value={product.product}>
-                  {product.product}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
+      {hideForm === false ? (
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
-            label="Quantity (kg):"
+            fullWidth
+            label="Company Name:"
             variant="outlined"
-            name="quantity"
+            name="company"
             size="small"
           />
-        </div>
-        <Typography variant="h6" sx={{ marginTop: "10px" }}>
-          Delivering To:
-        </Typography>
 
-        <TextField
-          required
-          fullWidth
-          margin="dense"
-          label="Address Line 1:"
-          variant="outlined"
-          name="ad1"
-          size="small"
-        />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <FormControl fullWidth margin="normal">
+              <InputLabel id="product-label">Product:</InputLabel>
+              <Select
+                labelId="product-label"
+                id="product"
+                name="product"
+                size="small"
+                value={selectedProduct}
+                label="Product"
+                onChange={(event) => setSelectedProduct(event.target.value)}
+                required
+              >
+                {products.map((product, index) => (
+                  <MenuItem key={index} value={product.product}>
+                    {product.product}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
-        <TextField
-          fullWidth
-          margin="dense"
-          label="Address Line 2 (Optional):"
-          variant="outlined"
-          name="ad2"
-          size="small"
-        />
+            <TextField
+              margin="normal"
+              required
+              label="Quantity (kg):"
+              variant="outlined"
+              name="quantity"
+              size="small"
+            />
+          </div>
+          <Typography variant="h6" sx={{ marginTop: "10px" }}>
+            Delivering To:
+          </Typography>
 
-        <TextField
-          required
-          fullWidth
-          margin="dense"
-          label="City/Town:"
-          variant="outlined"
-          name="deliveryTown"
-          size="small"
-        />
+          <TextField
+            required
+            fullWidth
+            margin="dense"
+            label="Address Line 1:"
+            variant="outlined"
+            name="ad1"
+            size="small"
+          />
 
-        <TextField
-          required
-          fullWidth
-          margin="dense"
-          label="Postcode:"
-          variant="outlined"
-          name="postcode"
-          size="small"
-        />
+          <TextField
+            fullWidth
+            margin="dense"
+            label="Address Line 2 (Optional):"
+            variant="outlined"
+            name="ad2"
+            size="small"
+          />
 
-        <Typography variant="h6" sx={{ marginTop: "10px" }}>
-          Contact Details:
-        </Typography>
+          <TextField
+            required
+            fullWidth
+            margin="dense"
+            label="City/Town:"
+            variant="outlined"
+            name="deliveryTown"
+            size="small"
+          />
 
-        <TextField
-          margin="dense"
-          fullWidth
-          label="Phone Number:"
-          variant="outlined"
-          name="phone"
-          size="small"
-        />
+          <TextField
+            required
+            fullWidth
+            margin="dense"
+            label="Postcode:"
+            variant="outlined"
+            name="postcode"
+            size="small"
+          />
 
-        <TextField
-          margin="dense"
-          required
-          fullWidth
-          label="e-mail Address:"
-          variant="outlined"
-          name="email"
-          size="small"
-        />
-        <SubmitFormButton />
-      </Box>
+          <Typography variant="h6" sx={{ marginTop: "10px" }}>
+            Contact Details:
+          </Typography>
+
+          <TextField
+            margin="dense"
+            fullWidth
+            label="Phone Number:"
+            variant="outlined"
+            name="phone"
+            size="small"
+          />
+
+          <TextField
+            margin="dense"
+            required
+            fullWidth
+            label="e-mail Address:"
+            variant="outlined"
+            name="email"
+            size="small"
+          />
+          <SubmitFormButton />
+        </Box>
+      ) : null}
       {alertType === 1 ? (
         <Alert
           sx={{ padding: "10px" }}
