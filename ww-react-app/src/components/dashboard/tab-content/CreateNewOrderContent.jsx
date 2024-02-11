@@ -11,6 +11,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import createOrder from "../../../functions/order_functions/createOrder";
+import Order from "../../../classes/Order";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
 import getAllProducts from "../../../functions/product_functions/getAllProducts";
 
@@ -47,28 +48,29 @@ function CreateNewOrderContent() {
     const contactPhone = data.get("phone");
     const contactEmail = data.get("email");
 
-    const jsonObj = {
-      company: company,
-      product: product,
-      quantity: Number(quantity),
-      deliveryAddress1: deliveryAddress1,
-      deliveryAddress2: deliveryAddress2,
-      deliveryTown: deliveryTown,
-      deliveryPostCode: deliveryPostCode,
-      contactPhone: Number(contactPhone),
-      contactEmail: contactEmail,
-    };
+    const newOrder = new Order(
+      company,
+      product,
+      quantity,
+      deliveryAddress1,
+      deliveryAddress2,
+      deliveryTown,
+      deliveryPostCode,
+      contactPhone,
+      contactEmail
+    );
+    const orderJson = newOrder.toJSON();
 
-    console.log(jsonObj);
+    console.log(orderJson);
 
     //Check there are no empty inputs, but deliveryAddress2 is optional.
     let filledIn = true;
-    for (const key in jsonObj) {
-      console.log(key, jsonObj[key]);
+    for (const key in orderJson) {
+      console.log(key, orderJson[key]);
       if (key === "deliveryAddress2") {
         continue;
       }
-      const value = jsonObj[key];
+      const value = orderJson[key];
       if (value === "" || value === undefined) {
         filledIn = false;
         break;
@@ -87,7 +89,7 @@ function CreateNewOrderContent() {
           setAlertType(2);
           return;
         }
-        const response = await createOrder(jsonObj);
+        const response = await newOrder.createOrder();
         console.log(response);
         if (response.message === "Order Created Successfully") {
           setAlertType(201);
