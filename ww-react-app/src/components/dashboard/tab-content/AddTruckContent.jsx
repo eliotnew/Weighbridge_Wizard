@@ -15,7 +15,7 @@ import SubmitFormButton from "../../basicUI/SubmitFormButton";
 
 function AddTruckContent() {
   const [alertType, setAlertType] = useState(0);
-  const [truckType, setTruckType] = useState("");
+  const [truckType, setTruckType] = useState(0);
   const [trailerType, setTrailerType] = useState("");
   const [reg, setReg] = useState("");
   const [driverName, setDriverName] = useState("");
@@ -46,7 +46,6 @@ function AddTruckContent() {
   };
 
   function clearForm() {
-    //On success.
     setAlertType(201);
     setTruckType("");
     setTrailerType("");
@@ -63,14 +62,14 @@ function AddTruckContent() {
       driverName: driverName,
       email: email,
       reg: reg,
-      truckType: truckType,
+      truckType: trailerType,
       phone: Number(phoneNumber),
-      maxGVW: Number(trailerType),
+      maxGVW: Number(truckType),
     };
+    console.log("json obj is:");
 
     console.log(jsonObj);
 
-    //Check there are no empty inputs, but deliveryAddress2 is optional.
     let filledIn = true;
     for (const key in jsonObj) {
       console.log(key, jsonObj[key]);
@@ -89,12 +88,16 @@ function AddTruckContent() {
           setAlertType(1);
           return;
         }
-        if (isNaN(parseFloat(trailerType))) {
+        if (isNaN(parseFloat(truckType))) {
           setAlertType(2);
           return;
         }
         const response = await createTruck(jsonObj);
         console.log(response);
+        if (response.message === "Truck Saved Successfully") {
+          clearForm();
+          setAlertType(201);
+        }
         // Handle response (e.g., display a success message, clear form, etc.)
       } catch (error) {
         setAlertType(4);
@@ -134,10 +137,10 @@ function AddTruckContent() {
             onChange={handleTruckTypeChange}
             label="Select Truck Type"
           >
-            <MenuItem value="18000">Rigid: 2 axle </MenuItem>
-            <MenuItem value="26000">Rigid: 3 axle</MenuItem>
-            <MenuItem value="44000">Articulated Lorry with trailer</MenuItem>
-            <MenuItem value="72000">Articulated Dump Truck</MenuItem>
+            <MenuItem value={18000}>Rigid: 2 axle </MenuItem>
+            <MenuItem value={26000}>Rigid: 3 axle</MenuItem>
+            <MenuItem value={44000}>Articulated Lorry with trailer</MenuItem>
+            <MenuItem value={72000}>Articulated Dump Truck</MenuItem>
           </Select>
         </FormControl>
 
