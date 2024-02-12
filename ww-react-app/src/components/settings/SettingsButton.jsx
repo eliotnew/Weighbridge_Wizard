@@ -23,6 +23,7 @@ function SettingsButton() {
   const [switchContrast, setSwitchContrast] = useState(false);
   const theme = useTheme();
   const { currentTheme, toggleTheme } = useContext(ThemeContext);
+  //const { toggleContrast } = useContext(ThemeContext);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,6 +39,7 @@ function SettingsButton() {
   };
   const handleContrastSwitch = (event) => {
     setSwitchContrast(event.target.checked);
+    // toggleContrast();
   };
 
   const switchLabel = (

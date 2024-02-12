@@ -118,6 +118,7 @@ function AddTruckContent() {
       },
     },
   };
+  // sx={selectStyles}
   const selectStyles = {
     "& .MuiOutlinedInput-root": {
       "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
