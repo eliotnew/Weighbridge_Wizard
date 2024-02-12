@@ -6,6 +6,7 @@ import SubmitFormButton from "../../basicUI/SubmitFormButton";
 import OutTicket from "../../../classes/OutTicket";
 import getTruck from "../../../functions/truck_functions/getTruck";
 import getOneOnesite from "../../../functions/ticket_functions/getOneOnsite";
+import { useTheme } from "@mui/material";
 
 function OutgoingContent() {
   const [grossWeight, setGrossWeight] = useState("");
@@ -100,6 +101,21 @@ function OutgoingContent() {
       setNetWeight(0);
     }
   };
+
+  const theme = useTheme();
+  const inputFieldStyles = {
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: theme.palette.inputBorder.selected,
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+    "& .MuiInputLabel-root": {
+      "&.Mui-focused": {
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+  };
   return (
     <>
       <Typography variant="h3"> Weigh Out </Typography>
@@ -123,6 +139,7 @@ function OutgoingContent() {
             id="registration"
             autoComplete=""
             onChange={handleRegChange}
+            sx={inputFieldStyles}
           />
           {showFields === true && (
             <>
@@ -134,6 +151,7 @@ function OutgoingContent() {
                 label="Enter Gross Weight (kg)"
                 variant="outlined"
                 onChange={handleGrossChange}
+                sx={inputFieldStyles}
               />
               <Typography>TareWeight: {tareWeight} kg</Typography>
               {grossWeight !== 0 && (

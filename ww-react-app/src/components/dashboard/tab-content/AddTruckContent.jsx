@@ -10,9 +10,9 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import createTruck from "../../../functions/truck_functions/createTruck";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
 import Truck from "../../../classes/Truck";
+import { useTheme } from "@mui/material";
 
 function AddTruckContent() {
   const [alertType, setAlertType] = useState(0);
@@ -104,7 +104,20 @@ function AddTruckContent() {
       }
     }
   };
-
+  const theme = useTheme();
+  const inputFieldStyles = {
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: theme.palette.inputBorder.selected,
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+    "& .MuiInputLabel-root": {
+      "&.Mui-focused": {
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+  };
   return (
     <>
       <Typography variant="h3"> Add Truck </Typography>
@@ -124,6 +137,7 @@ function AddTruckContent() {
             variant="outlined"
             value={reg}
             onChange={handleRegChange}
+            sx={inputFieldStyles}
           />
         </FormControl>
 
@@ -169,6 +183,7 @@ function AddTruckContent() {
             variant="outlined"
             value={driverName}
             onChange={handleDriverNameChange}
+            sx={inputFieldStyles}
           />
         </FormControl>
 
@@ -179,6 +194,7 @@ function AddTruckContent() {
             variant="outlined"
             value={phoneNumber}
             onChange={handlePhoneNumberChange}
+            sx={inputFieldStyles}
           />
         </FormControl>
 
@@ -189,6 +205,7 @@ function AddTruckContent() {
             variant="outlined"
             value={email}
             onChange={handleEmailChange}
+            sx={inputFieldStyles}
           />
         </FormControl>
         <SubmitFormButton />

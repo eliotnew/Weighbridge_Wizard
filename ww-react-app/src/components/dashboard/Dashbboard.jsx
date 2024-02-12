@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { Paper, useTheme } from "@mui/material";
 import { Box, Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHandPointLeft,
-  faHatWizard,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHatWizard } from "@fortawesome/free-solid-svg-icons";
 import DashboardAppBar from "./top-bar/DashboardAppBar";
 import BottomAppbar from "./bottom-bar/BottomAppBar";
 import SideBar from "./side-bar/SideBar";
@@ -76,7 +73,8 @@ function Dashboard() {
             square={false}
             p={2}
             sx={{
-              backgroundColor: "white",
+              backgroundColor: theme.palette.paper.main,
+              color: theme.palette.paper.contrastText,
               margin: "35px",
               minHeight: "80vh",
               display: "flex",

@@ -10,10 +10,10 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import createOrder from "../../../functions/order_functions/createOrder";
 import Order from "../../../classes/Order";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
 import getAllProducts from "../../../functions/product_functions/getAllProducts";
+import { useTheme } from "@mui/material";
 
 function CreateNewOrderContent() {
   const [alertType, setAlertType] = useState(0);
@@ -103,6 +103,21 @@ function CreateNewOrderContent() {
     }
   };
 
+  const theme = useTheme();
+  const inputFieldStyles = {
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: theme.palette.inputBorder.selected,
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+    "& .MuiInputLabel-root": {
+      "&.Mui-focused": {
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+  };
+
   return (
     <>
       <Typography variant="h3"> Create New Order </Typography>
@@ -116,6 +131,7 @@ function CreateNewOrderContent() {
             variant="outlined"
             name="company"
             size="small"
+            sx={inputFieldStyles}
           />
 
           <div
@@ -152,6 +168,7 @@ function CreateNewOrderContent() {
               variant="outlined"
               name="quantity"
               size="small"
+              sx={inputFieldStyles}
             />
           </div>
           <Typography variant="h6" sx={{ marginTop: "10px" }}>
@@ -166,6 +183,7 @@ function CreateNewOrderContent() {
             variant="outlined"
             name="ad1"
             size="small"
+            sx={inputFieldStyles}
           />
 
           <TextField
@@ -175,6 +193,7 @@ function CreateNewOrderContent() {
             variant="outlined"
             name="ad2"
             size="small"
+            sx={inputFieldStyles}
           />
 
           <TextField
@@ -185,6 +204,7 @@ function CreateNewOrderContent() {
             variant="outlined"
             name="deliveryTown"
             size="small"
+            sx={inputFieldStyles}
           />
 
           <TextField
@@ -195,6 +215,7 @@ function CreateNewOrderContent() {
             variant="outlined"
             name="postcode"
             size="small"
+            sx={inputFieldStyles}
           />
 
           <Typography variant="h6" sx={{ marginTop: "10px" }}>
@@ -208,6 +229,7 @@ function CreateNewOrderContent() {
             variant="outlined"
             name="phone"
             size="small"
+            sx={inputFieldStyles}
           />
 
           <TextField
@@ -218,6 +240,7 @@ function CreateNewOrderContent() {
             variant="outlined"
             name="email"
             size="small"
+            sx={inputFieldStyles}
           />
           <SubmitFormButton />
         </Box>

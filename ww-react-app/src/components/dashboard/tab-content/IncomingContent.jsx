@@ -14,8 +14,8 @@ import SubmitFormButton from "../../basicUI/SubmitFormButton";
 import CheckButton from "../../basicUI/CheckButton";
 import getOrdersCompatibleByTruckType from "../../../functions/order_functions/getOrdersCompatibleByTruckType";
 import confirmTruck from "../../../functions/truck_functions/confirmTruck";
-import weighIn from "../../../functions/ticket_functions/weighIn";
 import InTicket from "../../../classes/InTicket";
+import { useTheme } from "@mui/material";
 
 // TO DO: Takes input for reg plate , on pressing the checkButton, it calls confirmTruck(reg).
 // if response = true, the enter tareweight box becomes visible and also the assign job select box will too. That box will collect it's list values by passing reg through (getOrdersCompatibleByTruckType).
@@ -144,7 +144,20 @@ function IncomingContent() {
       console.error("Error checking truck:", error);
     }
   };
-
+  const theme = useTheme();
+  const inputFieldStyles = {
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: theme.palette.inputBorder.selected,
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+    "& .MuiInputLabel-root": {
+      "&.Mui-focused": {
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+  };
   return (
     <>
       <Typography variant="h3"> Weigh In </Typography>
@@ -168,6 +181,7 @@ function IncomingContent() {
             id="registration"
             autoComplete=""
             onChange={handleRegChange}
+            sx={inputFieldStyles}
           />
           {freshReg === true && <CheckButton onClick={checkTruck} />}
 
@@ -182,6 +196,7 @@ function IncomingContent() {
                 variant="outlined"
                 value={tareWeight}
                 onChange={handleTareWeightChange}
+                sx={inputFieldStyles}
               />
 
               <FormControl fullWidth margin="normal">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AppBar, Toolbar, Typography, Button, useTheme } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHatWizard } from "@fortawesome/free-solid-svg-icons";
-import SettingsButton from "./SettingsButton";
+import SettingsButton from "../../settings/SettingsButton";
 import LogoutButton from "./LogoutButton";
 import AccountButton from "./AccountButton";
 
