@@ -193,6 +193,7 @@ function ManageOutstandingOrderContent() {
                         value={(row.amountDelivered / row.quantity) * 100}
                         size={90} // Adjust size to be larger
                         strokeWidth={50} // Make the progress stroke wider
+                        style={{ color: theme.palette.accent.main }}
                       />
                     </TableCell>
                     <TableCell sx={{ ...cellStyle }}>

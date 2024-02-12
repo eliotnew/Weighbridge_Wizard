@@ -31,6 +31,7 @@ export const lightTheme = createTheme({
   },
 });
 export const highContrastLightTheme = createTheme({
+  ...lightTheme,
   palette: {
     mode: "light-HC",
     primary: {
