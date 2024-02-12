@@ -23,7 +23,7 @@ function SettingsButton() {
   const [switchContrast, setSwitchContrast] = useState(false);
   const theme = useTheme();
   const { currentTheme, toggleTheme } = useContext(ThemeContext);
-  //const { toggleContrast } = useContext(ThemeContext);
+  const { toggleContrast } = useContext(ThemeContext);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -39,7 +39,7 @@ function SettingsButton() {
   };
   const handleContrastSwitch = (event) => {
     setSwitchContrast(event.target.checked);
-    // toggleContrast();
+    toggleContrast();
   };
 
   const switchLabel = (
@@ -118,7 +118,7 @@ function SettingsButton() {
                 color="default"
               />
             }
-            label={switchContrast ? "High-Contrast ON" : "High-Contrast OFF"}
+            label="Accessibility Mode"
           />
         </MenuItem>
       </Menu>

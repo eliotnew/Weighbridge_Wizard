@@ -33,13 +33,13 @@ export const lightTheme = createTheme({
 export const highContrastLightTheme = createTheme({
   ...lightTheme,
   palette: {
-    mode: "light-HC",
+    mode: "light",
     primary: {
-      main: "#53aecf",
+      main: "#FFFFFF",
       contrastText: "#000000",
     },
     secondary: {
-      main: "#eea8f7",
+      main: "#FFFFFF",
       contrastText: "#000000",
     },
     text: {
@@ -49,7 +49,7 @@ export const highContrastLightTheme = createTheme({
       default: "#FFFFFF",
     },
     accent: {
-      main: "#001114",
+      main: "#fff700",
       contrastText: "#22ff00",
     },
     paper: {
@@ -57,6 +57,18 @@ export const highContrastLightTheme = createTheme({
     },
     inputBorder: {
       selected: "#000000",
+    },
+    success: {
+      main: "#00cc22",
+    },
+    error: {
+      main: "#ff0000",
+    },
+    warning: {
+      main: "#fff700",
+    },
+    info: {
+      main: "#00ccff",
     },
   },
 });
@@ -94,30 +106,31 @@ export const darkTheme = createTheme({
 
 export const highContrastDarkTheme = createTheme({
   palette: {
-    mode: "dark-HC",
+    mode: "dark",
     primary: {
-      main: "#FFFFFF",
-      contrastText: "#000000",
+      contrastText: "#00ff11",
+      main: "#000000",
     },
     secondary: {
-      main: "#FFFFFF",
-      contrastText: "#000000",
+      main: "#000000",
+      contrastText: "#ffff00",
     },
     text: {
-      primary: "#000000",
+      primary: "#00ff11",
     },
     background: {
-      default: "#FFFFFF",
+      default: "#595959",
     },
     accent: {
-      main: "#001114",
-      contrastText: "#22ff00",
+      main: "#ff03ff",
+      contrastText: "#000000",
     },
     paper: {
-      main: "#FFFFFF",
+      main: "#000000",
+      contrastText: "#FFFFFF",
     },
     inputBorder: {
-      selected: "#000000",
+      selected: "#00ff11",
     },
   },
 });
