@@ -14,15 +14,15 @@ function LogoutButton() {
   return (
     <Button
       sx={{
-        color: theme.palette.primary.contrastText,
-        fontWeight: 1000,
+        color: theme.palette.secondary.contrastText,
         "&:hover": {
-          backgroundColor: theme.palette.primary.contrastText,
-          color: theme.palette.primary.main,
+          backgroundColor: theme.palette.accent.scary,
+          color: theme.palette.accent.scaryContrastText,
           transform: "scale(1.1)",
           transition: "transform 0.35s",
         },
       }}
+      fullWidth
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >

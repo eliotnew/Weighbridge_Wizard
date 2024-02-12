@@ -61,21 +61,6 @@ function DashboardAppBar() {
         </Typography>
 
         <AccountButton />
-
-        <Typography
-          variant="h6"
-          component="span"
-          style={{
-            margin: "0 8px",
-            marginBottom: "5px",
-            color: theme.palette.primary.contrastText,
-            fontWeight: 1000,
-          }}
-        >
-          |
-        </Typography>
-
-        <LogoutButton />
       </Toolbar>
     </AppBar>
   );
