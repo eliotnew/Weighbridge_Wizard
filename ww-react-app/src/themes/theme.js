@@ -21,6 +21,8 @@ export const lightTheme = createTheme({
     accent: {
       main: "#684587",
       contrastText: "#FCF7E8",
+      scary: "#660000",
+      scaryContrastText: "#ffffff",
     },
     paper: {
       main: "#FFFFFF",
@@ -51,6 +53,8 @@ export const highContrastLightTheme = createTheme({
     accent: {
       main: "#fff700",
       contrastText: "#22ff00",
+      scary: "#000000",
+      scaryContrastText: "#ffffff",
     },
     paper: {
       main: "#FFFFFF",
@@ -69,6 +73,11 @@ export const highContrastLightTheme = createTheme({
     },
     info: {
       main: "#00ccff",
+    },
+  },
+  typography: {
+    allVariants: {
+      color: "#000000",
     },
   },
 });
@@ -93,6 +102,8 @@ export const darkTheme = createTheme({
     accent: {
       main: "#9B78BA",
       contrastText: "#020202",
+      scary: "#610c0c",
+      scaryContrastText: "#ffffff",
     },
     paper: {
       main: "#020202",
@@ -100,6 +111,18 @@ export const darkTheme = createTheme({
     },
     inputBorder: {
       selected: "#95DCE9",
+    },
+    success: {
+      main: "#00cc22",
+    },
+    error: {
+      main: "#ff0000",
+    },
+    warning: {
+      main: "#fff700",
+    },
+    info: {
+      main: "#00ccff",
     },
   },
 });
@@ -124,6 +147,8 @@ export const highContrastDarkTheme = createTheme({
     accent: {
       main: "#ff03ff",
       contrastText: "#000000",
+      scary: "#000000",
+      scaryContrastText: "#ff0000",
     },
     paper: {
       main: "#000000",
@@ -131,6 +156,11 @@ export const highContrastDarkTheme = createTheme({
     },
     inputBorder: {
       selected: "#00ff11",
+    },
+  },
+  typography: {
+    allVariants: {
+      color: "#ffff00",
     },
   },
 });
