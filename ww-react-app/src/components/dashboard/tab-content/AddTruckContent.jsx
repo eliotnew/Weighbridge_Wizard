@@ -118,6 +118,18 @@ function AddTruckContent() {
       },
     },
   };
+  const selectStyles = {
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        borderColor: theme.palette.inputBorder.selected,
+      },
+    },
+    "& .MuiInputLabel-root": {
+      "&.Mui-focused": {
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+  };
   return (
     <>
       <Typography variant="h3"> Add Truck </Typography>
@@ -141,7 +153,7 @@ function AddTruckContent() {
           />
         </FormControl>
 
-        <FormControl fullWidth margin="normal">
+        <FormControl fullWidth margin="normal" sx={selectStyles}>
           <InputLabel id="select-truck">Truck Type</InputLabel>
           <Select
             labelId="truck-select-label"
@@ -157,7 +169,7 @@ function AddTruckContent() {
           </Select>
         </FormControl>
 
-        <FormControl fullWidth margin="normal">
+        <FormControl fullWidth margin="normal" sx={selectStyles}>
           <InputLabel id="select-trailer">Trailer Type</InputLabel>
           <Select
             labelId="trailer-select-label"

@@ -158,6 +158,19 @@ function IncomingContent() {
       },
     },
   };
+
+  const selectStyles = {
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        borderColor: theme.palette.inputBorder.selected,
+      },
+    },
+    "& .MuiInputLabel-root": {
+      "&.Mui-focused": {
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+  };
   return (
     <>
       <Typography variant="h3"> Weigh In </Typography>
@@ -199,7 +212,7 @@ function IncomingContent() {
                 sx={inputFieldStyles}
               />
 
-              <FormControl fullWidth margin="normal">
+              <FormControl fullWidth margin="normal " sx={selectStyles}>
                 <InputLabel id="select-job">Assign Job</InputLabel>
                 <Select
                   labelId="job-select-label"

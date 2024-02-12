@@ -117,6 +117,19 @@ function CreateNewOrderContent() {
       },
     },
   };
+  //
+  const selectStyles = {
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        borderColor: theme.palette.inputBorder.selected,
+      },
+    },
+    "& .MuiInputLabel-root": {
+      "&.Mui-focused": {
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+  };
 
   return (
     <>
@@ -141,7 +154,7 @@ function CreateNewOrderContent() {
               alignItems: "center",
             }}
           >
-            <FormControl fullWidth margin="normal">
+            <FormControl fullWidth margin="normal" sx={selectStyles}>
               <InputLabel id="product-label">Product:</InputLabel>
               <Select
                 labelId="product-label"

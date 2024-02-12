@@ -116,6 +116,7 @@ function OutgoingContent() {
       },
     },
   };
+
   return (
     <>
       <Typography variant="h3"> Weigh Out </Typography>
