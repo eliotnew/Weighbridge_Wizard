@@ -23,6 +23,7 @@ export const lightTheme = createTheme({
       contrastText: "#FCF7E8",
       scary: "#660000",
       scaryContrastText: "#ffffff",
+      sideIcon: "#202A56",
     },
     paper: {
       main: "#FFFFFF",
@@ -37,8 +38,8 @@ export const highContrastLightTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#FFFFFF",
-      contrastText: "#000000",
+      main: "#000000",
+      contrastText: "#FFFFFF",
     },
     secondary: {
       main: "#FFFFFF",
@@ -51,10 +52,11 @@ export const highContrastLightTheme = createTheme({
       default: "#FFFFFF",
     },
     accent: {
-      main: "#fff700",
-      contrastText: "#22ff00",
+      main: "#000000",
+      contrastText: "#FFFFFF",
       scary: "#000000",
       scaryContrastText: "#ffffff",
+      sideIcon: "#000000",
     },
     paper: {
       main: "#FFFFFF",
@@ -104,6 +106,7 @@ export const darkTheme = createTheme({
       contrastText: "#020202",
       scary: "#610c0c",
       scaryContrastText: "#ffffff",
+      sideIcon: "#95DCE9",
     },
     paper: {
       main: "#020202",
@@ -149,6 +152,7 @@ export const highContrastDarkTheme = createTheme({
       contrastText: "#000000",
       scary: "#000000",
       scaryContrastText: "#ff0000",
+      sideIcon: "#00ff11",
     },
     paper: {
       main: "#000000",

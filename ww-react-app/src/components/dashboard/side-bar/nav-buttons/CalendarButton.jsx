@@ -32,7 +32,7 @@ function CalendarButton({ addTab }) {
         icon={faCalendarDays}
         size="lg"
         style={{
-          color: theme.palette.primary.contrastText,
+          color: theme.palette.accent.sideIcon,
           paddingRight: "10px",
         }}
       />

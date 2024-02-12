@@ -170,8 +170,8 @@ function TruckDatabaseContent() {
                     <TableCell>
                       <Button
                         sx={{
-                          backgroundColor: "red",
-                          color: "black",
+                          backgroundColor: theme.palette.accent.scary,
+                          color: theme.palette.accent.scaryContrastText,
                         }}
                         onClick={() => handleCancel(Reg)}
                       >
