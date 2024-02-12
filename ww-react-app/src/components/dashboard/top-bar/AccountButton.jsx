@@ -1,22 +1,17 @@
 import React, { useState } from "react";
-import {
-  Button,
-  MenuItem,
-  Menu,
-  Switch,
-  FormControl,
-  FormControlLabel,
-  useTheme,
-} from "@mui/material";
+import { Button, MenuItem, Menu, useTheme } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import LogOutButton from "./LogoutButton";
+import IncomingContent from "../tab-content/IncomingContent";
+import ChangePasswordContent from "../tab-content/ChangePasswordContent";
 
 /**
  *  A button for the top app bar that will log the user out, returning to the main page.
  *  Additionally, it should have an interactive UI when hovering over.
  */
-function AccountButton() {
+function AccountButton({ addTab }) {
+  console.log(addTab);
   const [isHover, setIsHover] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,6 +22,17 @@ function AccountButton() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handlePasswordClick = () => {
+    console.log("clicked");
+    const id = Math.floor(Math.random() * 100000);
+    const newTab = {
+      id: id,
+      label: "Change Password",
+      content: <ChangePasswordContent />,
+    };
+    addTab(newTab);
   };
 
   return (
@@ -64,7 +70,7 @@ function AccountButton() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem>Change Password</MenuItem>
+        <MenuItem onClick={handlePasswordClick}>Change Password</MenuItem>
         <MenuItem>Change Details</MenuItem>
         <MenuItem>
           <LogOutButton></LogOutButton>

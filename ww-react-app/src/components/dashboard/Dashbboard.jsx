@@ -59,7 +59,7 @@ function Dashboard() {
         width: "100%",
       }}
     >
-      <DashboardAppBar />
+      <DashboardAppBar addTab={addTab} />
 
       <Grid container>
         <Grid item xs={2}>

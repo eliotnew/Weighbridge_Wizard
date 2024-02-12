@@ -4,7 +4,6 @@ import {
   MenuItem,
   Menu,
   Switch,
-  FormControl,
   FormControlLabel,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
