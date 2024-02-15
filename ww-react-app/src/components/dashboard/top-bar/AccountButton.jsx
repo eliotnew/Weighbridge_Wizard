@@ -12,9 +12,9 @@ import ChangeDetailsContent from "../tab-content/ChangeDetailsContent";
  */
 function AccountButton({ addTab }) {
   const [isHover, setIsHover] = useState(false);
-
   const [anchorEl, setAnchorEl] = useState(null);
   const theme = useTheme();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -82,9 +82,7 @@ function AccountButton({ addTab }) {
       >
         <MenuItem onClick={handlePasswordClick}>Change Password</MenuItem>
         <MenuItem onClick={handleDetailsClick}>Change Details </MenuItem>
-        <MenuItem>
-          <LogOutButton></LogOutButton>
-        </MenuItem>
+        <LogOutButton></LogOutButton>
       </Menu>
     </>
   );
