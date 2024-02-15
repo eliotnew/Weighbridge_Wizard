@@ -19,6 +19,8 @@ import { useTheme } from "@mui/material";
 import evaluatePassLength from "../../../functions/account_functions/evaluatePassLength";
 import evaluatePasswordStrength from "../../../functions/account_functions/evaluatePassword";
 import changePassWord from "../../../functions/account_functions/changePassword";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 
 function ChangePasswordContent() {
   const [alertType, setAlertType] = useState(0);
@@ -70,6 +72,21 @@ function ChangePasswordContent() {
     }
   };
 
+  const theme = useTheme();
+  const inputFieldStyles = {
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: theme.palette.inputBorder.selected,
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+    "& .MuiInputLabel-root": {
+      "&.Mui-focused": {
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -81,7 +98,12 @@ function ChangePasswordContent() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "darkGreen" }}>H</Avatar>
+        <Avatar sx={{ m: 1, bgcolor: theme.palette.primary.main }}>
+          <FontAwesomeIcon
+            icon={faKey}
+            style={{ color: theme.palette.primary.contrastText }}
+          />
+        </Avatar>
         <Typography component="h1" variant="h5">
           Change Password
         </Typography>
@@ -97,6 +119,7 @@ function ChangePasswordContent() {
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                sx={inputFieldStyles}
               />
 
               <Divider sx={{ m: 2 }}>Please enter your new password:</Divider>
@@ -108,6 +131,7 @@ function ChangePasswordContent() {
                 type="password"
                 id="newpassword1"
                 autoComplete="new-password"
+                sx={inputFieldStyles}
               />
 
               <TextField
@@ -118,6 +142,7 @@ function ChangePasswordContent() {
                 type="password"
                 id="newpassword2"
                 autoComplete="new-password"
+                sx={inputFieldStyles}
               />
             </Grid>
           </Grid>

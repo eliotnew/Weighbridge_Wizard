@@ -135,8 +135,7 @@ function AddTruckContent() {
     <>
       <Typography variant="h3"> Add Truck </Typography>
       <Typography variant="h6">
-        {" "}
-        Ask the driver for details and enter them below:{" "}
+        Ask the driver for details and enter them below:
       </Typography>
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
         <Typography variant="h6" sx={{ marginTop: "10px" }}>

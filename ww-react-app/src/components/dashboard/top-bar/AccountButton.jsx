@@ -3,7 +3,6 @@ import { Button, MenuItem, Menu, useTheme } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import LogOutButton from "./LogoutButton";
-import IncomingContent from "../tab-content/IncomingContent";
 import ChangePasswordContent from "../tab-content/ChangePasswordContent";
 
 /**
@@ -11,7 +10,6 @@ import ChangePasswordContent from "../tab-content/ChangePasswordContent";
  *  Additionally, it should have an interactive UI when hovering over.
  */
 function AccountButton({ addTab }) {
-  console.log(addTab);
   const [isHover, setIsHover] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);

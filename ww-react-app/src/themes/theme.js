@@ -167,4 +167,13 @@ export const highContrastDarkTheme = createTheme({
       color: "#ffff00",
     },
   },
+  components: {
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          color: "#ff03ff",
+        },
+      },
+    },
+  },
 });
