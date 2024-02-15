@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { AppBar, Toolbar, Typography, Button, useTheme } from "@mui/material";
+import React from "react";
+import { AppBar, Toolbar, Typography, useTheme } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHatWizard } from "@fortawesome/free-solid-svg-icons";
-import SettingsButton from "./SettingsButton";
-import LogoutButton from "./LogoutButton";
+import SettingsButton from "../../settings/SettingsButton";
 import AccountButton from "./AccountButton";
 
-function DashboardAppBar() {
+function DashboardAppBar({ addTab }) {
+  console.log("from appbar+ " + addTab);
   const theme = useTheme();
   return (
     <AppBar
@@ -60,22 +60,7 @@ function DashboardAppBar() {
           |
         </Typography>
 
-        <AccountButton />
-
-        <Typography
-          variant="h6"
-          component="span"
-          style={{
-            margin: "0 8px",
-            marginBottom: "5px",
-            color: theme.palette.primary.contrastText,
-            fontWeight: 1000,
-          }}
-        >
-          |
-        </Typography>
-
-        <LogoutButton />
+        <AccountButton addTab={addTab} />
       </Toolbar>
     </AppBar>
   );

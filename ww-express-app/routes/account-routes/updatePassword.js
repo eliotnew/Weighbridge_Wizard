@@ -1,8 +1,9 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 const accountModel = require("../../models/accountModel");
 const bcrypt = require("bcryptjs");
-const getAccount = require("../../functions/getAccount");
+//const getAccount = require("../../functions/getAccount");
 
 /**
  *   Changes the password via provided Id , old password and new password.
@@ -14,7 +15,12 @@ router.put("/", async (req, res) => {
 
     const { password, newPassword, userId } = req.body;
 
-    const existingAccount = await getAccount(userId);
+    const existingAccount = await accountModel.findOne({
+      _id: userId,
+    });
+    console.log("Existing account = ");
+    console.log(existingAccount);
+    console.log(existingAccount._id);
 
     //Compare the existing account with the password sent from the client
     const dBPassword = existingAccount.password;

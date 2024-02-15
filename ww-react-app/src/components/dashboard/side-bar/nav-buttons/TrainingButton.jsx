@@ -31,7 +31,7 @@ function TrainingButton({ addTab }) {
         icon={faGraduationCap}
         size="lg"
         style={{
-          color: theme.palette.primary.contrastText,
+          color: theme.palette.accent.sideIcon,
           paddingRight: "10px",
         }}
       />

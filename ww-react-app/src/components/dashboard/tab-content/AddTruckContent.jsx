@@ -10,8 +10,9 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import createTruck from "../../../functions/truck_functions/createTruck";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
+import Truck from "../../../classes/Truck";
+import { useTheme } from "@mui/material";
 
 function AddTruckContent() {
   const [alertType, setAlertType] = useState(0);
@@ -58,22 +59,21 @@ function AddTruckContent() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const jsonObj = {
-      driverName: driverName,
-      email: email,
-      reg: reg,
-      truckType: trailerType,
-      phone: Number(phoneNumber),
-      maxGVW: Number(truckType),
-    };
-    console.log("json obj is:");
-
-    console.log(jsonObj);
+    const newTruck = new Truck(
+      driverName,
+      email,
+      reg,
+      trailerType,
+      phoneNumber,
+      truckType
+    );
+    const truckJson = newTruck.toJSON();
+    console.log("Truck obj is: ", truckJson);
 
     let filledIn = true;
-    for (const key in jsonObj) {
-      console.log(key, jsonObj[key]);
-      const value = jsonObj[key];
+    for (const key in truckJson) {
+      console.log(key, truckJson[key]);
+      const value = truckJson[key];
       if (value === "" || value === undefined) {
         filledIn = false;
         break;
@@ -92,26 +92,50 @@ function AddTruckContent() {
           setAlertType(2);
           return;
         }
-        const response = await createTruck(jsonObj);
+        const response = await newTruck.addTruck();
         console.log(response);
         if (response.message === "Truck Saved Successfully") {
           clearForm();
           setAlertType(201);
         }
-        // Handle response (e.g., display a success message, clear form, etc.)
       } catch (error) {
         setAlertType(4);
         console.error("Failed to create truck:", error);
       }
     }
   };
-
+  const theme = useTheme();
+  const inputFieldStyles = {
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: theme.palette.inputBorder.selected,
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+    "& .MuiInputLabel-root": {
+      "&.Mui-focused": {
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+  };
+  // sx={selectStyles}
+  const selectStyles = {
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        borderColor: theme.palette.inputBorder.selected,
+      },
+    },
+    "& .MuiInputLabel-root": {
+      "&.Mui-focused": {
+        color: theme.palette.inputBorder.selected,
+      },
+    },
+  };
   return (
     <>
       <Typography variant="h3"> Add Truck </Typography>
       <Typography variant="h6">
-        {" "}
-        Ask the driver for details and enter them below:{" "}
+        Ask the driver for details and enter them below:
       </Typography>
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
         <Typography variant="h6" sx={{ marginTop: "10px" }}>
@@ -125,10 +149,11 @@ function AddTruckContent() {
             variant="outlined"
             value={reg}
             onChange={handleRegChange}
+            sx={inputFieldStyles}
           />
         </FormControl>
 
-        <FormControl fullWidth margin="normal">
+        <FormControl fullWidth margin="normal" sx={selectStyles}>
           <InputLabel id="select-truck">Truck Type</InputLabel>
           <Select
             labelId="truck-select-label"
@@ -144,7 +169,7 @@ function AddTruckContent() {
           </Select>
         </FormControl>
 
-        <FormControl fullWidth margin="normal">
+        <FormControl fullWidth margin="normal" sx={selectStyles}>
           <InputLabel id="select-trailer">Trailer Type</InputLabel>
           <Select
             labelId="trailer-select-label"
@@ -170,6 +195,7 @@ function AddTruckContent() {
             variant="outlined"
             value={driverName}
             onChange={handleDriverNameChange}
+            sx={inputFieldStyles}
           />
         </FormControl>
 
@@ -180,6 +206,7 @@ function AddTruckContent() {
             variant="outlined"
             value={phoneNumber}
             onChange={handlePhoneNumberChange}
+            sx={inputFieldStyles}
           />
         </FormControl>
 
@@ -190,6 +217,7 @@ function AddTruckContent() {
             variant="outlined"
             value={email}
             onChange={handleEmailChange}
+            sx={inputFieldStyles}
           />
         </FormControl>
         <SubmitFormButton />

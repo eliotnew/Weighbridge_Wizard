@@ -172,7 +172,7 @@ function ViewClosedOrdersContent() {
                       <Button
                         sx={{
                           backgroundColor: theme.palette.accent.main,
-                          color: "black",
+                          color: theme.palette.accent.contrastText,
                         }}
                         onClick={() => informUser()}
                       >

@@ -18,7 +18,9 @@ router.put("/", async (req, res) => {
 
     let existingAccount;
 
-    existingAccount = await getAccount(userId);
+    existingAccount = await accountModel.findOne({
+      _id: userId,
+    });
 
     if (!existingAccount) {
       console.log("Account not found, it doesn't exist.");
@@ -36,8 +38,8 @@ router.put("/", async (req, res) => {
           { _id: userId },
           {
             $set: {
-              foreName: foreName,
-              surName: surName,
+              firstName: foreName,
+              lastName: surName,
               email: email,
               password: originalPassword,
               location: location,
@@ -50,8 +52,8 @@ router.put("/", async (req, res) => {
         res.status(200).json({
           message: "Account updated successfully",
           userId: userId,
-          foreName: foreName,
-          surName: surName,
+          firstName: foreName,
+          lastName: surName,
           email: email,
           location: location,
         });

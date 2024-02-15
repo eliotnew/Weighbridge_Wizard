@@ -32,7 +32,7 @@ function OutButton({ addTab }) {
         size="lg"
         flip="horizontal"
         style={{
-          color: theme.palette.primary.contrastText,
+          color: theme.palette.accent.sideIcon,
           paddingLeft: "10px",
         }}
       />

@@ -1,6 +1,5 @@
 import React from "react";
 import LPappbar from "./LPappbar";
-import ToggleThemeButton from "../settings/ToggleThemeButton";
 import ParallaxComponent from "./ParallaxComponent";
 
 function LandingPage() {

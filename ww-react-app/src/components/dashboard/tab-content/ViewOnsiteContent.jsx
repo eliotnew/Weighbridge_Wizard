@@ -153,7 +153,10 @@ function ViewOnsiteContent() {
                   <TableCell sx={{ ...cellStyle }}>{row.timeIn}</TableCell>
                   <TableCell>
                     <Button
-                      sx={{ backgroundColor: "rosybrown", color: "black" }}
+                      sx={{
+                        backgroundColor: theme.palette.accent.scary,
+                        color: theme.palette.accent.scaryContrastText,
+                      }}
                       onClick={() => handleCancel(row.reg)}
                     >
                       Cancel Loading
