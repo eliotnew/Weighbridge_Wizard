@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import saveLocalAccountDetails from "../../../functions/account_functions/saveLocalAccountDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { faIdCard } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "@mui/material";
 
 function AccountEdit() {
@@ -91,7 +91,7 @@ function AccountEdit() {
       >
         <Avatar sx={{ m: 1, bgcolor: theme.palette.primary.main }}>
           <FontAwesomeIcon
-            icon={faKey}
+            icon={faIdCard}
             style={{ color: theme.palette.primary.contrastText }}
           />
         </Avatar>
@@ -110,6 +110,7 @@ function AccountEdit() {
                 label="First Name"
                 autoFocus
                 defaultValue={userForename}
+                sx={inputFieldStyles}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -121,6 +122,7 @@ function AccountEdit() {
                 name="lastName"
                 autoComplete="family-name"
                 defaultValue={userSurname}
+                sx={inputFieldStyles}
               />
             </Grid>
             <Grid item xs={12}>
@@ -132,6 +134,7 @@ function AccountEdit() {
                 name="email"
                 autoComplete="email"
                 defaultValue={useremail}
+                sx={inputFieldStyles}
               />
             </Grid>
 
@@ -150,6 +153,7 @@ function AccountEdit() {
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                sx={inputFieldStyles}
               />
             </Grid>
           </Grid>
