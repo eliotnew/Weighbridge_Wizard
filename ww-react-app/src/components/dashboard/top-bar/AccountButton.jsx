@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import LogOutButton from "./LogoutButton";
 import ChangePasswordContent from "../tab-content/ChangePasswordContent";
+import ChangeDetailsContent from "../tab-content/ChangeDetailsContent";
 
 /**
  *  A button for the top app bar that will log the user out, returning to the main page.
@@ -29,6 +30,17 @@ function AccountButton({ addTab }) {
       id: id,
       label: "Change Password",
       content: <ChangePasswordContent />,
+    };
+    addTab(newTab);
+  };
+
+  const handleDetailsClick = () => {
+    console.log("clicked");
+    const id = Math.floor(Math.random() * 100000);
+    const newTab = {
+      id: id,
+      label: "Change Details",
+      content: <ChangeDetailsContent />,
     };
     addTab(newTab);
   };
@@ -69,7 +81,7 @@ function AccountButton({ addTab }) {
         onClose={handleClose}
       >
         <MenuItem onClick={handlePasswordClick}>Change Password</MenuItem>
-        <MenuItem>Change Details</MenuItem>
+        <MenuItem onClick={handleDetailsClick}>Change Details </MenuItem>
         <MenuItem>
           <LogOutButton></LogOutButton>
         </MenuItem>
