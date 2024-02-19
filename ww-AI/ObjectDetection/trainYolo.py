@@ -6,3 +6,16 @@ import os
 import sys
 import torch
 import ultralytics
+
+from ultralytics import YOLO
+
+#use the yolo v8 nano model
+model = YOLO("yolov8n.yaml") # or was it model = YOLO("yolov8n.pt")
+
+# train the model on my data defined in data.yaml
+model.train(data='data.yaml' ,epochs=10) 
+
+metrics = model.val()
+
+
+model.export(format='torchscript', model='./exportedModels/trained_yolov8n.pt')

@@ -1,6 +1,6 @@
 # 30% are val, 70% train
-train: /train
-val: /val
+train: ./train
+val: ./val
 
 nc: 1
 
