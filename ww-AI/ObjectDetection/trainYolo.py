@@ -2,3 +2,7 @@
 # I will use Yolo v8s because of it's lightweight and fast object detection ability.
 # Detected objects will be used to then export and identify text values within the number plates.
 
+import os
+import sys
+import torch
+import ultralytics
