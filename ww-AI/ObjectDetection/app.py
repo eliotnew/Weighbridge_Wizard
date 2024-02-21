@@ -3,11 +3,14 @@ from flask import Flask, request, jsonify
 from PIL import Image
 from torchvision import transforms
 import pytesseract
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
-# Load YOLOv8n model
-model = torch.hub.load('ultralytics/yolov8', 'yolov8n', pretrained=True).eval()  # Adjust for the correct path or model version
+# Load my custom YOLOv8 model ( i will need to retrain on actual data taken with my webcam.)
+model = torch.hub.load('ultralytics/yolov8', 'custom', path='./runs/detect/train/weights/best.pt', source='local').eval()
+
 
 transform = transforms.Compose([
     transforms.ToTensor(),
