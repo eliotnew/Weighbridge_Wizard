@@ -27,6 +27,13 @@ services:
     depends_on:
       #      - mongodb
       - express-server
+
+  flask-app:
+    build:
+      context: ./ww-AI/ObjectDetection
+    container_name: ww-flask-app
+    ports:
+      - "5000:5000"
 #volumes:
 # mongodb-data:
 
