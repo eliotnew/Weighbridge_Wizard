@@ -2,7 +2,7 @@ import cv2
 from ultralytics import YOLO 
 
 # Initialize the YOLO model with custom weights
-regPlateModel = "./runs/detect/train/weights/best.pt"  # Path to your model
+regPlateModel = "./runs/detect/train3/weights/best.pt"  # Path to your model
 model = YOLO(regPlateModel)
 
 # Open webcam (source 0)
