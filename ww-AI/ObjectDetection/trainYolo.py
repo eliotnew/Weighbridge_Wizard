@@ -10,10 +10,10 @@ import ultralytics
 from ultralytics import YOLO
 
 #use the yolo v8 nano model
-model = YOLO("yolov8n.yaml") # or was it model = YOLO("yolov8n.pt")
+model = YOLO("yolov8s.yaml") # or was it model = YOLO("yolov8n.pt")
 
 # train the model on my data defined in data.yaml
-model.train(data='data.yaml' ,epochs=10) 
+model.train(data='data.yaml' ,epochs=20) 
 
 metrics = model.val()
 

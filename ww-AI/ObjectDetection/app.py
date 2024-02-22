@@ -4,13 +4,15 @@ from torchvision import transforms
 import pytesseract
 from flask_cors import CORS
 from ultralytics import YOLO
+import os
+os.environ["OPENCV_FORCE_CPU"] = "1"
 
 app = Flask(__name__)
 CORS(app)
 
 # Load my custom YOLOv8 model ( i will need to retrain on actual data taken with my webcam.)
 #model = torch.hub.load('ultralytics/yolov8', 'custom', path='./runs/detect/train/weights/best.pt', source='local').eval()
-model = YOLO('./runs/detect/train/weights/best.pt')
+model = YOLO('./runs/detect/train/weights/best.pt', device='cpu')
 
 
 transform = transforms.Compose([
