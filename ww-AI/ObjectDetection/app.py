@@ -1,68 +1,55 @@
 from flask import Flask, request, jsonify
-from PIL import Image
-from torchvision import transforms
-import pytesseract
 from flask_cors import CORS
+import cv2
+from PIL import Image
+import numpy as np
 from ultralytics import YOLO
-import os
-os.environ["OPENCV_FORCE_CPU"] = "1"
+import easyocr
 
 app = Flask(__name__)
-CORS(app)
+CORS(app)  
 
-# Load my custom YOLOv8 model ( i will need to retrain on actual data taken with my webcam.)
-#model = torch.hub.load('ultralytics/yolov8', 'custom', path='./runs/detect/train/weights/best.pt', source='local').eval()
-model = YOLO('./runs/detect/train/weights/best.pt', device='cpu')
-
-
-transform = transforms.Compose([
-    transforms.ToTensor(),
-])
-
-@app.route('/test', methods=['GET'])
-def helloWorld():
-    return "Hello World", 200
-
+# Initialize the YOLO model
+model = YOLO("./runs/detect/train3/weights/best.pt")
+reader = easyocr.Reader(['en'])  
 
 @app.route('/reg', methods=['POST'])
-def upload_image():
-    if 'image' in request.files:
-        image = request.files['image']
-        try:
-            detections = detectObjects(image)
-            cropped_images = cropPlate(image, detections)
-            text = extractRegText(cropped_images)
-            return jsonify({'text': text}), 200
-        except Exception as e:
-            print(e)
-            return "Error processing image", 500
-    else:
-        return "No image found", 400
 
-def detectObjects(image):
-    img = Image.open(image).convert('RGB') 
-    img_tensor = transform(img).unsqueeze(0)
-    results = model(img_tensor)
-    detections = results.pred[0]  # Get predictions
-    return detections
+def detect_reg():
+    if 'image' not in request.files:
+        return jsonify({'error': 'No image provided'}), 400
 
-def cropPlate(image, detections):
-    img = Image.open(image)
-    cropped_images = []
-    for *xyxy, conf, cls in detections:
-        if conf > 0.5:  #  If the Confidence threshold is high enough (50%)
-            x1, y1, x2, y2 = map(int, xyxy)
-            cropped_image = img.crop((x1, y1, x2, y2))
-            cropped_images.append(cropped_image)
-    return cropped_images
+    file = request.files['image']
+    image = Image.open(file.stream)  
+    image_cv = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR) 
 
-def extractRegText(images):
-    text = ""
-    for img in images:
-        extracted_text = pytesseract.image_to_string(img)
-        text += extracted_text + "\n"
-    return text.strip()
+    results = model(image_cv)  # Run YOLO model inference
+    print("showing the results attributes:")
+    attributes = dir(results[0])
+    print(attributes)
+
+    print("showing results[0].boxes attributes")
+    attributes2 = dir(results[0].boxes)
+    print(attributes2)
+
+    texts = []
+    for box in results[0].boxes:  # results[0].boxes.xyxy is where the co-ordinates are saved. (took me ages to find!)
+        
+        x1, y1, x2, y2 = box.xyxy.tolist()[0]
+
+        print(x1)
+        print("that was x1")
+        print(x2)
+        print("that was x2 ^") ## Should correctly show a number 
+
+        cropped_img = image_cv[int(y1):int(y2), int(x1):int(x2)] 
+
+        ocr_result = reader.readtext(cropped_img)
+        for _, text, _ in ocr_result:
+            texts.append(text)
+
+    return jsonify({'extracted_texts': texts}), 200
+
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
-
+    app.run(debug=True, host='0.0.0.0', port=5000)
