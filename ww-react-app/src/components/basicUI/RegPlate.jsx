@@ -18,7 +18,7 @@ function RegPlate({ onClick, reg }) {
             bgcolor: "yellow",
             borderRadius: "10px",
             padding: "2px",
-            border: "2px solid black",
+            border: "3px solid black",
             cursor: "pointer",
             "&:hover": {
               opacity: 0.5,
@@ -41,8 +41,9 @@ function RegPlate({ onClick, reg }) {
             >
               {reg}
             </Typography>
-            <Typography sx={{ fontSize: "15px", fontStyle: "italic" }}>
-              {" "}
+            <Typography
+              sx={{ fontSize: "15px", fontStyle: "italic", color: "black" }}
+            >
               Click To use
             </Typography>
           </Box>
