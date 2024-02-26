@@ -1,14 +1,13 @@
-import { Button, Box, Typography } from "@mui/material/";
+import { Box, Typography } from "@mui/material/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
-import { faArrowPointer } from "@fortawesome/free-solid-svg-icons";
 function WizardAI({ onClick, displayString }) {
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Typography variant="h4" style={{ fontSize: "20px" }}>
           <FontAwesomeIcon icon={faRobot} style={{ marginRight: "5px" }} />
-          Wiz-AI detected:
+          Wiz-AI (Beta) detected:
         </Typography>
 
         <Box
