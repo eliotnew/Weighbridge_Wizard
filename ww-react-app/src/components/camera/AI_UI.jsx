@@ -1,28 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import RegPlate from "../basicUI/RegPlate";
 import AIWebcam from "./AIWebcam";
-import {
-  Typography,
-  TextField,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Select,
-  Button,
-  Box,
-  Alert,
-} from "@mui/material";
+import { Box } from "@mui/material";
 /**
  *
  * This component contains both the UI for the reg and the camera. Should pass the reg to its parent components.
  */
-function AI_UI() {
-  const [reg, setReg] = useState("Searching...");
+function AI_UI({ setReg }) {
+  const [childReg, setChildReg] = useState("Searching...");
+
+  const handleClick = () => {
+    setReg(childReg);
+  };
 
   // Use useEffect to log the updated state
   useEffect(() => {
-    console.log("reg from UI component is: " + reg);
-  }, [reg]);
+    console.log("child reg: " + childReg);
+  }, [childReg]);
   return (
     <>
       <Box
@@ -33,10 +27,10 @@ function AI_UI() {
         }}
       >
         <Box sx={{ width: "100%", maxWidth: 640 }}>
-          <AIWebcam setParentReg={setReg} />
+          <AIWebcam setChildReg={setChildReg} />
         </Box>
         <Box sx={{ width: "100%", maxWidth: 320, mt: 2 }}>
-          <RegPlate reg={reg} />
+          <RegPlate onClick={handleClick} childReg={childReg} />
         </Box>
       </Box>
     </>

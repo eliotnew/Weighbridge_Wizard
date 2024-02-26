@@ -43,6 +43,12 @@ function IncomingContent() {
   const [alertType, setAlertType] = useState(0);
   const [orderNumberString, setOrderNumberString] = useState("");
 
+  // This function will be passed to AI_UI to update the reg state in this parent component
+  const handleAIReg = (newReg) => {
+    setReg(newReg);
+    console.log("Updated reg in parent: ", newReg);
+  };
+
   const handleRegChange = (event) => {
     setReg(event.target.value);
     setFreshReg(true);
@@ -73,6 +79,9 @@ function IncomingContent() {
     );
     setMessage2("Deliver To:");
   };
+
+  // Use useEffect to apply the selected reg to the input
+  useEffect(() => {}, [reg]);
 
   const handleSubmit = async () => {
     if (tareWeight <= 0) {
@@ -199,6 +208,10 @@ function IncomingContent() {
             autoComplete=""
             onChange={handleRegChange}
             sx={inputFieldStyles}
+            value={reg}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
           {freshReg === true && <CheckButton onClick={checkTruck} />}
 
@@ -320,7 +333,7 @@ function IncomingContent() {
             </Alert>
           ) : null}
         </div>
-        <AI_UI />
+        <AI_UI setReg={handleAIReg} />
       </div>
     </>
   );

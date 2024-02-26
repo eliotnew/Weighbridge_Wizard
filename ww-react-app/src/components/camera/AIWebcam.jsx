@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Webcam from "react-webcam";
 
-function AIWebcam({ setParentReg }) {
+function AIWebcam({ setChildReg }) {
   const webcamRef = useRef(null);
 
   const captureAndSend = React.useCallback(() => {
@@ -25,15 +25,15 @@ function AIWebcam({ setParentReg }) {
             Array.isArray(data.extracted_texts) &&
             data.extracted_texts.length > 1
           ) {
-            setParentReg("Multiple reg plates detected");
+            setChildReg("Multiple reg plates detected");
           } else if (
             Array.isArray(data.extracted_texts) &&
             data.extracted_texts.length === 1
           ) {
             // If it's an array with a single entry, use that entry
-            setParentReg(data.extracted_texts[0]);
+            setChildReg(data.extracted_texts[0]);
           } else {
-            setParentReg("No reg detected");
+            setChildReg("No reg detected");
           }
         })
         .catch((error) => {

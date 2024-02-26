@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
-function RegPlate({ onClick, reg }) {
+function RegPlate({ onClick, childReg }) {
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -39,10 +39,10 @@ function RegPlate({ onClick, reg }) {
                 textTransform: "uppercase",
               }}
             >
-              {reg}
+              {childReg}
             </Typography>
             <Typography
-              sx={{ fontSize: "15px", fontStyle: "italic", color: "black" }}
+              sx={{ fontSize: "14px", fontStyle: "italic", color: "black" }}
             >
               Click To use
             </Typography>
