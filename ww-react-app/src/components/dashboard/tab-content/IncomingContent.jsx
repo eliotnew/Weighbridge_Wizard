@@ -8,6 +8,7 @@ import {
   InputLabel,
   Select,
   Button,
+  Box,
   Alert,
 } from "@mui/material";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
@@ -16,6 +17,7 @@ import getOrdersCompatibleByTruckType from "../../../functions/order_functions/g
 import confirmTruck from "../../../functions/truck_functions/confirmTruck";
 import InTicket from "../../../classes/InTicket";
 import { useTheme } from "@mui/material";
+import WizardAI from "../../basicUI/WizardAI";
 
 // TO DO: Takes input for reg plate , on pressing the checkButton, it calls confirmTruck(reg).
 // if response = true, the enter tareweight box becomes visible and also the assign job select box will too. That box will collect it's list values by passing reg through (getOrdersCompatibleByTruckType).
@@ -181,6 +183,7 @@ function IncomingContent() {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "20px",
+          gap: "100px",
         }}
       >
         <div>
@@ -316,7 +319,24 @@ function IncomingContent() {
             </Alert>
           ) : null}
         </div>
-        <BasicWebcam />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Box sx={{ width: "100%", maxWidth: 640 }}>
+            {" "}
+            {/* Adjust the maxWidth to match the webcam's width */}
+            <BasicWebcam />
+          </Box>
+          <Box sx={{ width: "100%", maxWidth: 420, mt: 2 }}>
+            {" "}
+            {/* Apply the same maxWidth for consistency and add margin top for spacing */}
+            <WizardAI />
+          </Box>
+        </Box>
       </div>
     </>
   );
