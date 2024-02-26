@@ -9,6 +9,31 @@ import easyocr
 app = Flask(__name__)
 CORS(app)  
 
+# __          __  _       _     _          _     _             __          ___                  _ 
+# \ \        / / (_)     | |   | |        (_)   | |            \ \        / (_)                | |
+#  \ \  /\  / /__ _  __ _| |__ | |__  _ __ _  __| | __ _  ___   \ \  /\  / / _ ______ _ _ __ __| |
+#   \ \/  \/ / _ \ |/ _` | '_ \| '_ \| '__| |/ _` |/ _` |/ _ \   \ \/  \/ / | |_  / _` | '__/ _` |
+#    \  /\  /  __/ | (_| | | | | |_) | |  | | (_| | (_| |  __/    \  /\  /  | |/ / (_| | | | (_| |
+#     \/  \/ \___|_|\__, |_| |_|_.__/|_|  |_|\__,_|\__, |\___|     \/  \/   |_/___\__,_|_|  \__,_|
+#   ____  _     _    __/ |  _     _____       _     __/ |  _   _                               _  
+#  / __ \| |   (_)  |___/  | |   |  __ \     | |   |___/  | | (_)                             | | 
+# | |  | | |__  _  ___  ___| |_  | |  | | ___| |_ ___  ___| |_ _  ___  _ __     __ _ _ __   __| | 
+# | |  | | '_ \| |/ _ \/ __| __| | |  | |/ _ \ __/ _ \/ __| __| |/ _ \| '_ \   / _` | '_ \ / _` | 
+# | |__| | |_) | |  __/ (__| |_  | |__| |  __/ ||  __/ (__| |_| | (_) | | | | | (_| | | | | (_| | 
+#  \____/|_.__/| |\___|\___|\__| |_____/ \___|\__\___|\___|\__|_|\___/|_| |_|  \__,_|_| |_|\__,_| 
+#             _/ |                                                                                
+#   ____   __|__/_____     _____                                                                  
+#  / __ \ / ____|  __ \   / ____|                                                                 
+# | |  | | |    | |__) | | (___   ___ _ ____   _____ _ __                                         
+# | |  | | |    |  _  /   \___ \ / _ \ '__\ \ / / _ \ '__|                                        
+# | |__| | |____| | \ \   ____) |  __/ |   \ V /  __/ |                                           
+#  \____/ \_____|_|  \_\ |_____/ \___|_|    \_/ \___|_|                                           
+#
+
+# Takes a photo at the endpoint , uses the custom YOLO model to identify a reg plate
+# Then it uses easyocr (optical character recognition to return a string of the regplate. )                                                        
+
+
 # Initialize the YOLO model
 model = YOLO("./runs/detect/train3/weights/best.pt")
 reader = easyocr.Reader(['en'])  
@@ -32,7 +57,7 @@ def detect_reg():
     attributes2 = dir(results[0].boxes)
     print(attributes2)
 
-    texts = []
+    textString = ""; 
     for box in results[0].boxes:  # results[0].boxes.xyxy is where the co-ordinates are saved. (took me ages to find!)
         
         x1, y1, x2, y2 = box.xyxy.tolist()[0]
@@ -46,9 +71,9 @@ def detect_reg():
 
         ocr_result = reader.readtext(cropped_img)
         for _, text, _ in ocr_result:
-            texts.append(text)
+            textString+=text
 
-    return jsonify({'extracted_texts': texts}), 200
+    return jsonify({'extracted_texts': textString}), 200
 
 
 if __name__ == '__main__':
