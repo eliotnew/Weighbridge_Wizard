@@ -331,7 +331,7 @@ function IncomingContent() {
             {/* Adjust the maxWidth to match the webcam's width */}
             <BasicWebcam />
           </Box>
-          <Box sx={{ width: "100%", maxWidth: 420, mt: 2 }}>
+          <Box sx={{ width: "100%", maxWidth: 320, mt: 2 }}>
             {" "}
             {/* Apply the same maxWidth for consistency and add margin top for spacing */}
             <WizardAI />

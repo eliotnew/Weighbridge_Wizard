@@ -6,7 +6,7 @@ function WizardAI({ onClick, displayString }) {
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Typography variant="h5">
+        <Typography variant="h4" style={{ fontSize: "20px" }}>
           <FontAwesomeIcon icon={faRobot} style={{ marginRight: "5px" }} />
           Wiz-AI detected:
         </Typography>
@@ -18,27 +18,35 @@ function WizardAI({ onClick, displayString }) {
             marginY: "10px",
             bgcolor: "yellow",
             borderRadius: "10px",
-            padding: "15px",
+            padding: "2px",
             border: "2px solid black",
             cursor: "pointer",
+            "&:hover": {
+              opacity: 0.5,
+              transform: "scale(1.05)",
+              transition: "transform 0.1s",
+            },
           }}
           onClick={onClick}
         >
-          <Typography
-            variant="h3"
-            sx={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontWeight: 700,
-              color: "black",
-            }}
-          >
-            SA63ETV {displayString}
-            <FontAwesomeIcon
-              beat
-              icon={faArrowPointer}
-              style={{ fontSize: "25px", animationDuration: "0.8s" }}
-            />
-          </Typography>
+          <Box sx={{ flexDirection: "Column" }}>
+            <Typography
+              variant="h3"
+              sx={{
+                fontFamily: "'JetBrains Mono', monospace",
+                fontWeight: 700,
+                color: "black",
+                fontSize: "40px",
+                textTransform: "uppercase",
+              }}
+            >
+              REG: {displayString}
+            </Typography>
+            <Typography sx={{ fontSize: "15px", fontStyle: "italic" }}>
+              {" "}
+              Click To use
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </>
