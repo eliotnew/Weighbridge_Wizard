@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
-function WizardAI({ onClick, displayString }) {
+function RegPlate({ onClick, reg }) {
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -39,7 +39,7 @@ function WizardAI({ onClick, displayString }) {
                 textTransform: "uppercase",
               }}
             >
-              REG: {displayString}
+              {reg}
             </Typography>
             <Typography sx={{ fontSize: "15px", fontStyle: "italic" }}>
               {" "}
@@ -51,4 +51,4 @@ function WizardAI({ onClick, displayString }) {
     </>
   );
 }
-export default WizardAI;
+export default RegPlate;

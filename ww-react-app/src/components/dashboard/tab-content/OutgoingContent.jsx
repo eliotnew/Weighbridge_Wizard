@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import BasicWebcam from "../../camera/BasicWebcam";
 import { Typography, Alert } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
@@ -7,6 +6,7 @@ import OutTicket from "../../../classes/OutTicket";
 import getTruck from "../../../functions/truck_functions/getTruck";
 import getOneOnesite from "../../../functions/ticket_functions/getOneOnsite";
 import { useTheme } from "@mui/material";
+import AI_UI from "../../camera/AI_UI";
 
 function OutgoingContent() {
   const [grossWeight, setGrossWeight] = useState("");
@@ -234,7 +234,7 @@ function OutgoingContent() {
             </Alert>
           ) : null}
         </div>
-        <BasicWebcam />
+        <AI_UI />
       </div>
     </>
   );

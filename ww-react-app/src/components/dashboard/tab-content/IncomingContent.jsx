@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import BasicWebcam from "../../camera/BasicWebcam";
+import AIWebcam from "../../camera/AIWebcam";
 import {
   Typography,
   TextField,
@@ -17,7 +17,8 @@ import getOrdersCompatibleByTruckType from "../../../functions/order_functions/g
 import confirmTruck from "../../../functions/truck_functions/confirmTruck";
 import InTicket from "../../../classes/InTicket";
 import { useTheme } from "@mui/material";
-import WizardAI from "../../basicUI/WizardAI";
+import WizardAI from "../../basicUI/RegPlate";
+import AI_UI from "../../camera/AI_UI";
 
 // TO DO: Takes input for reg plate , on pressing the checkButton, it calls confirmTruck(reg).
 // if response = true, the enter tareweight box becomes visible and also the assign job select box will too. That box will collect it's list values by passing reg through (getOrdersCompatibleByTruckType).
@@ -183,7 +184,7 @@ function IncomingContent() {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "20px",
-          gap: "100px",
+          gap: "40px",
         }}
       >
         <div>
@@ -319,24 +320,7 @@ function IncomingContent() {
             </Alert>
           ) : null}
         </div>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box sx={{ width: "100%", maxWidth: 640 }}>
-            {" "}
-            {/* Adjust the maxWidth to match the webcam's width */}
-            <BasicWebcam />
-          </Box>
-          <Box sx={{ width: "100%", maxWidth: 320, mt: 2 }}>
-            {" "}
-            {/* Apply the same maxWidth for consistency and add margin top for spacing */}
-            <WizardAI />
-          </Box>
-        </Box>
+        <AI_UI />
       </div>
     </>
   );
