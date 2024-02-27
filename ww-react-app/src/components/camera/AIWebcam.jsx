@@ -31,8 +31,8 @@ function AIWebcam({ setChildReg }) {
             data.extracted_texts.length === 1
           ) {
             // If it's an array with a single entry, use that entry
-
             setChildReg(data.extracted_texts[0]);
+            console.log("length of one");
           } else {
             setChildReg("No reg detected");
           }

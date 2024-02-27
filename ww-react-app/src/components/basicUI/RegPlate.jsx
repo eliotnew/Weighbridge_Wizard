@@ -11,7 +11,7 @@ function RegPlate({ onClick, childReg }) {
       <Box sx={{ display: "flex", flexDirection: "column" }} textAlign="center">
         <Typography variant="h4" style={{ fontSize: "20px" }}>
           <FontAwesomeIcon icon={faRobot} style={{ marginRight: "8px" }} />
-          Wiz-AI (W.I.P) detected:
+          Wiz-AI Detection:
         </Typography>
 
         <Box

@@ -19,6 +19,7 @@ import node from "../../img_Assets/stack/node.png";
 import mongo from "../../img_Assets/stack/mongo.png";
 import python from "../../img_Assets/stack/python.png";
 import react from "../../img_Assets/stack/react.png";
+import mui from "../../img_Assets/stack/mui.png";
 import ultralytics from "../../img_Assets/stack/ultralytics.png";
 
 function LPappbar() {
@@ -195,6 +196,11 @@ function LPappbar() {
                 src={react}
                 alt="js"
                 style={{ width: "60px", height: "40px" }}
+              />
+              <img
+                src={mui}
+                alt="js"
+                style={{ width: "50px", height: "40px" }}
               />
               <img
                 src={mongo}
