@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import MeAndTruck from "../../img_Assets/MeAndTruck.png";
 import docker from "../../img_Assets/stack/docker.webp";
 import javascript from "../../img_Assets/stack/javascript.png";
+import node from "../../img_Assets/stack/node.png";
 import mongo from "../../img_Assets/stack/mongo.png";
 import python from "../../img_Assets/stack/python.png";
 import react from "../../img_Assets/stack/react.png";
@@ -135,9 +136,9 @@ function LPappbar() {
             </div>
             <Typography id="about-modal-description" sx={{ mt: 2 }}>
               From my experience in Ports and Quarries, Operating machinery and
-              Weighbridges, I Learned that Poorly designed software can create
-              an unecessarily high skill requirement for what could be an
-              amazing job if made more accessible.
+              Weighbridges, I Learned that Poorly designed softwares used in the
+              workplace can get in the way of amazing jobs. I aim to reduce the
+              level of computer literacy to get the job done!
             </Typography>
             <Typography
               id="about-modal-description"
@@ -151,7 +152,80 @@ function LPappbar() {
             <Typography id="about-modal-description" sx={{ mt: 2 }}>
               Stack Used:
             </Typography>
-            <Box></Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                src={javascript}
+                alt="js"
+                style={{ width: "80px", height: "40px" }}
+              />
+              <img
+                src={node}
+                alt="js"
+                style={{
+                  width: "80px",
+                  height: "40px",
+                  marginRight: "4px",
+                }}
+              />
+              <img
+                src={python}
+                alt="js"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  marginRight: "4px",
+                  marginLeft: "4px",
+                }}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                src={react}
+                alt="js"
+                style={{ width: "60px", height: "40px" }}
+              />
+              <img
+                src={mongo}
+                alt="js"
+                style={{
+                  width: "80px",
+                  height: "40px",
+                  marginRight: "4px",
+                }}
+              />
+              <img
+                src={ultralytics}
+                alt="js"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  marginRight: "4px",
+                  marginLeft: "4px",
+                }}
+              />
+              <img
+                src={docker}
+                alt="js"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  marginRight: "4px",
+                  marginLeft: "4px",
+                }}
+              />
+            </Box>
           </Box>
         </Modal>
         <Typography
