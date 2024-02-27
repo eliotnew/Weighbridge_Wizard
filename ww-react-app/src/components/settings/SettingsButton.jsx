@@ -64,7 +64,7 @@ function SettingsButton() {
           <FontAwesomeIcon
             icon={faGear}
             beatFade
-            style={{ marginLeft: "6px" }}
+            style={{ marginLeft: "6px", animationDuration: "2s" }}
             size="lg"
             spin
           />

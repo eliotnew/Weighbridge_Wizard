@@ -31,10 +31,7 @@ function AIWebcam({ setChildReg }) {
             data.extracted_texts.length === 1
           ) {
             // If it's an array with a single entry, use that entry
-            const responseString = data.extracted_texts[0];
-            const formattedResponseString = responseString
-              .replace(/\s+/g, "")
-              .toUpperCase();
+
             setChildReg(data.extracted_texts[0]);
           } else {
             setChildReg("No reg detected");
@@ -62,7 +59,7 @@ function AIWebcam({ setChildReg }) {
   useEffect(() => {
     const interval = setInterval(() => {
       captureAndSend();
-    }, 3000); // Set to capture every 3 secs
+    }, 4000); // Set to capture every 3 secs
     return () => clearInterval(interval);
   }, [captureAndSend]);
 

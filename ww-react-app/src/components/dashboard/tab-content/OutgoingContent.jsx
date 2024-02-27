@@ -96,6 +96,10 @@ function OutgoingContent() {
 
   // Use useEffect to apply the selected reg to the input
   useEffect(() => {
+    if (reg == "") {
+      setAlertType(0);
+      return;
+    }
     // Function to handle the change in reg state
     const handleRegChangeExternal = async () => {
       try {

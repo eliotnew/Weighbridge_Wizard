@@ -48,7 +48,7 @@ function RegPlate({ onClick, childReg }) {
             <Typography
               sx={{ fontSize: "14px", fontStyle: "italic", color: "black" }}
             >
-              Click To use
+              Click To use OR Enter Manually
             </Typography>
           </Box>
         </Box>

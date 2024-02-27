@@ -17,6 +17,7 @@ function AI_UI({ setReg }) {
   useEffect(() => {
     console.log("child reg: " + childReg);
   }, [childReg]);
+
   return (
     <>
       <Box
