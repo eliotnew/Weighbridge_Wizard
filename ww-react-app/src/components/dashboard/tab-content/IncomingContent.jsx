@@ -17,7 +17,6 @@ import getOrdersCompatibleByTruckType from "../../../functions/order_functions/g
 import confirmTruck from "../../../functions/truck_functions/confirmTruck";
 import InTicket from "../../../classes/InTicket";
 import { useTheme } from "@mui/material";
-import WizardAI from "../../basicUI/RegPlate";
 import AI_UI from "../../camera/AI_UI";
 
 // TO DO: Takes input for reg plate , on pressing the checkButton, it calls confirmTruck(reg).
@@ -45,12 +44,21 @@ function IncomingContent() {
 
   // This function will be passed to AI_UI to update the reg state in this parent component
   const handleAIReg = (newReg) => {
-    setReg(newReg);
+    const responseString = newReg;
+    const formattedResponseString = responseString
+      .replace(/\s+/g, "")
+      .toUpperCase();
+    setReg(formattedResponseString);
     console.log("Updated reg in parent: ", newReg);
   };
 
   const handleRegChange = (event) => {
-    setReg(event.target.value);
+    const responseString = event.target.value;
+    const formattedResponseString = responseString
+      .replace(/\s+/g, "")
+      .toUpperCase();
+    setReg(formattedResponseString);
+
     setFreshReg(true);
     setShowFields(false);
     setTareWeight(0);

@@ -20,19 +20,18 @@ function OutgoingContent() {
   const [alertType, setAlertType] = useState(0);
 
   const handleRegChange = async (event) => {
-    const newReg = event.target.value;
-    setReg(newReg);
-
-    if (newReg === "") {
-      setAlertType(0);
-    }
+    const responseString = event.target.value;
+    const formattedResponseString = responseString
+      .replace(/\s+/g, "")
+      .toUpperCase();
+    setReg(formattedResponseString);
 
     try {
-      const gotTruck = await getTruck(newReg);
-      const getTicket = await getOneOnesite(newReg);
+      const gotTruck = await getTruck(formattedResponseString);
+      const getTicket = await getOneOnesite(formattedResponseString);
 
       if (!gotTruck) {
-        console.log("Didn't find truck for reg:", newReg);
+        console.log("Didn't find truck for reg:", formattedResponseString);
       } else {
         setShowFields(true);
         setMaxGVW(gotTruck.maxGVW);
@@ -87,7 +86,11 @@ function OutgoingContent() {
 
   // This function will be passed to AI_UI to update the reg state in this parent component
   const handleAIReg = (newReg) => {
-    setReg(newReg);
+    const responseString = newReg;
+    const formattedResponseString = responseString
+      .replace(/\s+/g, "")
+      .toUpperCase();
+    setReg(formattedResponseString);
     console.log("Updated reg in parent: ", newReg);
   };
 
