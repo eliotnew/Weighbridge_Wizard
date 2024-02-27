@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Alert } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
@@ -14,6 +14,7 @@ function OutgoingContent() {
   const [netWeight, setNetWeight] = useState(0);
   const [tareWeight, setTareWeight] = useState(0);
   const [reg, setReg] = useState("");
+
   const [showFields, setShowFields] = useState(false);
 
   const [alertType, setAlertType] = useState(0);
@@ -21,6 +22,10 @@ function OutgoingContent() {
   const handleRegChange = async (event) => {
     const newReg = event.target.value;
     setReg(newReg);
+
+    if (newReg === "") {
+      setAlertType(0);
+    }
 
     try {
       const gotTruck = await getTruck(newReg);
@@ -80,6 +85,15 @@ function OutgoingContent() {
     console.log("Message from server:", save.message);
   };
 
+  // This function will be passed to AI_UI to update the reg state in this parent component
+  const handleAIReg = (newReg) => {
+    setReg(newReg);
+    console.log("Updated reg in parent: ", newReg);
+  };
+
+  // Use useEffect to apply the selected reg to the input
+  useEffect(() => {}, [reg]);
+
   const handleGrossChange = (event) => {
     const newGrossWeightValue = event.target.value;
     const newGrossWeight = Number(newGrossWeightValue); //Takes the input and change to number
@@ -134,6 +148,7 @@ function OutgoingContent() {
             margin="dense"
             required
             fullWidth
+            value={reg}
             name="registration"
             label="Enter Reg:"
             variant="outlined"
@@ -141,6 +156,9 @@ function OutgoingContent() {
             autoComplete=""
             onChange={handleRegChange}
             sx={inputFieldStyles}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
           {showFields === true && (
             <>
@@ -234,7 +252,7 @@ function OutgoingContent() {
             </Alert>
           ) : null}
         </div>
-        <AI_UI />
+        <AI_UI setReg={handleAIReg} />
       </div>
     </>
   );

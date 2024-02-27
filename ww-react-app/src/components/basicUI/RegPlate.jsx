@@ -4,10 +4,10 @@ import { faRobot } from "@fortawesome/free-solid-svg-icons";
 function RegPlate({ onClick, childReg }) {
   return (
     <>
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Box sx={{ display: "flex", flexDirection: "column" }} textAlign="center">
         <Typography variant="h4" style={{ fontSize: "20px" }}>
-          <FontAwesomeIcon icon={faRobot} style={{ marginRight: "5px" }} />
-          Wiz-AI (Beta) detected:
+          <FontAwesomeIcon icon={faRobot} style={{ marginRight: "8px" }} />
+          Wiz-AI (W.I.P) detected:
         </Typography>
 
         <Box
