@@ -24,7 +24,11 @@ function AddTruckContent() {
   const [email, setEmail] = useState("");
 
   const handleRegChange = (event) => {
-    setReg(event.target.value);
+    const responseString = event.target.value;
+    const formattedResponseString = responseString
+      .replace(/\s+/g, "")
+      .toUpperCase();
+    setReg(formattedResponseString);
   };
 
   const handleTruckTypeChange = (event) => {
