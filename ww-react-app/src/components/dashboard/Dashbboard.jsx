@@ -77,6 +77,7 @@ function Dashboard() {
               color: theme.palette.paper.contrastText,
               margin: "35px", //put me back to 35
               minHeight: "82vh",
+              width: "78.75vw",
               display: "flex",
               flexDirection: "column",
               alignItems: tabs.length === 0 ? "center" : "flex-start",
