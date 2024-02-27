@@ -21,6 +21,7 @@ function AccountButton({ addTab }) {
 
   const handleClose = () => {
     setAnchorEl(null);
+    setIsHover(false);
   };
 
   const handlePasswordClick = () => {
@@ -59,7 +60,12 @@ function AccountButton({ addTab }) {
           },
         }}
         onMouseEnter={() => setIsHover(true)}
-        onMouseLeave={() => setIsHover(false)}
+        onMouseLeave={() => {
+          // Only set isHover to false if the menu isn't open
+          if (!anchorEl) {
+            setIsHover(false);
+          }
+        }}
         onClick={handleClick}
       >
         Account
@@ -67,7 +73,7 @@ function AccountButton({ addTab }) {
           <FontAwesomeIcon
             icon={faCircleUser}
             flip
-            style={{ marginLeft: "6px" }}
+            style={{ marginLeft: "6px", animationDuration: "2s" }}
           />
         ) : (
           <FontAwesomeIcon icon={faCircleUser} style={{ marginLeft: "6px" }} />

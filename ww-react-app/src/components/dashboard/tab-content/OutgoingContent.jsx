@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import BasicWebcam from "../../camera/BasicWebcam";
+import React, { useState, useEffect } from "react";
 import { Typography, Alert } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
@@ -7,6 +6,7 @@ import OutTicket from "../../../classes/OutTicket";
 import getTruck from "../../../functions/truck_functions/getTruck";
 import getOneOnesite from "../../../functions/ticket_functions/getOneOnsite";
 import { useTheme } from "@mui/material";
+import AI_UI from "../../camera/AI_UI";
 
 function OutgoingContent() {
   const [grossWeight, setGrossWeight] = useState("");
@@ -14,20 +14,24 @@ function OutgoingContent() {
   const [netWeight, setNetWeight] = useState(0);
   const [tareWeight, setTareWeight] = useState(0);
   const [reg, setReg] = useState("");
+
   const [showFields, setShowFields] = useState(false);
 
   const [alertType, setAlertType] = useState(0);
 
   const handleRegChange = async (event) => {
-    const newReg = event.target.value;
-    setReg(newReg);
+    const responseString = event.target.value;
+    const formattedResponseString = responseString
+      .replace(/\s+/g, "")
+      .toUpperCase();
+    setReg(formattedResponseString);
 
     try {
-      const gotTruck = await getTruck(newReg);
-      const getTicket = await getOneOnesite(newReg);
+      const gotTruck = await getTruck(formattedResponseString);
+      const getTicket = await getOneOnesite(formattedResponseString);
 
       if (!gotTruck) {
-        console.log("Didn't find truck for reg:", newReg);
+        console.log("Didn't find truck for reg:", formattedResponseString);
       } else {
         setShowFields(true);
         setMaxGVW(gotTruck.maxGVW);
@@ -79,6 +83,51 @@ function OutgoingContent() {
     console.log("Response from weighOut:", save);
     console.log("Message from server:", save.message);
   };
+
+  // This function will be passed to AI_UI to update the reg state in this parent component
+  const handleAIReg = (newReg) => {
+    const responseString = newReg;
+    const formattedResponseString = responseString
+      .replace(/\s+/g, "")
+      .toUpperCase();
+    setReg(formattedResponseString);
+    console.log("Updated reg in parent: ", newReg);
+  };
+
+  // Use useEffect to apply the selected reg to the input
+  useEffect(() => {
+    if (reg == "") {
+      setAlertType(0);
+      return;
+    }
+    // Function to handle the change in reg state
+    const handleRegChangeExternal = async () => {
+      try {
+        const gotTruck = await getTruck(reg);
+        const getTicket = await getOneOnesite(reg);
+
+        if (!gotTruck) {
+          console.log("Didn't find truck for reg:", reg);
+        } else {
+          setShowFields(true);
+          setMaxGVW(gotTruck.maxGVW);
+          const numTare = Number(getTicket.tareWeight);
+          setTareWeight(numTare); //This fails because its trying to get the tare from a truck when it needs to get it from the ticket!!!
+        }
+        if (gotTruck.maxGVW === undefined) {
+          setAlertType(404);
+          return;
+        }
+        setAlertType(0);
+      } catch (error) {
+        setAlertType(500);
+        setShowFields(false);
+      }
+    };
+
+    // Call the function to handle reg change
+    handleRegChangeExternal();
+  }, [reg]);
 
   const handleGrossChange = (event) => {
     const newGrossWeightValue = event.target.value;
@@ -134,6 +183,7 @@ function OutgoingContent() {
             margin="dense"
             required
             fullWidth
+            value={reg}
             name="registration"
             label="Enter Reg:"
             variant="outlined"
@@ -141,6 +191,9 @@ function OutgoingContent() {
             autoComplete=""
             onChange={handleRegChange}
             sx={inputFieldStyles}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
           {showFields === true && (
             <>
@@ -234,7 +287,7 @@ function OutgoingContent() {
             </Alert>
           ) : null}
         </div>
-        <BasicWebcam />
+        <AI_UI setReg={handleAIReg} />
       </div>
     </>
   );

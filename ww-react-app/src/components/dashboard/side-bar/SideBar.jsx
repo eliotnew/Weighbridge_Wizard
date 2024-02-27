@@ -35,7 +35,6 @@ function SideBar({ addTab }) {
           color: theme.palette.secondary.contrastText,
 
           boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
-          marginLeft: "3px",
         },
       }}
     >
@@ -47,7 +46,7 @@ function SideBar({ addTab }) {
         <List>
           <Typography
             variant="h6"
-            sx={{ textAlign: "left", fontWeight: "bold" }}
+            sx={{ textAlign: "left", fontWeight: "bold", marginLeft: "5px" }}
           >
             WeighBridge Operations
           </Typography>
@@ -59,7 +58,7 @@ function SideBar({ addTab }) {
 
           <Typography
             variant="h6"
-            sx={{ textAlign: "left", fontWeight: "bold" }}
+            sx={{ textAlign: "left", fontWeight: "bold", marginLeft: "5px" }}
           >
             Manage Orders
           </Typography>
@@ -71,7 +70,7 @@ function SideBar({ addTab }) {
 
           <Typography
             variant="h6"
-            sx={{ textAlign: "left", fontWeight: "bold" }}
+            sx={{ textAlign: "left", fontWeight: "bold", marginLeft: "5px" }}
           >
             Manage Trucks
           </Typography>
@@ -82,7 +81,7 @@ function SideBar({ addTab }) {
 
           <Typography
             variant="h6"
-            sx={{ textAlign: "left", fontWeight: "bold" }}
+            sx={{ textAlign: "left", fontWeight: "bold", marginLeft: "5px" }}
           >
             Utilities
           </Typography>
@@ -93,7 +92,7 @@ function SideBar({ addTab }) {
 
           <Typography
             variant="h6"
-            sx={{ textAlign: "left", fontWeight: "bold" }}
+            sx={{ textAlign: "left", fontWeight: "bold", marginLeft: "5px" }}
           >
             Help
           </Typography>

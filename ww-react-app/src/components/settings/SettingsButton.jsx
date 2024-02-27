@@ -1,10 +1,12 @@
 import React, { useState, useContext } from "react";
 import {
   Button,
-  MenuItem,
   Menu,
-  Switch,
+  Radio,
+  RadioGroup,
   FormControlLabel,
+  FormControl,
+  FormLabel,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
@@ -18,39 +20,22 @@ import { ThemeContext } from "../../themes/ThemeContext";
 function SettingsButton() {
   const [isHover, setIsHover] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [switchDark, setSwitchDark] = useState(false);
-  const [switchContrast, setSwitchContrast] = useState(false);
   const theme = useTheme();
-  const { currentTheme, toggleTheme } = useContext(ThemeContext);
-  const { toggleContrast } = useContext(ThemeContext);
+  const { currentThemeMode, setTheme } = useContext(ThemeContext);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    setIsHover(true);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+    setIsHover(false);
   };
 
-  const handleDarkModeSwitch = (event) => {
-    setSwitchDark(event.target.checked);
-    toggleTheme();
+  const handleRadioSelect = (event) => {
+    setTheme(Number(event.target.value));
   };
-  const handleContrastSwitch = (event) => {
-    setSwitchContrast(event.target.checked);
-    toggleContrast();
-  };
-
-  const switchLabel = (
-    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-      {switchDark ? (
-        <FontAwesomeIcon icon={faMoon} />
-      ) : (
-        <FontAwesomeIcon icon={faSun} />
-      )}
-      {switchDark ? "Dark Mode" : "Light Mode"}
-    </div>
-  );
 
   return (
     <>
@@ -67,14 +52,19 @@ function SettingsButton() {
           },
         }}
         onMouseEnter={() => setIsHover(true)}
-        onMouseLeave={() => setIsHover(false)}
+        onMouseLeave={() => {
+          // Only set isHover to false if the menu isn't open
+          if (!anchorEl) {
+            setIsHover(false);
+          }
+        }}
       >
         Settings
         {isHover ? (
           <FontAwesomeIcon
             icon={faGear}
             beatFade
-            style={{ marginLeft: "6px" }}
+            style={{ marginLeft: "6px", animationDuration: "2s" }}
             size="lg"
             spin
           />
@@ -94,32 +84,36 @@ function SettingsButton() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem>
-          <FormControlLabel
-            sx={{ color: theme.palette.primary.contrastText }}
-            control={
-              <Switch
-                checked={switchDark}
-                onChange={handleDarkModeSwitch}
-                color="default"
-              />
-            }
-            label={switchLabel}
-          />
-        </MenuItem>
-        <MenuItem>
-          <FormControlLabel
-            sx={{ color: theme.palette.primary.contrastText }}
-            control={
-              <Switch
-                checked={switchContrast}
-                onChange={handleContrastSwitch}
-                color="default"
-              />
-            }
-            label="Accessibility Mode"
-          />
-        </MenuItem>
+        <FormControl component="fieldset" sx={{ padding: "20px" }}>
+          <RadioGroup
+            aria-label="theme"
+            name="theme"
+            value={currentThemeMode.toString()}
+            onChange={handleRadioSelect}
+          >
+            <FormControlLabel
+              value="1"
+              control={<Radio sx={{ "&.Mui-checked": { color: "#8ABFEA" } }} />}
+              label="Light Theme"
+            />
+            <FormControlLabel
+              value="2"
+              control={<Radio sx={{ "&.Mui-checked": { color: "#95DCE9" } }} />}
+              label="Dark Theme"
+              color=""
+            />
+            <FormControlLabel
+              value="3"
+              control={<Radio sx={{ "&.Mui-checked": { color: "#000000" } }} />}
+              label="Mono-Chromatic"
+            />
+            <FormControlLabel
+              value="4"
+              control={<Radio sx={{ "&.Mui-checked": { color: "#00ff11" } }} />}
+              label="Hi-Contrast Dark Theme"
+            />
+          </RadioGroup>
+        </FormControl>
       </Menu>
     </>
   );

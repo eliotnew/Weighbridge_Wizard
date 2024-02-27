@@ -11,6 +11,8 @@ function TabPanel(props) {
       style={{
         overflowY: "auto",
         maxHeight: "70vh",
+        width: "98%",
+        //margin: "16px",
       }}
     >
       {value === index && <Box p={6}>{children}</Box>}
