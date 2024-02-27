@@ -7,22 +7,28 @@ import {
 } from "./theme";
 
 export const ThemeContext = createContext({
-  toggleTheme: () => {},
-  toggleContrast: () => {},
+  // toggleTheme: () => {},
+  // toggleContrast: () => {},
+  setThemeMode: () => {},
+  setTheme: () => {},
   currentThemeMode: 1, // 1: light, 2: dark, 3: high contrast light, 4: high contrast dark
 });
 
 export const ThemeProvider = ({ children }) => {
   const [themeMode, setThemeMode] = useState(1); // Start with Default 1
 
-  const toggleTheme = () => {
-    setThemeMode((prevMode) =>
-      prevMode % 2 === 0 ? prevMode - 1 : prevMode + 1
-    ); // Toggle between light (1) and dark (2) modes
-  };
+  // const toggleTheme = () => {
+  //   setThemeMode((prevMode) =>
+  //     prevMode % 2 === 0 ? prevMode - 1 : prevMode + 1
+  //   ); // Toggle between light (1) and dark (2) modes
+  // };
 
-  const toggleContrast = () => {
-    setThemeMode((prevMode) => (prevMode > 2 ? prevMode - 2 : prevMode + 2)); // Toggle between normal and high-contrast modes
+  // const toggleContrast = () => {
+  //   setThemeMode((prevMode) => (prevMode > 2 ? prevMode - 2 : prevMode + 2)); // Toggle between normal and high-contrast modes
+  // };
+
+  const setTheme = (num) => {
+    setThemeMode(num);
   };
 
   const muiTheme = useMemo(() => {
@@ -42,7 +48,12 @@ export const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider
-      value={{ toggleTheme, toggleContrast, currentThemeMode: themeMode }}
+      value={{
+        // toggleTheme,
+        // toggleContrast,
+        setTheme,
+        currentThemeMode: themeMode,
+      }}
     >
       {children(muiTheme)}
     </ThemeContext.Provider>
