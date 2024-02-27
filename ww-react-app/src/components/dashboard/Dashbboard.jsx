@@ -75,8 +75,8 @@ function Dashboard() {
             sx={{
               backgroundColor: theme.palette.paper.main,
               color: theme.palette.paper.contrastText,
-              margin: "35px",
-              minHeight: "80vh",
+              margin: "35px", //put me back to 35
+              minHeight: "82vh",
               display: "flex",
               flexDirection: "column",
               alignItems: tabs.length === 0 ? "center" : "flex-start",

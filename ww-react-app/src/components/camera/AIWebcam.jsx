@@ -75,7 +75,7 @@ function AIWebcam({ setChildReg }) {
       <Webcam
         ref={webcamRef}
         audio={false}
-        style={{ width: 640, height: 320 }}
+        style={{ width: 680, height: 365 }}
       />
     </div>
   );

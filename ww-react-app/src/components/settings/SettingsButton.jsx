@@ -93,23 +93,23 @@ function SettingsButton() {
           >
             <FormControlLabel
               value="1"
-              control={<Radio />}
+              control={<Radio sx={{ "&.Mui-checked": { color: "#8ABFEA" } }} />}
               label="Light Theme"
             />
             <FormControlLabel
               value="2"
-              control={<Radio />}
+              control={<Radio sx={{ "&.Mui-checked": { color: "#95DCE9" } }} />}
               label="Dark Theme"
               color=""
             />
             <FormControlLabel
               value="3"
-              control={<Radio />}
+              control={<Radio sx={{ "&.Mui-checked": { color: "#000000" } }} />}
               label="Mono-Chromatic"
             />
             <FormControlLabel
               value="4"
-              control={<Radio />}
+              control={<Radio sx={{ "&.Mui-checked": { color: "#00ff11" } }} />}
               label="Hi-Contrast Dark Theme"
             />
           </RadioGroup>
