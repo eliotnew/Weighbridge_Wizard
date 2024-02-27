@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import getAllTrucks from "../../../functions/truck_functions/getAllTrucks";
 import LoadingContent from "../../basicUI/LoadingContent";
+import deleteTruck from "../../../functions/truck_functions/deleteTruck";
 
 function TruckDatabaseContent() {
   const theme = useTheme();
@@ -25,33 +26,63 @@ function TruckDatabaseContent() {
     borderRight: "1px solid rgba(224, 224, 224, 1)",
   };
 
-  useEffect(() => {
-    const fetchTrucks = async () => {
-      try {
-        const fetchedTrucks = await getAllTrucks();
+  const fetchTrucks = async () => {
+    try {
+      const fetchedTrucks = await getAllTrucks();
 
-        if (fetchedTrucks.length === 0) {
-          setIsEmpty(true);
-        } else {
-          setTrucks(fetchedTrucks);
-          setIsLoading(false);
-          setIsEmpty(false);
-          setIsError(false);
-        }
-      } catch (error) {
-        if (error.response && error.response.status === 404) {
-          setIsEmpty(true);
-          setIsLoading(false);
-        } else {
-          console.error("Failed to fetch tickets:", error);
-          setIsError(true);
-          setIsLoading(false);
-        }
+      if (fetchedTrucks.length === 0) {
+        setIsEmpty(true);
+      } else {
+        setTrucks(fetchedTrucks);
+        setIsLoading(false);
+        setIsEmpty(false);
+        setIsError(false);
       }
-    };
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        setIsEmpty(true);
+        setIsLoading(false);
+      } else {
+        console.error("Failed to fetch tickets:", error);
+        setIsError(true);
+        setIsLoading(false);
+      }
+    }
+  };
 
+  useEffect(() => {
     fetchTrucks();
   }, []);
+
+  const handleEdit = async (reg) => {
+    window.alert(
+      "Edit Not implemented yet. Delete and then create a new one in the meantime!"
+    );
+  };
+
+  const handleDelete = async (reg) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to DELETE the truck with reg: " + reg + " ?"
+    );
+
+    if (isConfirmed) {
+      try {
+        const result = await deleteTruck(reg);
+        if (result.success) {
+          console.log("Truck deleted successfully.");
+          fetchTrucks();
+        } else {
+          console.error("Failed to delete truck:", result.error);
+          window.alert("Failed to delete truck!");
+        }
+      } catch (error) {
+        console.error("Error deleting truck:", error);
+        window.alert("Failed to delete truck!");
+      }
+    } else {
+      return;
+    }
+  };
 
   if (isLoading) {
     return <LoadingContent />;
@@ -162,7 +193,7 @@ function TruckDatabaseContent() {
                           backgroundColor: theme.palette.accent.main,
                           color: "black",
                         }}
-                        onClick={() => handleCancel(Reg)}
+                        onClick={() => handleEdit(row.reg)}
                       >
                         Edit
                       </Button>
@@ -173,7 +204,7 @@ function TruckDatabaseContent() {
                           backgroundColor: theme.palette.accent.scary,
                           color: theme.palette.accent.scaryContrastText,
                         }}
-                        onClick={() => handleCancel(Reg)}
+                        onClick={() => handleDelete(row.reg)}
                       >
                         Delete
                       </Button>

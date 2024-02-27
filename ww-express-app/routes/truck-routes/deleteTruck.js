@@ -7,7 +7,7 @@ const truckModel = require("../../models/truckModel");
  */
 
 router.delete("/:reg", async (req, res) => {
-  const { reg } = req.params.reg;
+  const { reg } = req.params;
 
   console.log("Recieved a request to DELETE a truck by reg:", reg);
 
