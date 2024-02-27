@@ -88,8 +88,21 @@ function IncomingContent() {
     setMessage2("Deliver To:");
   };
 
-  // Use useEffect to apply the selected reg to the input
-  useEffect(() => {}, [reg]);
+  // Use useEffect to apply the selected reg to the input and perform the server checks
+  useEffect(() => {
+    const handleRegChangeExternal = () => {
+      const formattedResponseString = reg.replace(/\s+/g, "").toUpperCase();
+      setReg(formattedResponseString);
+      setFreshReg(true);
+      setShowFields(false);
+      setTareWeight(0);
+      setAlertType(0);
+      console.log("reg set to: " + formattedResponseString);
+    };
+
+    // Call the function to handle reg change
+    handleRegChangeExternal();
+  }, [reg]);
 
   const handleSubmit = async () => {
     if (tareWeight <= 0) {

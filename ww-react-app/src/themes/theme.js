@@ -24,6 +24,7 @@ export const lightTheme = createTheme({
       scary: "#660000",
       scaryContrastText: "#ffffff",
       sideIcon: "#202A56",
+      regPlate: "#EBCC34",
     },
     paper: {
       main: "#FFFFFF",
@@ -57,6 +58,7 @@ export const highContrastLightTheme = createTheme({
       scary: "#000000",
       scaryContrastText: "#ffffff",
       sideIcon: "#000000",
+      regPlate: "#ffffff",
     },
     paper: {
       main: "#FFFFFF",
@@ -107,6 +109,7 @@ export const darkTheme = createTheme({
       scary: "#610c0c",
       scaryContrastText: "#ffffff",
       sideIcon: "#95DCE9",
+      regPlate: "#EBCC34",
     },
     paper: {
       main: "#020202",
@@ -153,6 +156,7 @@ export const highContrastDarkTheme = createTheme({
       scary: "#000000",
       scaryContrastText: "#ff0000",
       sideIcon: "#00ff11",
+      regPlate: "#ffff00",
     },
     paper: {
       main: "#000000",

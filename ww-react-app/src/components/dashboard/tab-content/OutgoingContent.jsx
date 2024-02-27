@@ -95,7 +95,35 @@ function OutgoingContent() {
   };
 
   // Use useEffect to apply the selected reg to the input
-  useEffect(() => {}, [reg]);
+  useEffect(() => {
+    // Function to handle the change in reg state
+    const handleRegChangeExternal = async () => {
+      try {
+        const gotTruck = await getTruck(reg);
+        const getTicket = await getOneOnesite(reg);
+
+        if (!gotTruck) {
+          console.log("Didn't find truck for reg:", reg);
+        } else {
+          setShowFields(true);
+          setMaxGVW(gotTruck.maxGVW);
+          const numTare = Number(getTicket.tareWeight);
+          setTareWeight(numTare); //This fails because its trying to get the tare from a truck when it needs to get it from the ticket!!!
+        }
+        if (gotTruck.maxGVW === undefined) {
+          setAlertType(404);
+          return;
+        }
+        setAlertType(0);
+      } catch (error) {
+        setAlertType(500);
+        setShowFields(false);
+      }
+    };
+
+    // Call the function to handle reg change
+    handleRegChangeExternal();
+  }, [reg]);
 
   const handleGrossChange = (event) => {
     const newGrossWeightValue = event.target.value;

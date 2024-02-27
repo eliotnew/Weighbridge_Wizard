@@ -1,7 +1,11 @@
 import { Box, Typography } from "@mui/material/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
+import { useTheme } from "@mui/material";
+
 function RegPlate({ onClick, childReg }) {
+  const theme = useTheme();
+
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "column" }} textAlign="center">
@@ -15,7 +19,7 @@ function RegPlate({ onClick, childReg }) {
           sx={{
             marginX: "10px",
             marginY: "10px",
-            bgcolor: "yellow",
+            bgcolor: theme.palette.accent.regPlate,
             borderRadius: "10px",
             padding: "2px",
             border: "3px solid black",
