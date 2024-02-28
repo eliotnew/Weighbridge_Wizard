@@ -1,12 +1,39 @@
-import React from "react";
-import { AppBar, Toolbar, Typography, Button, useTheme } from "@mui/material";
+import React, { useState } from "react";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  useTheme,
+  Modal,
+  Box,
+} from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHatWizard } from "@fortawesome/free-solid-svg-icons";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import MeAndTruck from "../../img_Assets/MeAndTruck.png";
+import docker from "../../img_Assets/stack/docker.webp";
+import javascript from "../../img_Assets/stack/javascript.png";
+import node from "../../img_Assets/stack/node.png";
+import mongo from "../../img_Assets/stack/mongo.png";
+import python from "../../img_Assets/stack/python.png";
+import react from "../../img_Assets/stack/react.png";
+import mui from "../../img_Assets/stack/mui.png";
+import ultralytics from "../../img_Assets/stack/ultralytics.png";
 
 function LPappbar() {
   const theme = useTheme();
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   return (
     <AppBar
       position="static"
@@ -57,6 +84,7 @@ function LPappbar() {
           sx={{ flexGrow: 1, paddingLeft: "12px" }}
         ></Typography>
         <Button
+          onClick={handleOpenModal}
           sx={{
             color: theme.palette.primary.contrastText,
             fontWeight: 1000,
@@ -71,6 +99,150 @@ function LPappbar() {
         >
           About
         </Button>
+        <Modal
+          open={openModal}
+          onClose={handleCloseModal}
+          aria-labelledby="about-modal"
+          aria-describedby="about-modal-description"
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "40vw",
+              bgcolor: "background.paper",
+              border: "2px solid #000",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <Typography
+              id="about-modal"
+              variant="h4"
+              component="h2"
+              style={{
+                fontFamily: "Bona Nova",
+                fontWeight: "600",
+                textAlign: "center",
+              }}
+            >
+              The WeighBridge Wizard
+            </Typography>
+            <Typography id="about-modal-description" sx={{ mt: 2 }}>
+              This is my Final Year Project for my studies of "Computer Science
+              (Software Engineering)" for the University of Plymouth. It is a
+              culmination of most of the things that I have Learned In my
+              studies, Combining HCI, Fullstack Dev, Testing, AI , Data, API and
+              OOP.
+            </Typography>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <img
+                src={MeAndTruck}
+                alt="Me And Truck"
+                style={{ width: "500px", height: "500px" }}
+              />
+            </div>
+            <Typography id="about-modal-description" sx={{ mt: 2 }}>
+              From my experience in Ports and Quarries, Operating machinery and
+              Weighbridges, I Learned that Poorly designed softwares used in the
+              workplace can get in the way of amazing jobs. I aim to reduce the
+              level of computer literacy to get the job done!
+            </Typography>
+            <Typography
+              id="about-modal-description"
+              sx={{ mt: 2, fontWeight: "bold" }}
+            >
+              With Clean & responsive UI , AI assistance , an intuitive tab
+              based workflow and abstraction of unecessary data, This project
+              aims to deliver a model for making work better for everyone and
+              anyone.
+            </Typography>
+            <Typography id="about-modal-description" sx={{ mt: 2 }}>
+              Stack Used:
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                src={javascript}
+                alt="js"
+                style={{ width: "80px", height: "40px" }}
+              />
+              <img
+                src={node}
+                alt="js"
+                style={{
+                  width: "80px",
+                  height: "40px",
+                  marginRight: "4px",
+                }}
+              />
+              <img
+                src={python}
+                alt="js"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  marginRight: "4px",
+                  marginLeft: "4px",
+                }}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                src={react}
+                alt="js"
+                style={{ width: "60px", height: "40px" }}
+              />
+              <img
+                src={mui}
+                alt="js"
+                style={{ width: "50px", height: "40px" }}
+              />
+              <img
+                src={mongo}
+                alt="js"
+                style={{
+                  width: "80px",
+                  height: "40px",
+                  marginRight: "4px",
+                }}
+              />
+              <img
+                src={ultralytics}
+                alt="js"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  marginRight: "4px",
+                  marginLeft: "4px",
+                }}
+              />
+              <img
+                src={docker}
+                alt="js"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  marginRight: "4px",
+                  marginLeft: "4px",
+                }}
+              />
+            </Box>
+          </Box>
+        </Modal>
         <Typography
           variant="h6"
           component="span"

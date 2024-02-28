@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import AIWebcam from "../../camera/AIWebcam";
 import {
   Typography,
   TextField,
@@ -7,8 +6,6 @@ import {
   FormControl,
   InputLabel,
   Select,
-  Button,
-  Box,
   Alert,
 } from "@mui/material";
 import SubmitFormButton from "../../basicUI/SubmitFormButton";
@@ -49,9 +46,11 @@ function IncomingContent() {
       .replace(/\s+/g, "")
       .toUpperCase();
     setReg(formattedResponseString);
+    setFreshReg(true);
     console.log("Updated reg in parent: ", newReg);
   };
 
+  //Altering the box will cause some checks and formatting to happen.
   const handleRegChange = (event) => {
     const responseString = event.target.value;
     const formattedResponseString = responseString
@@ -341,7 +340,7 @@ function IncomingContent() {
             </Alert>
           ) : null}
         </div>
-        <AI_UI setReg={handleAIReg} />
+        <AI_UI setChildReg={handleAIReg} />
       </div>
     </>
   );
