@@ -118,7 +118,16 @@ function LPappbar() {
               p: 4,
             }}
           >
-            <Typography id="about-modal" variant="h4" component="h2">
+            <Typography
+              id="about-modal"
+              variant="h4"
+              component="h2"
+              style={{
+                fontFamily: "Bona Nova",
+                fontWeight: "600",
+                textAlign: "center",
+              }}
+            >
               The WeighBridge Wizard
             </Typography>
             <Typography id="about-modal-description" sx={{ mt: 2 }}>

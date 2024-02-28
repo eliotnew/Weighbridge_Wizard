@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Webcam from "react-webcam";
 
-function AIWebcam({ setChildReg }) {
+function AIWebcam({ setAI_DisplayReg }) {
   const webcamRef = useRef(null);
 
   const captureAndSend = React.useCallback(() => {
@@ -18,27 +18,22 @@ function AIWebcam({ setChildReg }) {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("Success:", data.extracted_texts);
-
-          // Check if extracted_texts is an array with multiple entries
-          if (
-            Array.isArray(data.extracted_texts) &&
-            data.extracted_texts.length > 1
-          ) {
-            setChildReg("Multiple reg plates detected");
-          } else if (
-            Array.isArray(data.extracted_texts) &&
-            data.extracted_texts.length === 1
-          ) {
-            // If it's an array with a single entry, use that entry
-            setChildReg(data.extracted_texts[0]);
-            console.log("length of one");
+          console.log(
+            "Server has Successfully returned a string to be set as AIDisplayReg:",
+            data.extracted_texts
+          );
+          // expects string from the server.
+          if (data.extracted_texts) {
+            setAI_DisplayReg(data.extracted_texts);
           } else {
-            setChildReg("No reg detected");
+            // If for some reason the string is empty or not present, fallback to a default message
+            setAI_DisplayReg("No reg detected");
           }
         })
         .catch((error) => {
           console.error("Error:", error);
+          // Handle any errors, for example, by setting a default error message
+          setAI_DisplayReg("Error detecting reg");
         });
     }
   }, [webcamRef]);
@@ -59,7 +54,7 @@ function AIWebcam({ setChildReg }) {
   useEffect(() => {
     const interval = setInterval(() => {
       captureAndSend();
-    }, 4000); // Set to capture every 3 secs
+    }, 4000); // Set to capture every 4 secs
     return () => clearInterval(interval);
   }, [captureAndSend]);
 

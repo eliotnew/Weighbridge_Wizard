@@ -1,10 +1,19 @@
+import React, { useEffect } from "react";
 import { Box, Typography } from "@mui/material/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "@mui/material";
 
-function RegPlate({ onClick, childReg }) {
+function RegPlate({ onClick, AI_DisplayReg }) {
   const theme = useTheme();
+
+  // Use useEffect to log the updated state and refresh the render
+  useEffect(() => {
+    console.log(
+      "The string to be displayed inside reg plate is currently:",
+      AI_DisplayReg
+    );
+  }, [AI_DisplayReg]);
 
   return (
     <>
@@ -43,7 +52,7 @@ function RegPlate({ onClick, childReg }) {
                 textTransform: "uppercase",
               }}
             >
-              {childReg}
+              {AI_DisplayReg}
             </Typography>
             <Typography
               sx={{ fontSize: "14px", fontStyle: "italic", color: "black" }}
