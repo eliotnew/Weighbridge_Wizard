@@ -287,7 +287,7 @@ function OutgoingContent() {
             </Alert>
           ) : null}
         </div>
-        <AI_UI setReg={handleAIReg} />
+        <AI_UI setChildReg={handleAIReg} />
       </div>
     </>
   );
