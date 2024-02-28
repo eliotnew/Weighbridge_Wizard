@@ -46,6 +46,7 @@ function IncomingContent() {
       .replace(/\s+/g, "")
       .toUpperCase();
     setReg(formattedResponseString);
+    setFreshReg(true);
     console.log("Updated reg in parent: ", newReg);
   };
 
