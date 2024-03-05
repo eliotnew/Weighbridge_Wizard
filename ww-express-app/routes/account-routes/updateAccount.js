@@ -13,7 +13,7 @@ router.put("/", async (req, res) => {
   try {
     console.log("Received a request to change account details.");
 
-    const { foreName, surName, email, password, userId, location } = req.body;
+    const { firstName, lastName, email, password, userId, location } = req.body;
     console.log("Received id: " + userId);
 
     let existingAccount;
@@ -38,8 +38,8 @@ router.put("/", async (req, res) => {
           { _id: userId },
           {
             $set: {
-              firstName: foreName,
-              lastName: surName,
+              firstName: firstName,
+              lastName: lastName,
               email: email,
               password: originalPassword,
               location: location,
@@ -52,8 +52,8 @@ router.put("/", async (req, res) => {
         res.status(200).json({
           message: "Account updated successfully",
           userId: userId,
-          firstName: foreName,
-          lastName: surName,
+          firstName: firstName,
+          lastName: lastName,
           email: email,
           location: location,
         });

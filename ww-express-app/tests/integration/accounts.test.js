@@ -103,87 +103,100 @@ describe("Accounts Testing", async () => {
     expect(res2.body).to.have.property("email", accountCreate.email);
   });
 
-  // it("should decline sign in due mismatching passwords", async () => {
-  //   const res = await chai.request(server).post("/signup").send(accountCreate);
+  it("should decline sign in due mismatching passwords", async () => {
+    const res = await chai
+      .request(server)
+      .post("/account/signup")
+      .send(accountCreate);
 
-  //   expect(res).to.have.status(201);
-  //   expect(res.body).to.have.property(
-  //     "message",
-  //     "Account created successfully"
-  //   );
-  //   expect(res.body).to.have.property("userId").that.is.a("string");
-  //   expect(res.body).to.have.property("foreName", accountCreate.foreName);
-  //   expect(res.body).to.have.property("surName", accountCreate.surName);
-  //   expect(res.body).to.have.property("email", accountCreate.email);
+    expect(res).to.have.status(201);
+    expect(res.body).to.have.property(
+      "message",
+      "Account created successfully"
+    );
+    expect(res.body).to.have.property("userId").that.is.a("string");
+    expect(res.body).to.have.property("firstName", accountCreate.firstName);
+    expect(res.body).to.have.property("lastName", accountCreate.lastName);
+    expect(res.body).to.have.property("email", accountCreate.email);
 
-  //   const signIn = {
-  //     email: "bill.gates@outlook.com",
-  //     password: "whoops!",
-  //   };
+    const signIn = {
+      email: "merlin.sourcerer@outlook.com",
+      password: "whoops!",
+    };
 
-  //   const res2 = await chai.request(server).post("/signin").send(signIn);
+    const res2 = await chai
+      .request(server)
+      .post("/account/signin")
+      .send(signIn);
 
-  //   expect(res2).to.have.status(401);
-  //   expect(res2.body).to.have.property("message", "Invalid password");
-  // });
+    expect(res2).to.have.status(401);
+    expect(res2.body).to.have.property("message", "Invalid password");
+  });
 
-  // it("should decline sign in due to no email address found", async () => {
-  //   const signIn = {
-  //     email: "bill.gates@outlook.com",
-  //     password: "whoops!",
-  //   };
+  it("should decline sign in due to no email address found", async () => {
+    const signIn = {
+      email: "merlin.magician@outlook.com",
+      password: "whoops!",
+    };
 
-  //   const res2 = await chai.request(server).post("/signin").send(signIn);
+    const res2 = await chai
+      .request(server)
+      .post("/account/signin")
+      .send(signIn);
 
-  //   expect(res2).to.have.status(404);
-  //   expect(res2.body).to.have.property(
-  //     "message",
-  //     "Account does not exist, did you mean to sign up instead?"
-  //   );
-  // });
+    expect(res2).to.have.status(404);
+    expect(res2.body).to.have.property(
+      "message",
+      "Account does not exist, did you mean to sign up instead?"
+    );
+  });
 
   // //--------------------------------------------------------Change account details functionality
 
-  // it("should successfully sign an account up", async () => {
-  //   const res = await chai.request(server).post("/signup").send(accountCreate);
+  it("should successfully change an account details", async () => {
+    //sign the account up
+    const res = await chai
+      .request(server)
+      .post("/account/signup")
+      .send(accountCreate);
 
-  //   expect(res).to.have.status(201);
-  //   expect(res.body).to.have.property(
-  //     "message",
-  //     "Account created successfully"
-  //   );
-  //   expect(res.body).to.have.property("userId").that.is.a("string");
-  //   expect(res.body).to.have.property("foreName", accountCreate.foreName);
-  //   expect(res.body).to.have.property("surName", accountCreate.surName);
-  //   expect(res.body).to.have.property("email", accountCreate.email);
+    expect(res).to.have.status(201);
+    expect(res.body).to.have.property(
+      "message",
+      "Account created successfully"
+    );
+    expect(res.body).to.have.property("userId").that.is.a("string");
+    expect(res.body).to.have.property("firstName", accountCreate.firstName);
+    expect(res.body).to.have.property("lastName", accountCreate.lastName);
+    expect(res.body).to.have.property("email", accountCreate.email);
 
-  //   const billsUserID = res.body.userId;
+    const theUserID = res.body.userId;
 
-  //   const accountEdit = {
-  //     foreName: "Billy",
-  //     surName: "Gatsby",
-  //     email: "bill.gates@microsoft.com",
-  //     password: "53CuRe&£",
-  //     userId: billsUserID,
-  //   };
+    const accountEdit = {
+      firstName: "Gandalf",
+      lastName: "Dumbledore",
+      email: "wizards.sleeve@microsoft.com",
+      password: "53CuRe&£",
+      userId: theUserID,
+    };
 
-  //   const res2 = await chai
-  //     .request(server)
-  //     .put("/accountsettings")
-  //     .send(accountEdit);
-  //   expect(res2.body).to.have.property("userId").that.is.a("string");
+    const res2 = await chai
+      .request(server)
+      .put("/account/update")
+      .send(accountEdit);
+    expect(res2.body).to.have.property("userId").that.is.a("string");
 
-  //   expect(res2).to.have.status(200);
-  //   expect(res2.body).to.have.property(
-  //     "message",
-  //     "Account updated successfully"
-  //   );
+    expect(res2).to.have.status(200);
+    expect(res2.body).to.have.property(
+      "message",
+      "Account updated successfully"
+    );
 
-  //   expect(res2.body.userId).to.equal(accountEdit.userId);
-  //   expect(res2.body.foreName).to.equal(accountEdit.foreName);
-  //   expect(res2.body.surName).to.equal(accountEdit.surName);
-  //   expect(res2.body.email).to.equal(accountEdit.email);
-  // });
+    expect(res2.body.userId).to.equal(accountEdit.userId);
+    expect(res2.body.firstName).to.equal(accountEdit.firstName);
+    expect(res2.body.lastName).to.equal(accountEdit.lastName);
+    expect(res2.body.email).to.equal(accountEdit.email);
+  });
 
   // it("should reject changes in the event of wrong password", async () => {
   //   const res = await chai.request(server).post("/signup").send(accountCreate);

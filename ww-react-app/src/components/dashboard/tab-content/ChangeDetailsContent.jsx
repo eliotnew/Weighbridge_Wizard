@@ -31,8 +31,8 @@ function AccountEdit() {
     const data = new FormData(event.currentTarget);
 
     const jsonObj = {
-      foreName: data.get("firstName"),
-      surName: data.get("lastName"),
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
       userId: userId,
