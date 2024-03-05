@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const socketIO = require("socket.io");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const populateOrders = require("./functions/populateDatabase.js/populateOrders");
 const populateProducts = require("./functions/populateDatabase.js/populateProducts");
@@ -123,34 +122,13 @@ try {
   console.log("Something went wrong populating the database!");
 }
 
-//---------------------------------------------------WebSocket code
-
-const server = require("http").Server(app);
-
-const io = socketIO(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
-
-io.on("connection", (socket) => {
-  console.log(`'A client Connected: ${socket.id}`);
-
-  socket.emit("message", "Hello ww-client from ww-server via websocket!");
-
-  // Handle disconnection
-  socket.on("disconnect", () => {
-    console.log("A client disconnected");
-  });
-});
-
 //---------------------------------------------------Start the server.
-server.listen(port, () => {
-  console.log(
-    `Weighbridge Wizard's server is running on http://localhost:${port}`
-  );
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(port, () => {
+    console.log(
+      `Weighbridge Wizard's server is running on http://localhost:${port}`
+    );
+  });
+}
 
-//module.exports = server;
-//Uncomment when i begin testing
+module.exports = app;
