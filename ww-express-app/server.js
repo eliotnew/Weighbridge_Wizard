@@ -80,11 +80,11 @@ app.use("/trucks/confirm", confirmTruck);
 //Product Routes
 app.use("/products/getall", getAllProducts);
 
-// ---------------------------------------------------Connect to MongoDB
+// ---------------------------------------------------Connect to MongoDB. Decides whether the server connects to a memory mongo if in test environment or the real one in a deployment.
 async function connectToDatabase() {
   try {
     const useInMemoryDB = process.env.NODE_ENV === "test";
-    // for use with containers -> const realDbConnection = "mongodb://mongodb:27017/weighbridge-wizard";
+    // for use with containers (ie. a mongodb running in a container as opposed to the cloud.) -> const realDbConnection = "mongodb://mongodb:27017/weighbridge-wizard";
     const password = "comp3000-WW";
     const encodedPass = encodeURIComponent(password);
     const atlasCloudConnection = `mongodb+srv://weighbridgewizard:${encodedPass}@cluster0.tqbevdo.mongodb.net/?retryWrites=true&w=majority`;
@@ -98,7 +98,9 @@ async function connectToDatabase() {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
-      console.log("Connected to in-memory MongoDB!");
+      console.log(
+        "Connected to in-memory MongoDB because it is a test environment!"
+      );
     } else {
       //non test environment
       await mongoose.connect(atlasCloudConnection);
