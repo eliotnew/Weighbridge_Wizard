@@ -7,15 +7,15 @@ const app = require("../../app");
 let server;
 
 const accountCreate = {
-  foreName: "Merlin",
-  surName: "Sorcerer",
-  email: "merlin.sourcer@outlook.com",
+  firstName: "Merlin",
+  lastName: "Sorcerer",
+  email: "merlin.sourcerer@outlook.com",
   password: "53CuRe&£",
   location: "Camelot",
 };
 
 const signIn = {
-  email: "merlin.sourcer@outlook.com",
+  email: "merlin.sourcerer@outlook.com",
   password: "53CuRe&£",
 };
 
@@ -49,8 +49,8 @@ describe("Accounts Testing", async () => {
       "Account created successfully"
     );
     expect(res.body).to.have.property("userId").that.is.a("string");
-    expect(res.body).to.have.property("foreName", accountCreate.foreName);
-    expect(res.body).to.have.property("surName", accountCreate.surName);
+    expect(res.body).to.have.property("firstName", accountCreate.firstName);
+    expect(res.body).to.have.property("lastName", accountCreate.lastName);
     expect(res.body).to.have.property("email", accountCreate.email);
   });
 
@@ -74,28 +74,34 @@ describe("Accounts Testing", async () => {
 
   //---------------------------------------------Sign in
 
-  // it("should successfully sign an account In", async () => {
-  //   const res = await chai.request(server).post("/signup").send(accountCreate);
+  it("should successfully sign an account In", async () => {
+    const res = await chai
+      .request(server)
+      .post("/account/signup")
+      .send(accountCreate);
 
-  //   expect(res).to.have.status(201);
-  //   expect(res.body).to.have.property(
-  //     "message",
-  //     "Account created successfully"
-  //   );
-  //   expect(res.body).to.have.property("userId").that.is.a("string");
-  //   expect(res.body).to.have.property("foreName", accountCreate.foreName);
-  //   expect(res.body).to.have.property("surName", accountCreate.surName);
-  //   expect(res.body).to.have.property("email", accountCreate.email);
+    expect(res).to.have.status(201);
+    expect(res.body).to.have.property(
+      "message",
+      "Account created successfully"
+    );
+    expect(res.body).to.have.property("userId").that.is.a("string");
+    expect(res.body).to.have.property("firstName", accountCreate.firstName);
+    expect(res.body).to.have.property("lastName", accountCreate.lastName);
+    expect(res.body).to.have.property("email", accountCreate.email);
 
-  //   const res2 = await chai.request(server).post("/signin").send(signIn);
+    const res2 = await chai
+      .request(server)
+      .post("/account/signin")
+      .send(signIn);
 
-  //   expect(res2).to.have.status(200);
-  //   expect(res2.body).to.have.property("message", "Login successful");
-  //   expect(res2.body).to.have.property("userId").that.is.a("string");
-  //   expect(res2.body).to.have.property("foreName", accountCreate.foreName);
-  //   expect(res2.body).to.have.property("surName", accountCreate.surName);
-  //   expect(res2.body).to.have.property("email", accountCreate.email);
-  // });
+    expect(res2).to.have.status(200);
+    expect(res2.body).to.have.property("message", "Login successful");
+    expect(res2.body).to.have.property("userId").that.is.a("string");
+    expect(res2.body).to.have.property("firstName", accountCreate.firstName);
+    expect(res2.body).to.have.property("lastName", accountCreate.lastName);
+    expect(res2.body).to.have.property("email", accountCreate.email);
+  });
 
   // it("should decline sign in due mismatching passwords", async () => {
   //   const res = await chai.request(server).post("/signup").send(accountCreate);
