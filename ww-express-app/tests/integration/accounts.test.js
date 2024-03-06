@@ -384,7 +384,6 @@ describe("Accounts Testing", async () => {
       "message",
       "Account created successfully"
     );
-    console.log("Success acount creation");
     expect(res.body).to.have.property("userId").that.is.a("string");
     expect(res.body).to.have.property("firstName", accountCreate.firstName);
     expect(res.body).to.have.property("lastName", accountCreate.lastName);
@@ -404,56 +403,63 @@ describe("Accounts Testing", async () => {
     expect(res2).to.have.status(204);
   });
 
-  // it("should reject for invalid password", async () => {
-  //   const res = await chai.request(server).post("/signup").send(accountCreate);
+  it("should reject for invalid password", async () => {
+    //sign the account up
+    const res = await chai
+      .request(server)
+      .post("/account/signup")
+      .send(accountCreate);
 
-  //   expect(res).to.have.status(201);
-  //   expect(res.body).to.have.property(
-  //     "message",
-  //     "Account created successfully"
-  //   );
-  //   expect(res.body).to.have.property("userId").that.is.a("string");
-  //   expect(res.body).to.have.property("foreName", accountCreate.foreName);
-  //   expect(res.body).to.have.property("surName", accountCreate.surName);
-  //   expect(res.body).to.have.property("email", accountCreate.email);
+    expect(res).to.have.status(201);
+    expect(res.body).to.have.property(
+      "message",
+      "Account created successfully"
+    );
+    expect(res.body).to.have.property("userId").that.is.a("string");
+    expect(res.body).to.have.property("firstName", accountCreate.firstName);
+    expect(res.body).to.have.property("lastName", accountCreate.lastName);
+    expect(res.body).to.have.property("email", accountCreate.email);
 
-  //   const billsUserID = res.body.userId;
+    const theUserID = res.body.userId;
 
-  //   const passChange = {
-  //     password: "whoops",
-  //     userId: billsUserID,
-  //   };
+    const delAccount = {
+      password: "Whoops!",
+      userId: theUserID,
+    };
+    const res2 = await chai
+      .request(server)
+      .delete("/account/delete")
+      .send(delAccount);
+    expect(res2).to.have.status(400);
+    expect(res2.body).to.have.property("message", "Invalid Password");
+  });
 
-  //   const res2 = await chai
-  //     .request(server)
-  //     .delete("/deleteaccount")
-  //     .send(passChange);
-  //   expect(res2).to.have.status(400);
-  //   expect(res2.body).to.have.property("message", "Invalid Password");
-  // });
+  it("should reject for invalid ID", async () => {
+    //sign the account up
+    const res = await chai
+      .request(server)
+      .post("/account/signup")
+      .send(accountCreate);
 
-  // it("should reject for invalid ID", async () => {
-  //   const res = await chai.request(server).post("/signup").send(accountCreate);
+    expect(res).to.have.status(201);
+    expect(res.body).to.have.property(
+      "message",
+      "Account created successfully"
+    );
+    expect(res.body).to.have.property("userId").that.is.a("string");
+    expect(res.body).to.have.property("firstName", accountCreate.firstName);
+    expect(res.body).to.have.property("lastName", accountCreate.lastName);
+    expect(res.body).to.have.property("email", accountCreate.email);
 
-  //   expect(res).to.have.status(201);
-  //   expect(res.body).to.have.property(
-  //     "message",
-  //     "Account created successfully"
-  //   );
-  //   expect(res.body).to.have.property("userId").that.is.a("string");
-  //   expect(res.body).to.have.property("foreName", accountCreate.foreName);
-  //   expect(res.body).to.have.property("surName", accountCreate.surName);
-  //   expect(res.body).to.have.property("email", accountCreate.email);
+    const delAccount = {
+      password: "53CuRe&£",
+      userId: "507f1f77bcf86cd799439011",
+    };
 
-  //   const passChange = {
-  //     password: "53CuRe&£",
-  //     userId: "507f1f77bcf86cd799439011",
-  //   };
-
-  //   const res2 = await chai
-  //     .request(server)
-  //     .delete("/deleteaccount")
-  //     .send(passChange);
-  //   expect(res2).to.have.status(404);
-  // });
+    const res2 = await chai
+      .request(server)
+      .delete("/account/delete")
+      .send(delAccount);
+    expect(res2).to.have.status(404);
+  });
 });
