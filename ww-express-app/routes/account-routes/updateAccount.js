@@ -24,8 +24,7 @@ router.put("/", async (req, res) => {
 
     if (!existingAccount) {
       console.log("Account not found, it doesn't exist.");
-      res.status(404).json({ message: "Account not found" });
-      return;
+      return res.status(404).json({ message: "Account not found" });
     }
 
     // Compare the existing account with the password sent from the client

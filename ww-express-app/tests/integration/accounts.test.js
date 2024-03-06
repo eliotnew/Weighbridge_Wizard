@@ -198,184 +198,211 @@ describe("Accounts Testing", async () => {
     expect(res2.body.email).to.equal(accountEdit.email);
   });
 
-  // it("should reject changes in the event of wrong password", async () => {
-  //   const res = await chai.request(server).post("/signup").send(accountCreate);
+  it("should reject changes in the event of wrong password", async () => {
+    //sign the account up
+    const res = await chai
+      .request(server)
+      .post("/account/signup")
+      .send(accountCreate);
 
-  //   expect(res).to.have.status(201);
-  //   expect(res.body).to.have.property(
-  //     "message",
-  //     "Account created successfully"
-  //   );
-  //   expect(res.body).to.have.property("userId").that.is.a("string");
-  //   expect(res.body).to.have.property("foreName", accountCreate.foreName);
-  //   expect(res.body).to.have.property("surName", accountCreate.surName);
-  //   expect(res.body).to.have.property("email", accountCreate.email);
+    expect(res).to.have.status(201);
+    expect(res.body).to.have.property(
+      "message",
+      "Account created successfully"
+    );
+    expect(res.body).to.have.property("userId").that.is.a("string");
+    expect(res.body).to.have.property("firstName", accountCreate.firstName);
+    expect(res.body).to.have.property("lastName", accountCreate.lastName);
+    expect(res.body).to.have.property("email", accountCreate.email);
 
-  //   const billsUserID = res.body.userId;
+    const theUserID = res.body.userId;
 
-  //   const accountEdit = {
-  //     foreName: "Billy",
-  //     surName: "Gatsby",
-  //     email: "bill.gates@microsoft.com",
-  //     password: "whoops!",
-  //     userId: billsUserID,
-  //   };
+    const accountEdit = {
+      firstName: "Gandalf",
+      lastName: "Dumbledore",
+      email: "wizards.sleeve@microsoft.com",
+      password: "whoops!",
+      userId: theUserID,
+    };
 
-  //   const res2 = await chai
-  //     .request(server)
-  //     .put("/accountsettings")
-  //     .send(accountEdit);
+    const res2 = await chai
+      .request(server)
+      .put("/account/update")
+      .send(accountEdit);
 
-  //   expect(res2).to.have.status(400);
-  //   expect(res2.body).to.have.property("message", "Invalid Password");
-  // });
+    expect(res2).to.have.status(400);
+    expect(res2.body).to.have.property("message", "Invalid Password");
+  });
 
-  // it("should reject changes in the event of wrong ID", async () => {
-  //   const res = await chai.request(server).post("/signup").send(accountCreate);
+  it("should reject changes in the event of wrong ID", async () => {
+    //sign the account up
+    const res = await chai
+      .request(server)
+      .post("/account/signup")
+      .send(accountCreate);
 
-  //   expect(res).to.have.status(201);
-  //   expect(res.body).to.have.property(
-  //     "message",
-  //     "Account created successfully"
-  //   );
-  //   expect(res.body).to.have.property("userId").that.is.a("string");
-  //   expect(res.body).to.have.property("foreName", accountCreate.foreName);
-  //   expect(res.body).to.have.property("surName", accountCreate.surName);
-  //   expect(res.body).to.have.property("email", accountCreate.email);
+    expect(res).to.have.status(201);
+    expect(res.body).to.have.property(
+      "message",
+      "Account created successfully"
+    );
+    expect(res.body).to.have.property("userId").that.is.a("string");
+    expect(res.body).to.have.property("firstName", accountCreate.firstName);
+    expect(res.body).to.have.property("lastName", accountCreate.lastName);
+    expect(res.body).to.have.property("email", accountCreate.email);
 
-  //   const accountEdit = {
-  //     foreName: "Billy",
-  //     surName: "Gatsby",
-  //     email: "bill.gates@microsoft.com",
-  //     password: "53CuRe&£",
-  //     userId: "507f1f77bcf86cd799439011",
-  //   };
+    const theUserID = "507f1f77bcf86cd799439011";
 
-  //   const res2 = await chai
-  //     .request(server)
-  //     .put("/accountsettings")
-  //     .send(accountEdit);
+    const accountEdit = {
+      firstName: "Gandalf",
+      lastName: "Dumbledore",
+      email: "wizards.sleeve@microsoft.com",
+      password: "53CuRe&£",
+      userId: theUserID,
+    };
 
-  //   expect(res2).to.have.status(404);
-  //   expect(res2.body).to.have.property("message", "Account not found");
-  // });
+    const res2 = await chai
+      .request(server)
+      .put("/account/update")
+      .send(accountEdit);
 
-  // //---------------------------------------------------Change Password
+    expect(res2).to.have.status(404);
+    expect(res2.body).to.have.property("message", "Account not found");
+  });
 
-  // it("should successfully change password", async () => {
-  //   const res = await chai.request(server).post("/signup").send(accountCreate);
+  //---------------------------------------------------Change Password
 
-  //   expect(res).to.have.status(201);
-  //   expect(res.body).to.have.property(
-  //     "message",
-  //     "Account created successfully"
-  //   );
-  //   expect(res.body).to.have.property("userId").that.is.a("string");
-  //   expect(res.body).to.have.property("foreName", accountCreate.foreName);
-  //   expect(res.body).to.have.property("surName", accountCreate.surName);
-  //   expect(res.body).to.have.property("email", accountCreate.email);
+  it("should successfully change password", async () => {
+    //sign the account up
+    const res = await chai
+      .request(server)
+      .post("/account/signup")
+      .send(accountCreate);
 
-  //   const billsUserID = res.body.userId;
+    expect(res).to.have.status(201);
+    expect(res.body).to.have.property(
+      "message",
+      "Account created successfully"
+    );
+    expect(res.body).to.have.property("userId").that.is.a("string");
+    expect(res.body).to.have.property("firstName", accountCreate.firstName);
+    expect(res.body).to.have.property("lastName", accountCreate.lastName);
+    expect(res.body).to.have.property("email", accountCreate.email);
 
-  //   const passChange = {
-  //     password: "53CuRe&£",
-  //     newPassword: "3v3N_^m0R3!!53Cure&%",
-  //     userId: billsUserID,
-  //   };
+    const theID = res.body.userId;
 
-  //   const res2 = await chai
-  //     .request(server)
-  //     .put("/changepassword")
-  //     .send(passChange);
-  //   expect(res2).to.have.status(200);
-  //   expect(res2.body).to.have.property(
-  //     "message",
-  //     "Account password updated successfully"
-  //   );
-  // });
+    const passChange = {
+      password: "53CuRe&£",
+      newPassword: "3v3N_^m0R3!!53Cure&%",
+      userId: theID,
+    };
 
-  // it("should reject on account of password not existing", async () => {
-  //   const res = await chai.request(server).post("/signup").send(accountCreate);
+    const res2 = await chai
+      .request(server)
+      .put("/account/updatepassword")
+      .send(passChange);
+    expect(res2).to.have.status(200);
+    expect(res2.body).to.have.property(
+      "message",
+      "Account password updated successfully"
+    );
+  });
 
-  //   expect(res).to.have.status(201);
-  //   expect(res.body).to.have.property(
-  //     "message",
-  //     "Account created successfully"
-  //   );
-  //   expect(res.body).to.have.property("userId").that.is.a("string");
-  //   expect(res.body).to.have.property("foreName", accountCreate.foreName);
-  //   expect(res.body).to.have.property("surName", accountCreate.surName);
-  //   expect(res.body).to.have.property("email", accountCreate.email);
+  it("should reject on account of password not existing", async () => {
+    //sign the account up
+    const res = await chai
+      .request(server)
+      .post("/account/signup")
+      .send(accountCreate);
 
-  //   const billsUserID = res.body.userId;
+    expect(res).to.have.status(201);
+    expect(res.body).to.have.property(
+      "message",
+      "Account created successfully"
+    );
+    expect(res.body).to.have.property("userId").that.is.a("string");
+    expect(res.body).to.have.property("firstName", accountCreate.firstName);
+    expect(res.body).to.have.property("lastName", accountCreate.lastName);
+    expect(res.body).to.have.property("email", accountCreate.email);
 
-  //   const passChange = {
-  //     password: "whoops!",
-  //     newPassword: "3v3N_^m0R3!!53Cure&%",
-  //     userId: billsUserID,
-  //   };
+    const theID = res.body.userId;
 
-  //   const res2 = await chai
-  //     .request(server)
-  //     .put("/changepassword")
-  //     .send(passChange);
-  //   expect(res2).to.have.status(404);
-  //   expect(res2.body).to.have.property("message", "Invalid Password");
-  // });
+    const passChange = {
+      password: "whoops!",
+      newPassword: "3v3N_^m0R3!!53Cure&%",
+      userId: theID,
+    };
 
-  // it("should reject on account of ID wrong not existing", async () => {
-  //   const res = await chai.request(server).post("/signup").send(accountCreate);
+    const res2 = await chai
+      .request(server)
+      .put("/account/updatepassword")
+      .send(passChange);
+    expect(res2).to.have.status(404);
+    expect(res2.body).to.have.property("message", "Invalid Password");
+  });
 
-  //   expect(res).to.have.status(201);
-  //   expect(res.body).to.have.property(
-  //     "message",
-  //     "Account created successfully"
-  //   );
-  //   expect(res.body).to.have.property("userId").that.is.a("string");
-  //   expect(res.body).to.have.property("foreName", accountCreate.foreName);
-  //   expect(res.body).to.have.property("surName", accountCreate.surName);
-  //   expect(res.body).to.have.property("email", accountCreate.email);
+  it("should reject on account of ID wrong not existing", async () => {
+    //sign the account up
+    const res = await chai
+      .request(server)
+      .post("/account/signup")
+      .send(accountCreate);
 
-  //   const passChange = {
-  //     password: "53CuRe&£",
-  //     newPassword: "3v3N_^m0R3!!53Cure&%",
-  //     userId: "507f1f77bcf86cd799439011",
-  //   };
+    expect(res).to.have.status(201);
+    expect(res.body).to.have.property(
+      "message",
+      "Account created successfully"
+    );
+    expect(res.body).to.have.property("userId").that.is.a("string");
+    expect(res.body).to.have.property("firstName", accountCreate.firstName);
+    expect(res.body).to.have.property("lastName", accountCreate.lastName);
+    expect(res.body).to.have.property("email", accountCreate.email);
 
-  //   const res2 = await chai
-  //     .request(server)
-  //     .put("/changepassword")
-  //     .send(passChange);
-  //   expect(res2).to.have.status(500);
-  // });
+    const passChange = {
+      password: "53CuRe&£",
+      newPassword: "3v3N_^m0R3!!53Cure&%",
+      userId: "507f1f77bcf86cd799439011",
+    };
+
+    const res2 = await chai
+      .request(server)
+      .put("/changepassword")
+      .send(passChange);
+    expect(res2).to.have.status(404);
+  });
 
   // //--------------------------------------------------------------------DELETE ACCOUNT
-  // it("should successfully sign an account up", async () => {
-  //   const res = await chai.request(server).post("/signup").send(accountCreate);
+  it("should successfully sign an account up", async () => {
+    //sign the account up
+    const res = await chai
+      .request(server)
+      .post("/account/signup")
+      .send(accountCreate);
 
-  //   expect(res).to.have.status(201);
-  //   expect(res.body).to.have.property(
-  //     "message",
-  //     "Account created successfully"
-  //   );
-  //   expect(res.body).to.have.property("userId").that.is.a("string");
-  //   expect(res.body).to.have.property("foreName", accountCreate.foreName);
-  //   expect(res.body).to.have.property("surName", accountCreate.surName);
-  //   expect(res.body).to.have.property("email", accountCreate.email);
+    expect(res).to.have.status(201);
+    expect(res.body).to.have.property(
+      "message",
+      "Account created successfully"
+    );
+    console.log("Success acount creation");
+    expect(res.body).to.have.property("userId").that.is.a("string");
+    expect(res.body).to.have.property("firstName", accountCreate.firstName);
+    expect(res.body).to.have.property("lastName", accountCreate.lastName);
+    expect(res.body).to.have.property("email", accountCreate.email);
 
-  //   const billsUserID = res.body.userId;
+    const theUserID = res.body.userId;
 
-  //   const passChange = {
-  //     password: "53CuRe&£",
-  //     userId: billsUserID,
-  //   };
+    const delAccount = {
+      password: "53CuRe&£",
+      userId: theUserID,
+    };
 
-  //   const res2 = await chai
-  //     .request(server)
-  //     .delete("/deleteaccount")
-  //     .send(passChange);
-  //   expect(res2).to.have.status(204);
-  // });
+    const res2 = await chai
+      .request(server)
+      .delete("/account/delete")
+      .send(delAccount);
+    expect(res2).to.have.status(204);
+  });
 
   // it("should reject for invalid password", async () => {
   //   const res = await chai.request(server).post("/signup").send(accountCreate);

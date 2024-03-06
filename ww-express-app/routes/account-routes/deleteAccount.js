@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const accountModel = require("../../models/accountModel");
 const bcrypt = require("bcryptjs");
-const getAccount = require("../../functions/getAccount");
 /**
  * Deletes account using the ID given by client side and a password to verify.
  */
@@ -13,7 +12,9 @@ router.delete("/", async (req, res) => {
     const { password, userId } = req.body;
     console.log("Recieved id: " + userId);
 
-    const existingAccount = await getAccount(userId);
+    existingAccount = await accountModel.findOne({
+      _id: userId,
+    });
 
     if (!existingAccount) {
       console.log("Account not found, it doesn't exist.");
