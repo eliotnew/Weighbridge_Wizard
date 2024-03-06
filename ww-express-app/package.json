@@ -6,7 +6,8 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha --timeout 5000 tests/**/*.js --exit",
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "coverage": "nyc npm test"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +25,7 @@
     "chai-http": "^4.4.0",
     "mocha": "^10.2.0",
     "nodemon": "^3.0.3",
+    "nyc": "^15.1.0",
     "sinon": "^17.0.1"
   }
 }
