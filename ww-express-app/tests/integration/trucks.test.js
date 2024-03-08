@@ -78,7 +78,7 @@ describe("Trucks Testing", async () => {
     expect(res.body).to.be.an("array");
     expect(res.body.length).to.be.greaterThan(0);
 
-    const truckData = res.body[4]; //assumes that the function to populate the db is still in place.
+    const truckData = res.body[5]; //assumes that the function to populate the db is still in place and the previous test that created a truck in "tickets" Worked.
     expect(truckData.driverName).to.equal(exampleTruck.driverName);
     expect(truckData.email).to.equal(exampleTruck.email);
     expect(truckData.reg).to.equal(exampleTruck.reg);
