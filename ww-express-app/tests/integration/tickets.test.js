@@ -65,6 +65,14 @@ describe("Order Testing", async () => {
   });
 
   it("should successfully create a weigh-in ticket", async () => {
+    const exampleTicketIn = {
+      reg: "RR53TRK",
+      tareWeight: 15000,
+      clerk_Id: "test123",
+      loadedLocation: "Camelot",
+      order_Id: "ORDR55885588",
+    };
+
     const res = await chai
       .request(server)
       .post("/weigh/in")
@@ -73,12 +81,44 @@ describe("Order Testing", async () => {
     expect(res.body).to.have.property("message", "Weigh in Successful");
     expect(res).to.have.status(201);
     expect(res.body).to.have.property("message", "Weigh in Successful");
+  });
 
-    // const ticket = await ticketModel.findOne({
-    //   reg: "EO77UOP",
-    //   order_Id: "ORDR905304",
-    // });
-    // expect(ticket).to.not.be.null;
-    // expect(ticket.driverName).to.equal("Rocky Roads");
+  it("should inform that the truck driver was not found by reg", async () => {
+    const exampleTicketIn = {
+      reg: "WHOOPS",
+      tareWeight: 15000,
+      clerk_Id: "test123",
+      loadedLocation: "Camelot",
+      order_Id: "ORDR55885588",
+    };
+
+    const res = await chai
+      .request(server)
+      .post("/weigh/in")
+      .send(exampleTicketIn);
+
+    expect(res.body).to.have.property(
+      "message",
+      "Truck Driver not found with that reg."
+    );
+    expect(res).to.have.status(404);
+  });
+
+  it("should inform that the order number has no match", async () => {
+    const exampleTicketIn = {
+      reg: "RR53TRK",
+      tareWeight: 15000,
+      clerk_Id: "test123",
+      loadedLocation: "Camelot",
+      order_Id: "WHOOPS",
+    };
+
+    const res = await chai
+      .request(server)
+      .post("/weigh/in")
+      .send(exampleTicketIn);
+
+    expect(res.body).to.have.property("message", "Order was not found.");
+    expect(res).to.have.status(404);
   });
 });

@@ -28,21 +28,20 @@ router.post("/", async (req, res) => {
   const dateNow = getDate();
   try {
     const truck = await truckModel.findOne({ reg: reg });
-    const driverName = truck.driverName;
-    console.log("Fetched the drivers name: " + driverName);
-
     if (!truck) {
       return res
         .status(404)
         .json({ message: "Truck Driver not found with that reg." });
     }
+    const driverName = truck.driverName;
+    console.log("Fetched the drivers name: " + driverName);
 
     const order = await orderModel.findOne({ orderNumber: order_Id });
-    const product = order.product;
-
     if (!order) {
       return res.status(404).json({ message: "Order was not found." });
     }
+
+    const product = order.product;
 
     const ticket = new ticketModel({
       driverName: driverName,
