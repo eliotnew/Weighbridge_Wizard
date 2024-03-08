@@ -9,7 +9,7 @@ const truckModel = require("../../models/truckModel");
 router.put("/", async (req, res) => {
   const { driverName, email, reg, truckType, phone, maxGVW } = req.body;
 
-  console.log("Recieved a request to PUT a truck by reg:", reg);
+  console.log("Received a request to PUT a truck by reg:", reg);
 
   const truck = await truckModel.findOne({ reg: reg });
 
@@ -28,14 +28,12 @@ router.put("/", async (req, res) => {
           },
         }
       );
-      return;
+      res.status(200).json({ message: "Truck updated successfully", reg: reg });
     } catch (error) {
       res.status(500).json({ message: "Server Error" });
-      return;
     }
   } else {
-    res.status(404).json({ message: "The truck does not exist on the db." });
-    return;
+    res.status(404).json({ message: "The truck does not exist in the db." });
   }
 });
 

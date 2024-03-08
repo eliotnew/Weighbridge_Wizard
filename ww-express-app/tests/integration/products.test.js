@@ -15,13 +15,13 @@ describe("Order Testing", async () => {
     server.close(); //teardown
   });
 
-  it("should successfully create an order using the exampleOrder", async () => {
+  it("should successfully get products", async () => {
     const getProductsRes = await chai.request(server).get("/products/getall");
 
     expect(getProductsRes).to.have.status(200);
   });
 
-  it("should correctl inform the client that there are no products", async () => {
+  it("should correctly inform the client that there are no products", async () => {
     try {
       await productModel.deleteMany({});
     } catch (error) {
