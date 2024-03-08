@@ -17,14 +17,6 @@ let server;
  *  delete onsite = ticket/cancelonsite/
  */
 
-const exampleTicketIn = {
-  reg: "RR53TRK",
-  tareWeight: 15000,
-  clerk_Id: "test123",
-  loadedLocation: "Camelot",
-  order_Id: "ORDR55885588",
-};
-
 const openOrder = new orderModel({
   orderNumber: "ORDR55885588",
   company: "TEST123",
@@ -52,7 +44,7 @@ const truck = new truckModel({
   maxGVW: 26000,
 });
 
-describe("Order Testing", async () => {
+describe("Tickets Testing", async () => {
   before(async function () {
     server = app.listen(3012); //setup
 
@@ -120,5 +112,85 @@ describe("Order Testing", async () => {
 
     expect(res.body).to.have.property("message", "Order was not found.");
     expect(res).to.have.status(404);
+  });
+
+  it("should successfully cancel an onsite truck by reg", async () => {
+    const res = await chai
+      .request(server)
+      .delete("/ticket/cancelonsite")
+      .query({ reg: "RR53TRK" });
+
+    expect(res).to.have.status(204);
+
+    const deletedTicket = await ticketModel.findOne({
+      reg: "TEST123",
+      onSite: true,
+    });
+    expect(deletedTicket).to.be.null;
+  });
+
+  it("should inform user that no match was found", async () => {
+    const res = await chai
+      .request(server)
+      .delete("/ticket/cancelonsite")
+      .query({ reg: "Whoops!" });
+
+    expect(res).to.have.status(404);
+  });
+
+  it("should inform user that reg was given", async () => {
+    const res = await chai.request(server).delete("/ticket/cancelonsite");
+
+    expect(res).to.have.status(400);
+  });
+
+  it("should get all tickets but return empty  ", async () => {
+    const res = await chai.request(server).get("/ticket/getall");
+
+    expect(res).to.have.status(404);
+    expect(res.body).to.have.property("message", "No tickets found");
+  });
+
+  it("should return all tickets  ", async () => {
+    const exampleTicketIn = {
+      reg: "RR53TRK",
+      tareWeight: 15000,
+      clerk_Id: "test123",
+      loadedLocation: "Camelot",
+      order_Id: "ORDR55885588",
+    };
+
+    const res1 = await chai
+      .request(server)
+      .post("/weigh/in")
+      .send(exampleTicketIn);
+
+    expect(res1.body).to.have.property("message", "Weigh in Successful");
+    expect(res1).to.have.status(201);
+    expect(res1.body).to.have.property("message", "Weigh in Successful");
+
+    const res2 = await chai.request(server).get("/ticket/getall");
+
+    expect(res2).to.have.status(200);
+    expect(res2.body).to.be.an("array");
+    expect(res2.body.length).to.be.greaterThan(0);
+  });
+
+  it("should return one onsite tickets  ", async () => {
+    const res = await chai.request(app).get("/ticket/getone/onsite/RR53TRK");
+
+    expect(res).to.have.status(200);
+    expect(res.body).to.be.an("object");
+    expect(res.body.reg).to.equal("RR53TRK");
+    expect(res.body.onSite).to.be.true;
+  });
+
+  it("should return one onsite ticket  ", async () => {
+    const res = await chai.request(app).get("/ticket/getone/onsite/RR53TRK");
+
+    expect(res).to.have.status(200);
+    expect(res.body).to.be.an("object");
+    expect(res.body.reg).to.equal("RR53TRK");
+    expect(res.body.onSite).to.be.true;
   });
 });
