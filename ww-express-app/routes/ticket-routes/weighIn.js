@@ -26,34 +26,43 @@ router.post("/", async (req, res) => {
 
   const timeNow = getTime();
   const dateNow = getDate();
-
-  const truck = await truckModel.findOne({ reg: reg });
-  const driverName = truck.driverName;
-  console.log("Fetched the drivers name: " + driverName);
-
-  const order = await orderModel.findOne({ orderNumber: order_Id });
-  const product = order.product;
-  console.log("Fetched the order's product: " + driverName);
-
-  const ticket = new ticketModel({
-    driverName: driverName,
-    reg: reg,
-    product: product,
-    tareWeight: tareWeight,
-    //outWeight: empty,
-    //netWeight: empty,
-    clerk_Id: clerk_Id,
-    loadedLocation: loadedLocation,
-    order_Id: order_Id,
-    timeIn: timeNow,
-    //timeOut: empty,
-    date: dateNow,
-    onSite: onsite,
-  });
   try {
+    const truck = await truckModel.findOne({ reg: reg });
+    if (!truck) {
+      return res
+        .status(404)
+        .json({ message: "Truck Driver not found with that reg." });
+    }
+    const driverName = truck.driverName;
+    console.log("Fetched the drivers name: " + driverName);
+
+    const order = await orderModel.findOne({ orderNumber: order_Id });
+    if (!order) {
+      return res.status(404).json({ message: "Order was not found." });
+    }
+
+    const product = order.product;
+
+    const ticket = new ticketModel({
+      driverName: driverName,
+      reg: reg,
+      product: product,
+      tareWeight: tareWeight,
+      //outWeight: empty,
+      //netWeight: empty,
+      clerk_Id: clerk_Id,
+      loadedLocation: loadedLocation,
+      order_Id: order_Id,
+      timeIn: timeNow,
+      //timeOut: empty,
+      date: dateNow,
+      onSite: onsite,
+    });
+
     await ticket.save();
-    res.status(201).json({ message: "Weigh in Successfull" });
+    res.status(201).json({ message: "Weigh in Successful" });
   } catch (error) {
+    console.log("Failed to create weigh in ticket:", error);
     res.status(500).json({ message: error.message });
   }
 });

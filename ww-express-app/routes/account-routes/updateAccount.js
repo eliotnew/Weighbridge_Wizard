@@ -13,7 +13,7 @@ router.put("/", async (req, res) => {
   try {
     console.log("Received a request to change account details.");
 
-    const { foreName, surName, email, password, userId, location } = req.body;
+    const { firstName, lastName, email, password, userId, location } = req.body;
     console.log("Received id: " + userId);
 
     let existingAccount;
@@ -24,8 +24,7 @@ router.put("/", async (req, res) => {
 
     if (!existingAccount) {
       console.log("Account not found, it doesn't exist.");
-      res.status(404).json({ message: "Account not found" });
-      return;
+      return res.status(404).json({ message: "Account not found" });
     }
 
     // Compare the existing account with the password sent from the client
@@ -38,8 +37,8 @@ router.put("/", async (req, res) => {
           { _id: userId },
           {
             $set: {
-              firstName: foreName,
-              lastName: surName,
+              firstName: firstName,
+              lastName: lastName,
               email: email,
               password: originalPassword,
               location: location,
@@ -52,8 +51,8 @@ router.put("/", async (req, res) => {
         res.status(200).json({
           message: "Account updated successfully",
           userId: userId,
-          firstName: foreName,
-          lastName: surName,
+          firstName: firstName,
+          lastName: lastName,
           email: email,
           location: location,
         });

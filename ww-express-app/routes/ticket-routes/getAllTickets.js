@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ticketModel = require("../../models/ticketModel");
 
-// returns all onsite trucks
+// returns all
 router.get("/", async (req, res) => {
   try {
     const tickets = await ticketModel.find();

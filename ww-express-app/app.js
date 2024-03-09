@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const socketIO = require("socket.io");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const populateOrders = require("./functions/populateDatabase.js/populateOrders");
 const populateProducts = require("./functions/populateDatabase.js/populateProducts");
@@ -80,11 +79,11 @@ app.use("/trucks/confirm", confirmTruck);
 //Product Routes
 app.use("/products/getall", getAllProducts);
 
-// ---------------------------------------------------Connect to MongoDB
+// ---------------------------------------------------Connect to MongoDB. Decides whether the server connects to a memory mongo if in test environment or the real one in a deployment.
 async function connectToDatabase() {
   try {
     const useInMemoryDB = process.env.NODE_ENV === "test";
-    // for use with containers -> const realDbConnection = "mongodb://mongodb:27017/weighbridge-wizard";
+    // for use with containers (ie. a mongodb running in a container as opposed to the cloud.) -> const realDbConnection = "mongodb://mongodb:27017/weighbridge-wizard";
     const password = "comp3000-WW";
     const encodedPass = encodeURIComponent(password);
     const atlasCloudConnection = `mongodb+srv://weighbridgewizard:${encodedPass}@cluster0.tqbevdo.mongodb.net/?retryWrites=true&w=majority`;
@@ -98,7 +97,9 @@ async function connectToDatabase() {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
-      console.log("Connected to in-memory MongoDB!");
+      console.log(
+        "Connected to in-memory MongoDB because it is a test environment!"
+      );
     } else {
       //non test environment
       await mongoose.connect(atlasCloudConnection);
@@ -121,34 +122,13 @@ try {
   console.log("Something went wrong populating the database!");
 }
 
-//---------------------------------------------------WebSocket code
-
-const server = require("http").Server(app);
-
-const io = socketIO(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
-
-io.on("connection", (socket) => {
-  console.log(`'A client Connected: ${socket.id}`);
-
-  socket.emit("message", "Hello ww-client from ww-server via websocket!");
-
-  // Handle disconnection
-  socket.on("disconnect", () => {
-    console.log("A client disconnected");
-  });
-});
-
 //---------------------------------------------------Start the server.
-server.listen(port, () => {
-  console.log(
-    `Weighbridge Wizard's server is running on http://localhost:${port}`
-  );
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(port, () => {
+    console.log(
+      `Weighbridge Wizard's server is running on http://localhost:${port}`
+    );
+  });
+}
 
-//module.exports = server;
-//Uncomment when i begin testing
+module.exports = app;

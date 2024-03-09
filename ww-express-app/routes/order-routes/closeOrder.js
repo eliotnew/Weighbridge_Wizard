@@ -17,6 +17,7 @@ router.put("/", async (req, res) => {
         { orderNumber: orderNumber },
         { $set: { open: false } }
       );
+      res.status(200).json({ message: "Closed Order" });
     } catch (error) {
       res.status(500).json({ message: "Server Error" });
       return;
@@ -24,7 +25,7 @@ router.put("/", async (req, res) => {
   } else {
     return res
       .status(404)
-      .json({ message: "The truck does not exist on the db." });
+      .json({ message: "The order does not exist on the db." });
   }
 });
 
