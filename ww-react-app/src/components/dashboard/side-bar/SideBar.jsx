@@ -1,3 +1,4 @@
+import React from "react";
 import { useTheme } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
@@ -22,6 +23,7 @@ function SideBar({ addTab }) {
 
   return (
     <Drawer
+      data-testid="dashboard-sidebar"
       variant="permanent"
       open
       sx={{

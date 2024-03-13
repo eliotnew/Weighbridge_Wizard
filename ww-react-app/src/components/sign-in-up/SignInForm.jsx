@@ -22,7 +22,6 @@ function SignInForm() {
   const { login } = useLoggedInContext();
   const navigate = useNavigate();
   const theme = useTheme();
-  const blue = theme.palette.primary.contrastText;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -99,6 +98,7 @@ function SignInForm() {
             required
             fullWidth
             id="email"
+            data-testid="emailInput"
             label="Email Address"
             name="email"
             autoComplete="email"
@@ -112,6 +112,7 @@ function SignInForm() {
             label="Password"
             type="password"
             id="password"
+            data-testid="passwordInput"
             autoComplete="current-password"
           />
 
@@ -165,6 +166,7 @@ function SignInForm() {
           </>
 
           <Button
+            data-testid="signInButton"
             type="submit"
             fullWidth
             variant="contained"

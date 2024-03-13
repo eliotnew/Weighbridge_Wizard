@@ -37,6 +37,7 @@ function LPappbar() {
   return (
     <AppBar
       position="static"
+      data-testid="lpappbar"
       sx={{
         backgroundColor: theme.palette.primary.main,
         boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",

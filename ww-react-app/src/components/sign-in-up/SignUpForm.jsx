@@ -154,6 +154,7 @@ function SignUpForm() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                data-testid="emailInput"
                 required
                 fullWidth
                 id="email"
@@ -164,6 +165,7 @@ function SignUpForm() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                data-testid="passwordInput1"
                 required
                 fullWidth
                 name="password1"
@@ -176,6 +178,7 @@ function SignUpForm() {
               <TextField
                 required
                 fullWidth
+                data-testid="passwordInput2"
                 name="password2"
                 label="Enter Password Again"
                 type="password"
@@ -204,6 +207,7 @@ function SignUpForm() {
           </Grid>
 
           <Button
+            data-testid="signUpButton"
             type="submit"
             fullWidth
             variant="contained"

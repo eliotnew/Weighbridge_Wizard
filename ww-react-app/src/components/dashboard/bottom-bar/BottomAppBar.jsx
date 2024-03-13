@@ -1,3 +1,4 @@
+import React from "react";
 import Clock from "./Clock";
 import { AppBar } from "@mui/material";
 import { useTheme } from "@mui/material";
@@ -6,6 +7,7 @@ function BottomAppBar() {
   const theme = useTheme();
   return (
     <AppBar
+      data-testid="dashboard-bottom"
       position="static"
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,

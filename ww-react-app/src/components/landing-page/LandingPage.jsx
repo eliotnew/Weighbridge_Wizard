@@ -6,6 +6,7 @@ function LandingPage() {
   return (
     <>
       <div
+        data-testid="background"
         style={{
           backgroundColor: "beige",
           height: "100vh",
