@@ -7,6 +7,7 @@ function SignUpPage() {
   return (
     <>
       <div
+        data-testid="background"
         style={{
           backgroundImage: `url(${pic})`,
           backgroundSize: "cover",

@@ -9,7 +9,7 @@ describe("Landing Page", () => {
     const backgroundDiv = screen.getByTestId("background");
     expect(backgroundDiv).toBeInTheDocument();
     expect(backgroundDiv).toHaveStyle({
-      backgroundColor: "beige", // Adjust the style checks as necessary
+      backgroundColor: "beige",
       height: "100vh",
       width: "100vw",
       overflow: "hidden",

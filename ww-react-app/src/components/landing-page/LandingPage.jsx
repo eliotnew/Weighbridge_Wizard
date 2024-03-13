@@ -15,8 +15,8 @@ function LandingPage() {
           position: "relative",
         }}
       >
-        <LPappbar data-testid="lpappbar" />
-        <ParallaxComponent data-testid="parallaxcomponent" />
+        <LPappbar />
+        <ParallaxComponent />
       </div>
     </>
   );
