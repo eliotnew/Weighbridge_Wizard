@@ -23,6 +23,7 @@ function SideBar({ addTab }) {
 
   return (
     <Drawer
+      data-testid="dashboard-sidebar"
       variant="permanent"
       open
       sx={{

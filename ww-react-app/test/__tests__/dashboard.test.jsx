@@ -17,4 +17,28 @@ describe("DashBoard", () => {
     const backgroundDiv = screen.getByTestId("background");
     expect(backgroundDiv).toBeInTheDocument();
   });
+
+  test("renders the paper content correctly", () => {
+    render(<Dashboard />);
+    const backgroundDiv = screen.getByTestId("background-paper-content");
+    expect(backgroundDiv).toBeInTheDocument();
+  });
+
+  test("renders the Top Appbar correctly", () => {
+    render(<Dashboard />);
+    const backgroundDiv = screen.getByTestId("dashboard-top");
+    expect(backgroundDiv).toBeInTheDocument();
+  });
+
+  test("renders the Bottom Appbar correctly", () => {
+    render(<Dashboard />);
+    const backgroundDiv = screen.getByTestId("dashboard-bottom");
+    expect(backgroundDiv).toBeInTheDocument();
+  });
+
+  test("renders the sidebar correctly", () => {
+    render(<Dashboard />);
+    const backgroundDiv = screen.getByTestId("dashboard-sidebar");
+    expect(backgroundDiv).toBeInTheDocument();
+  });
 });

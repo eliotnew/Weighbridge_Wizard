@@ -10,6 +10,7 @@ function DashboardAppBar({ addTab }) {
   const theme = useTheme();
   return (
     <AppBar
+      data-testid="dashboard-top"
       position="static"
       sx={{
         backgroundColor: theme.palette.primary.main,

@@ -70,6 +70,7 @@ function Dashboard() {
         {/* Box to the Right */}
         <Grid item xs={10}>
           <Paper
+            data-testid="background-paper-content"
             elevation={6}
             square={false}
             p={2}

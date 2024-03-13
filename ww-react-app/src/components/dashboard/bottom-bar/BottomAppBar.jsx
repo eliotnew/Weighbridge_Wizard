@@ -7,6 +7,7 @@ function BottomAppBar() {
   const theme = useTheme();
   return (
     <AppBar
+      data-testid="dashboard-bottom"
       position="static"
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,
