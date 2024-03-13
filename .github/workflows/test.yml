@@ -28,6 +28,9 @@ jobs:
           cd ../ww-express-app
           npm install
 
+      - name: Install cross-env  # Ensure cross-env is installed for the express app
+        run: npm install cross-env
+
       - name: Test React app
         run: |
           cd ww-react-app
