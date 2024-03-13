@@ -6,6 +6,7 @@ function LandingPage() {
   return (
     <>
       <div
+        data-testid="background"
         style={{
           backgroundColor: "beige",
           height: "100vh",
@@ -14,8 +15,8 @@ function LandingPage() {
           position: "relative",
         }}
       >
-        <LPappbar />
-        <ParallaxComponent />
+        <LPappbar data-testid="lpappbar" />
+        <ParallaxComponent data-testid="parallaxcomponent" />
       </div>
     </>
   );

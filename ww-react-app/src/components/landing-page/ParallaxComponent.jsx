@@ -39,7 +39,7 @@ function ParallaxComponent() {
 
   return (
     <>
-      <Parallax pages={3} ref={ref}>
+      <Parallax pages={3} ref={ref} data-testid="parallaxcomponent">
         {/* Two of the three slides have backgrounds */}
         <ParallaxLayer
           offset={1}
