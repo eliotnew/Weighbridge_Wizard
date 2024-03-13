@@ -53,6 +53,7 @@ function Dashboard() {
 
   return (
     <div
+      data-testid="background"
       style={{
         backgroundColor: theme.palette.background.default,
         minHeight: "100vh",
