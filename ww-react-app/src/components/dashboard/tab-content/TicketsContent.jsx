@@ -15,18 +15,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import getAllTickets from "../../../functions/ticket_functions/getAllTickets";
 import LoadingContent from "../../basicUI/LoadingContent";
+
 function TicketsContent() {
   const theme = useTheme();
   const [tickets, setTickets] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [sortConfig, setSortConfig] = useState({
+    key: null,
+    direction: "ascending",
+  });
 
   const cellStyle = {
     borderRight: "1px solid rgba(224, 224, 224, 1)",
   };
-  const informUser = (event) => {
-    window.alert("Woosh! Re-sent the ticket to the driver and the customer.");
+
+  const informUser = () => {
+    window.alert("Whoosh! Re-sent the ticket to the driver and the customer.");
   };
 
   useEffect(() => {
@@ -51,6 +57,30 @@ function TicketsContent() {
 
     fetchTickets();
   }, []);
+
+  const requestSort = (key) => {
+    let direction = "ascending";
+    if (sortConfig.key === key && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedTickets = [...tickets].sort((a, b) => {
+    const aValue = a[sortConfig.key];
+    const bValue = b[sortConfig.key];
+
+    if (sortConfig.direction === "ascending") {
+      if (aValue === undefined || aValue === null) return -1;
+      if (bValue === undefined || bValue === null) return 1;
+      return aValue.localeCompare(bValue);
+    } else {
+      if (aValue === undefined || aValue === null) return 1;
+      if (bValue === undefined || bValue === null) return -1;
+      return bValue.localeCompare(aValue);
+    }
+  });
+
   if (isLoading) {
     return <LoadingContent />;
   }
@@ -70,11 +100,7 @@ function TicketsContent() {
       {isEmpty === false && isError === false ? (
         <>
           <TableContainer component={Paper}>
-            <Table
-              style={{
-                width: "100%",
-              }}
-            >
+            <Table style={{ width: "100%" }}>
               <TableHead>
                 <TableRow>
                   <TableCell
@@ -82,6 +108,7 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
+                    onClick={() => requestSort("order_Id")}
                   >
                     Order ID
                   </TableCell>
@@ -90,6 +117,7 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
+                    onClick={() => requestSort("reg")}
                   >
                     Reg Plate
                   </TableCell>
@@ -98,6 +126,7 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
+                    onClick={() => requestSort("driverName")}
                   >
                     Driver Name
                   </TableCell>
@@ -106,15 +135,16 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
+                    onClick={() => requestSort("dateLoaded")}
                   >
                     Date Loaded
                   </TableCell>
-
                   <TableCell
                     sx={{
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
+                    onClick={() => requestSort("product")}
                   >
                     Product
                   </TableCell>
@@ -123,6 +153,7 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
+                    onClick={() => requestSort("loadedLocation")}
                   >
                     Loaded At
                   </TableCell>
@@ -131,6 +162,7 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
+                    onClick={() => requestSort("inTime")}
                   >
                     Weigh-In Time
                   </TableCell>
@@ -139,6 +171,7 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
+                    onClick={() => requestSort("outTime")}
                   >
                     Weigh-Out Time
                   </TableCell>
@@ -147,6 +180,7 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
+                    //onClick={() => requestSort("netWeight")}
                   >
                     Net-Weight
                   </TableCell>
@@ -161,7 +195,7 @@ function TicketsContent() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tickets.map((row, index) => (
+                {sortedTickets.map((row, index) => (
                   <TableRow key={index}>
                     <TableCell sx={{ ...cellStyle }}>{row.order_Id}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.reg}</TableCell>
@@ -176,7 +210,6 @@ function TicketsContent() {
                     <TableCell sx={{ ...cellStyle }}>{row.timeIn}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.timeOut}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.netWeight}</TableCell>
-
                     <TableCell sx={{ ...cellStyle }}>
                       <Button
                         fullWidth
@@ -184,7 +217,7 @@ function TicketsContent() {
                           backgroundColor: theme.palette.primary.main,
                           color: theme.palette.primary.contrastText,
                         }}
-                        onClick={() => informUser()}
+                        onClick={informUser}
                       >
                         <FontAwesomeIcon
                           icon={faEnvelope}
@@ -202,4 +235,5 @@ function TicketsContent() {
     </>
   );
 }
+
 export default TicketsContent;
