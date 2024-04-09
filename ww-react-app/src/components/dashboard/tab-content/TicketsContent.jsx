@@ -10,9 +10,15 @@ import {
   useTheme,
   Typography,
   Button,
+  IconButton,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faSort,
+  faSortDown,
+  faSortUp,
+} from "@fortawesome/free-solid-svg-icons";
 import getAllTickets from "../../../functions/ticket_functions/getAllTickets";
 import LoadingContent from "../../basicUI/LoadingContent";
 
@@ -66,6 +72,13 @@ function TicketsContent() {
     setSortConfig({ key, direction });
   };
 
+  const getSortIcon = (key) => {
+    if (sortConfig.key === key) {
+      return sortConfig.direction === "ascending" ? faSortUp : faSortDown;
+    }
+    return faSort;
+  };
+
   const sortedTickets = [...tickets].sort((a, b) => {
     const aValue = a[sortConfig.key];
     const bValue = b[sortConfig.key];
@@ -108,8 +121,13 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
-                    onClick={() => requestSort("order_Id")}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("order_Id")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("order_Id")} />
+                    </IconButton>
                     Order ID
                   </TableCell>
                   <TableCell
@@ -117,8 +135,10 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
-                    onClick={() => requestSort("reg")}
                   >
+                    <IconButton size="small" onClick={() => requestSort("reg")}>
+                      <FontAwesomeIcon icon={getSortIcon("reg")} />
+                    </IconButton>
                     Reg Plate
                   </TableCell>
                   <TableCell
@@ -126,8 +146,13 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
-                    onClick={() => requestSort("driverName")}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("driverName")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("driverName")} />
+                    </IconButton>
                     Driver Name
                   </TableCell>
                   <TableCell
@@ -135,8 +160,13 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
-                    onClick={() => requestSort("dateLoaded")}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("dateLoaded")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("dateLoaded")} />
+                    </IconButton>
                     Date Loaded
                   </TableCell>
                   <TableCell
@@ -144,8 +174,13 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
-                    onClick={() => requestSort("product")}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("product")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("product")} />
+                    </IconButton>
                     Product
                   </TableCell>
                   <TableCell
@@ -153,8 +188,13 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
-                    onClick={() => requestSort("loadedLocation")}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("loadedLocation")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("loadedLocation")} />
+                    </IconButton>
                     Loaded At
                   </TableCell>
                   <TableCell
@@ -162,8 +202,13 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
-                    onClick={() => requestSort("inTime")}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("inTime")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("inTime")} />
+                    </IconButton>
                     Weigh-In Time
                   </TableCell>
                   <TableCell
@@ -171,8 +216,13 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
-                    onClick={() => requestSort("outTime")}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("outTime")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("outTime")} />
+                    </IconButton>
                     Weigh-Out Time
                   </TableCell>
                   <TableCell
@@ -180,7 +230,6 @@ function TicketsContent() {
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
-                    //onClick={() => requestSort("netWeight")}
                   >
                     Net-Weight
                   </TableCell>
