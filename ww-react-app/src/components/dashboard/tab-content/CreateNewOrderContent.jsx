@@ -34,6 +34,11 @@ function CreateNewOrderContent() {
     fetchProducts();
   }, []);
 
+  const handleQuantityChange = (event) => {
+    const value = event.target.value;
+    event.target.value = value.replace(/[^0-9.]/g, "");
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -182,6 +187,7 @@ function CreateNewOrderContent() {
               name="quantity"
               size="small"
               sx={inputFieldStyles}
+              onChange={handleQuantityChange}
             />
           </div>
           <Typography variant="h6" sx={{ marginTop: "10px" }}>

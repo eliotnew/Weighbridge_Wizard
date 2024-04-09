@@ -10,23 +10,35 @@ import {
   useTheme,
   Typography,
   Button,
+  IconButton,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faSort,
+  faSortDown,
+  faSortUp,
+} from "@fortawesome/free-solid-svg-icons";
 import getAllTickets from "../../../functions/ticket_functions/getAllTickets";
 import LoadingContent from "../../basicUI/LoadingContent";
+
 function TicketsContent() {
   const theme = useTheme();
   const [tickets, setTickets] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [sortConfig, setSortConfig] = useState({
+    key: null,
+    direction: "ascending",
+  });
 
   const cellStyle = {
     borderRight: "1px solid rgba(224, 224, 224, 1)",
   };
-  const informUser = (event) => {
-    window.alert("Woosh! Re-sent the ticket to the driver and the customer.");
+
+  const informUser = () => {
+    window.alert("Whoosh! Re-sent the ticket to the driver and the customer.");
   };
 
   useEffect(() => {
@@ -51,6 +63,37 @@ function TicketsContent() {
 
     fetchTickets();
   }, []);
+
+  const requestSort = (key) => {
+    let direction = "ascending";
+    if (sortConfig.key === key && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const getSortIcon = (key) => {
+    if (sortConfig.key === key) {
+      return sortConfig.direction === "ascending" ? faSortUp : faSortDown;
+    }
+    return faSort;
+  };
+
+  const sortedTickets = [...tickets].sort((a, b) => {
+    const aValue = a[sortConfig.key];
+    const bValue = b[sortConfig.key];
+
+    if (sortConfig.direction === "ascending") {
+      if (aValue === undefined || aValue === null) return -1;
+      if (bValue === undefined || bValue === null) return 1;
+      return aValue.localeCompare(bValue);
+    } else {
+      if (aValue === undefined || aValue === null) return 1;
+      if (bValue === undefined || bValue === null) return -1;
+      return bValue.localeCompare(aValue);
+    }
+  });
+
   if (isLoading) {
     return <LoadingContent />;
   }
@@ -70,11 +113,7 @@ function TicketsContent() {
       {isEmpty === false && isError === false ? (
         <>
           <TableContainer component={Paper}>
-            <Table
-              style={{
-                width: "100%",
-              }}
-            >
+            <Table style={{ width: "100%" }}>
               <TableHead>
                 <TableRow>
                   <TableCell
@@ -83,6 +122,12 @@ function TicketsContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("order_Id")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("order_Id")} />
+                    </IconButton>
                     Order ID
                   </TableCell>
                   <TableCell
@@ -91,6 +136,9 @@ function TicketsContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
+                    <IconButton size="small" onClick={() => requestSort("reg")}>
+                      <FontAwesomeIcon icon={getSortIcon("reg")} />
+                    </IconButton>
                     Reg Plate
                   </TableCell>
                   <TableCell
@@ -99,6 +147,12 @@ function TicketsContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("driverName")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("driverName")} />
+                    </IconButton>
                     Driver Name
                   </TableCell>
                   <TableCell
@@ -107,15 +161,26 @@ function TicketsContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("dateLoaded")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("dateLoaded")} />
+                    </IconButton>
                     Date Loaded
                   </TableCell>
-
                   <TableCell
                     sx={{
                       backgroundColor: theme.palette.secondary.main,
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("product")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("product")} />
+                    </IconButton>
                     Product
                   </TableCell>
                   <TableCell
@@ -124,6 +189,12 @@ function TicketsContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("loadedLocation")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("loadedLocation")} />
+                    </IconButton>
                     Loaded At
                   </TableCell>
                   <TableCell
@@ -132,6 +203,12 @@ function TicketsContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("inTime")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("inTime")} />
+                    </IconButton>
                     Weigh-In Time
                   </TableCell>
                   <TableCell
@@ -140,6 +217,12 @@ function TicketsContent() {
                       color: theme.palette.secondary.contrastText,
                     }}
                   >
+                    <IconButton
+                      size="small"
+                      onClick={() => requestSort("outTime")}
+                    >
+                      <FontAwesomeIcon icon={getSortIcon("outTime")} />
+                    </IconButton>
                     Weigh-Out Time
                   </TableCell>
                   <TableCell
@@ -161,7 +244,7 @@ function TicketsContent() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tickets.map((row, index) => (
+                {sortedTickets.map((row, index) => (
                   <TableRow key={index}>
                     <TableCell sx={{ ...cellStyle }}>{row.order_Id}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.reg}</TableCell>
@@ -176,7 +259,6 @@ function TicketsContent() {
                     <TableCell sx={{ ...cellStyle }}>{row.timeIn}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.timeOut}</TableCell>
                     <TableCell sx={{ ...cellStyle }}>{row.netWeight}</TableCell>
-
                     <TableCell sx={{ ...cellStyle }}>
                       <Button
                         fullWidth
@@ -184,7 +266,7 @@ function TicketsContent() {
                           backgroundColor: theme.palette.primary.main,
                           color: theme.palette.primary.contrastText,
                         }}
-                        onClick={() => informUser()}
+                        onClick={informUser}
                       >
                         <FontAwesomeIcon
                           icon={faEnvelope}
@@ -202,4 +284,5 @@ function TicketsContent() {
     </>
   );
 }
+
 export default TicketsContent;
