@@ -65,7 +65,7 @@ function SideBar({ addTab }) {
             Manage Orders
           </Typography>
           <Divider />
-
+          <ViewTicketsButton addTab={addTab} />
           <CreateNewOrderButton addTab={addTab} />
           <OutstandingOrderButton addTab={addTab} />
           <ClosedOrdersButton addTab={addTab} />
@@ -79,7 +79,6 @@ function SideBar({ addTab }) {
           <Divider />
           <AddTruckButton addTab={addTab} />
           <TruckDatabaseButton addTab={addTab} />
-          <ViewTicketsButton addTab={addTab} />
 
           <Typography
             variant="h6"
