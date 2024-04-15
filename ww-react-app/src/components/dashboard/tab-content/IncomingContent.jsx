@@ -121,7 +121,7 @@ function IncomingContent() {
     );
 
     const save = await newInticket.createTicket();
-    if (save.message === "Weigh in Successfull") {
+    if (save.message === "Weigh in Successful") {
       setAlertType(201);
       setShowFields(false);
       setReg("");
