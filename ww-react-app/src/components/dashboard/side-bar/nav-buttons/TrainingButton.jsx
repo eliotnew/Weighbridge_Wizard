@@ -11,7 +11,7 @@ function TrainingButton({ addTab }) {
     const id = Math.floor(Math.random() * 100000);
     const newTab = {
       id: id,
-      label: "Training",
+      label: "Resources",
       content: <TrainingContent />,
     };
     addTab(newTab);
@@ -36,7 +36,7 @@ function TrainingButton({ addTab }) {
           paddingRight: "10px",
         }}
       />
-      <ListItemText primary="Training" />
+      <ListItemText primary="Resources" />
     </ListItemButton>
   );
 }
